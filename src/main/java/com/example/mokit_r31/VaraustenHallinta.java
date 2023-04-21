@@ -1,4 +1,5 @@
 package com.example.mokit_r31;
 
-public class Moi {
+public class VaraustenHallinta {
+
 }
