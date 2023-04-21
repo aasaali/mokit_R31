@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Tulostetta on muokattu." />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Muutettu luokan nimi.">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -61,7 +64,19 @@
       <option name="presentableId" value="LOCAL−00001" />
       <updated>1682064320152</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL−00002" summary="Tämä on toinen testi.">
+      <created>1682064794410</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1682064794410</updated>
+    </task>
+    <task id="LOCAL−00003" summary="Muutettu luokan nimi.">
+      <created>1682064900789</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1682064900789</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -81,6 +96,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Tämä on testaus" />
     <MESSAGE value="Tulostetta on muokattu." />
-    <option name="LAST_COMMIT_MESSAGE" value="Tulostetta on muokattu." />
+    <MESSAGE value="Tämä on toinen testi." />
+    <MESSAGE value="Muutettu luokan nimi." />
+    <option name="LAST_COMMIT_MESSAGE" value="Muutettu luokan nimi." />
   </component>
 </project>
