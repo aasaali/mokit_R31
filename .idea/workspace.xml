@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasHallinta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5f476e22-1f8b-4edd-a363-8a7d8d0b563b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5f476e22-1f8b-4edd-a363-8a7d8d0b563b.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Laskutus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Laskutus.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +74,20 @@
       <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PalvelujenHallinta">
+  <component name="RunManager" selected="Application.HelloApplication">
+    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.HelloApplication" />
+      <module name="mokit_R31" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.mokit_r31.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PalvelujenHallinta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.PalvelujenHallinta" />
       <module name="mokit_R31" />
@@ -96,8 +114,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="mokit_R31" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="mokit_R31" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.PalvelujenHallinta" />
         <item itemvalue="Application.VaraustenHallinta" />
       </list>
@@ -155,16 +187,5 @@
     <MESSAGE value="Lisätty koodi" />
     <MESSAGE value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
     <option name="LAST_COMMIT_MESSAGE" value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
-          <line>4</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
