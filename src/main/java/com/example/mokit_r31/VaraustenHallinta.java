@@ -3,36 +3,39 @@ package com.example.mokit_r31;
 import java.sql.*;
 
 public class VaraustenHallinta {
-    public static void main(String[] args) {
+    private Connection conn;
 
-        // Määritä yhteysparametrit
-        String url = "jdbc:mysql://localhost:3306/vn";
-        String username = "root";
-        String password = "R31_mokki";
+    public VaraustenHallinta(Connection conn) {
+        this.conn = conn;
+    }
 
-        // Määritä tietojen lisättävä arvo
-        String nimi = "Uusi alue";
+    // Lisää uuden varauksen tietokantaan
+    public void lisaaVaraus(Varaus varaus) throws SQLException {
+        String sql = "INSERT INTO Varaus (asiakasId, mokkiId, varattuPvm, vahvistusPvm, varattuAlkupvm, varattuLoppupvm) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
-        // Yritä yhdistää tietokantaan
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            stmt.setInt(1, varaus.getAsiakasId());
+            stmt.setInt(2, varaus.getMokkiId());
+            stmt.setTimestamp(3, Timestamp.valueOf(varaus.getVarattuPvm()));
+            stmt.setTimestamp(4, varaus.getVahvistusPvm() != null ? Timestamp.valueOf(varaus.getVahvistusPvm()) : null);
+            stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
+            stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
 
-            // Luo SQL-lauseke
-            String sql = "INSERT INTO alue (nimi) VALUES (?)";
-
-            // Luo valmisteltu lauseke
-            PreparedStatement stmt = conn.prepareStatement(sql);
-
-            // Aseta arvo parametriin
-            stmt.setString(1, nimi);
-
-            // Suorita lauseke
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Uusi alue lisätty tauluun alue!");
+            int affectedRows = stmt.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException("Varauksen lisääminen tietokantaan epäonnistui");
             }
 
-        } catch (SQLException ex) {
-            System.out.println("Tapahtui virhe tietokantaan yhdistettäessä tai tietoja lisättäessä: " + ex.getMessage());
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    varaus.setVarausId(generatedKeys.getInt(1));
+                } else {
+                    throw new SQLException("Varauksen lisääminen tietokantaan epäonnistui, id:n haku epäonnistui");
+                }
+            }
         }
     }
 }
+
+
