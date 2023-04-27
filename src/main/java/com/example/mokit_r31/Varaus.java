@@ -23,7 +23,8 @@ public class Varaus {
         this.varattuAlkupvm = varattuAlkupvm;
         this.varattuLoppupvm = varattuLoppupvm;
     }
-
+    // Parametriton alustaja
+    public Varaus(){}
     public int getVarausId() {
         return varausId;
     }
