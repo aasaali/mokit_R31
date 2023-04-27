@@ -1,38 +1,105 @@
 package com.example.mokit_r31;
 
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
-public class VaraustenHallinta {
-    public static void main(String[] args) {
+public class VaraustenHallinta extends Application {
 
-        // Määritä yhteysparametrit
-        String url = "jdbc:mysql://localhost:3306/vn";
-        String username = "root";
-        String password = "R31_mokki";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/vn";
+    private static final String DB_USER = "root";
+    private static final String DB_PASSWORD = "R31_mokki";
+    private static Connection conn;
+    @Override
+    public void start(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("VarausIkkuna.fxml"));
+        Scene scene = new Scene(root, 600,400);
+        stage.setScene(scene);
+        stage.show();
 
-        // Määritä tietojen lisättävä arvo
-        String nimi = "Uusi alue";
 
-        // Yritä yhdistää tietokantaan
-        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+    }
 
-            // Luo SQL-lauseke
-            String sql = "INSERT INTO alue (nimi) VALUES (?)";
+    //Metodi, joka lukee varaukset tietokannasta ja luo niistä listan.
+    public List<Varaus> getVaraukset() throws SQLException {
+        List<Varaus> varaukset = new ArrayList<>();
 
-            // Luo valmisteltu lauseke
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT * FROM varaus")) {
 
-            // Aseta arvo parametriin
-            stmt.setString(1, nimi);
-
-            // Suorita lauseke
-            int rowsInserted = stmt.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("Uusi alue lisätty tauluun alue!");
+            while (rs.next()) {
+                Varaus varaus = new Varaus();
+                varaus.setVarausId(rs.getInt("varaus_id"));
+                varaus.setAsiakasId(rs.getInt("asiakas_id"));
+                varaus.setMokkiId(rs.getInt("mokki_mokki_id"));
+                varaus.setVarattuPvm(rs.getTimestamp("varattu_pvm").toLocalDateTime());
+                varaus.setVahvistusPvm(rs.getTimestamp("vahvistus_pvm").toLocalDateTime());
+                varaus.setVarattuAlkupvm(rs.getTimestamp("varattu_alkupvm").toLocalDateTime());
+                varaus.setVarattuLoppupvm(rs.getTimestamp("varattu_loppupvm").toLocalDateTime());
+                varaukset.add(varaus);
             }
+        }
 
-        } catch (SQLException ex) {
-            System.out.println("Tapahtui virhe tietokantaan yhdistettäessä tai tietoja lisättäessä: " + ex.getMessage());
+        return varaukset;
+    }
+
+    // Metodi, joka lisää uuden varauksen tietokantaan
+    public void lisaaVaraus(Varaus varaus) throws SQLException {
+        String sql = "INSERT INTO varaus(asiakas_id, mokki_mokki_id, varattu_pvm, vahvistus_pvm, varattu_alkupvm, varattu_loppupvm) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, varaus.getAsiakasId());
+            stmt.setInt(2, varaus.getMokkiId());
+            stmt.setTimestamp(3, Timestamp.valueOf(varaus.getVarattuPvm()));
+            stmt.setTimestamp(4, Timestamp.valueOf(varaus.getVahvistusPvm()));
+            stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
+            stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
+    //Metodi, joka poistaa varauksen tietokannasta.
+    public void poistaVaraus(int varausId) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("DELETE FROM varaus WHERE varaus_id = ?")) {
+            stmt.setInt(1, varausId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Metodi, joka muokkaa varauksen tietokannassa
+    public void muokkaaVarausta(Varaus varaus) throws SQLException {
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement stmt = conn.prepareStatement("UPDATE varaus SET asiakas_id = ?, mokki_mokki_id = ?, varattu_pvm = ?, vahvistus_pvm = ?, varattu_alkupvm = ?, varattu_loppupvm = ? WHERE varaus_id = ?")) {
+            stmt.setInt(1, varaus.getAsiakasId());
+            stmt.setInt(2, varaus.getMokkiId());
+            stmt.setTimestamp(3, Timestamp.valueOf(varaus.getVarattuPvm()));
+            stmt.setTimestamp(4, Timestamp.valueOf(varaus.getVahvistusPvm()));
+            stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
+            stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
+            stmt.setInt(7, varaus.getVarausId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
 }
+

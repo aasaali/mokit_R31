@@ -2,6 +2,10 @@ package com.example.mokit_r31;
 
 import java.time.LocalDateTime;
 
+/**
+ * Olioluokka varauksille, joilla kenttinä tietokannan tiedot
+ * VarausId, asiakasId, mokkiId, varauspvm, vahvistuspvm, alkupvm ja loppipvm.
+ */
 public class Varaus {
     private int varausId;
     private int asiakasId;
@@ -11,6 +15,7 @@ public class Varaus {
     private LocalDateTime varattuAlkupvm;
     private LocalDateTime varattuLoppupvm;
 
+    //Alustaja
     public Varaus(int asiakasId, int mokkiId, LocalDateTime varattuPvm, LocalDateTime varattuAlkupvm, LocalDateTime varattuLoppupvm) {
         this.asiakasId = asiakasId;
         this.mokkiId = mokkiId;
@@ -18,7 +23,8 @@ public class Varaus {
         this.varattuAlkupvm = varattuAlkupvm;
         this.varattuLoppupvm = varattuLoppupvm;
     }
-
+    // Parametriton alustaja
+    public Varaus(){}
     public int getVarausId() {
         return varausId;
     }
@@ -74,5 +80,6 @@ public class Varaus {
     public void setVarattuLoppupvm(LocalDateTime varattuLoppupvm) {
         this.varattuLoppupvm = varattuLoppupvm;
     }
+
 }
 
