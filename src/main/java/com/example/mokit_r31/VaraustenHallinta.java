@@ -2,6 +2,7 @@ package com.example.mokit_r31;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class VaraustenHallinta extends Application {
 
@@ -18,6 +20,11 @@ public class VaraustenHallinta extends Application {
     private static Connection conn;
     @Override
     public void start(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("VarausIkkuna.fxml"));
+        Scene scene = new Scene(root, 600,400);
+        stage.setScene(scene);
+        stage.show();
+
 
     }
 
@@ -58,6 +65,8 @@ public class VaraustenHallinta extends Application {
             stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
             stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -67,6 +76,8 @@ public class VaraustenHallinta extends Application {
              PreparedStatement stmt = conn.prepareStatement("DELETE FROM varaus WHERE varaus_id = ?")) {
             stmt.setInt(1, varausId);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -82,6 +93,8 @@ public class VaraustenHallinta extends Application {
             stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
             stmt.setInt(7, varaus.getVarausId());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
