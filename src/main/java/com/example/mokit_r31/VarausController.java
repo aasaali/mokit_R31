@@ -6,7 +6,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 public class VarausController {
@@ -23,13 +23,23 @@ public class VarausController {
 
     @FXML
     private void tallennaVarausButton(ActionEvent event) {
-        String asiakas = asiakasTf.getText();
-        String mokki = mokkiTf.getText();
+        int asiakas = Integer.parseInt(asiakasTf.getText());
+        int mokki = Integer.parseInt(mokkiTf.getText());
         LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
         LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
         Varaus varaus = new Varaus();
-
-
-        tallennaVarausBt.setText("Vahvistettu");
+        varaus.setAsiakasId(asiakas);
+        varaus.setMokkiId(mokki);
+        varaus.setVarattuAlkupvm(alkupaiva);
+        varaus.setVarattuLoppupvm(loppupaiva);
+        try {
+            VaraustenHallinta hallinta = new VaraustenHallinta();
+            hallinta.lisaaVaraus(varaus);
+        }
+        catch (SQLException e) {
+        // Virheen käsittely
     }
+        tallennaVarausBt.setText("Vahvistettu");
+}
+
 }
