@@ -1,4 +1,4 @@
-/*package com.example.mokit_r31;
+package com.example.mokit_r31;
 
 import java.io.FileOutputStream;
 import java.text.DateFormat;
@@ -18,7 +18,7 @@ Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
 laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
-/*
+
 public class Lasku {
 
     private String nimi;
@@ -92,4 +92,3 @@ public class Lasku {
     // ...
 
 }
-*/
