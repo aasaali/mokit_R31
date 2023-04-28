@@ -10,20 +10,21 @@ public class Varaus {
     private int varausId;
     private int asiakasId;
     private int mokkiId;
-    private LocalDateTime varattuPvm;
+
     private LocalDateTime vahvistusPvm;
     private LocalDateTime varattuAlkupvm;
     private LocalDateTime varattuLoppupvm;
 
     //Alustaja
-    public Varaus(int asiakasId, int mokkiId, LocalDateTime varattuPvm, LocalDateTime varattuAlkupvm, LocalDateTime varattuLoppupvm) {
+    public Varaus(int asiakasId, int mokkiId, LocalDateTime varattuAlkupvm, LocalDateTime varattuLoppupvm) {
         this.asiakasId = asiakasId;
         this.mokkiId = mokkiId;
-        this.varattuPvm = varattuPvm;
+        this.vahvistusPvm = LocalDateTime.now();
         this.varattuAlkupvm = varattuAlkupvm;
         this.varattuLoppupvm = varattuLoppupvm;
     }
-
+    // Parametriton alustaja
+    public Varaus(){}
     public int getVarausId() {
         return varausId;
     }
@@ -48,13 +49,6 @@ public class Varaus {
         this.mokkiId = mokkiId;
     }
 
-    public LocalDateTime getVarattuPvm() {
-        return varattuPvm;
-    }
-
-    public void setVarattuPvm(LocalDateTime varattuPvm) {
-        this.varattuPvm = varattuPvm;
-    }
 
     public LocalDateTime getVahvistusPvm() {
         return vahvistusPvm;
