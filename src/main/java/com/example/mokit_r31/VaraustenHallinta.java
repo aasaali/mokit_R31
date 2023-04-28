@@ -51,7 +51,7 @@ public class VaraustenHallinta extends Application {
 
     // Metodi, joka lisää uuden varauksen tietokantaan
     public void lisaaVaraus(Varaus varaus) throws SQLException {
-        String sql = "INSERT INTO varaus(asiakas_id, mokki_mokki_id, varattu_pvm, vahvistus_pvm, varattu_alkupvm, varattu_loppupvm) " +
+        String sql = "INSERT INTO varaus(asiakas_id, mokki_mokki_id, vahvistus_pvm, varattu_alkupvm, varattu_loppupvm) " +
                 "VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(sql)) {

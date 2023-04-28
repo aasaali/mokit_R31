@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -21,6 +21,18 @@
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="7447a6d9-ef52-4056-9dbe-266c99984925" dataset="vn.asiakas" active-filter-id="9abc643d-8c98-42d7-bc8e-338f0a272ab3">
+      <filter id="9abc643d-8c98-42d7-bc8e-338f0a272ab3" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="asiakas_id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
+    <filter-actions connection-id="7447a6d9-ef52-4056-9dbe-266c99984925" dataset="vn.alue" active-filter-id="39d3327f-9c21-44ac-8ed8-7bedcd2a486c">
+      <filter id="39d3327f-9c21-44ac-8ed8-7bedcd2a486c" name="Filter 1" temporary="false" custom-name="false" type="basic" join-type="AND">
+        <condition column="alue_id" operator="=" value="" active="true" />
+      </filter>
+    </filter-actions>
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
