@@ -27,19 +27,15 @@ public class VarausController {
         int mokki = Integer.parseInt(mokkiTf.getText());
         LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
         LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
-        Varaus varaus = new Varaus();
-        varaus.setAsiakasId(asiakas);
-        varaus.setMokkiId(mokki);
-        varaus.setVarattuAlkupvm(alkupaiva);
-        varaus.setVarattuLoppupvm(loppupaiva);
+        Varaus varaus = new Varaus(asiakas,mokki,alkupaiva,loppupaiva);
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             hallinta.lisaaVaraus(varaus);
+            tallennaVarausBt.setText("Vahvistettu");
         }
         catch (SQLException e) {
         // Virheen käsittely
     }
-        tallennaVarausBt.setText("Vahvistettu");
 }
 
 }

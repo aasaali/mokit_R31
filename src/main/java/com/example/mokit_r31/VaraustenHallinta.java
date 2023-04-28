@@ -24,8 +24,6 @@ public class VaraustenHallinta extends Application {
         Scene scene = new Scene(root, 600,400);
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     //Metodi, joka lukee varaukset tietokannasta ja luo niistä listan.
@@ -41,7 +39,6 @@ public class VaraustenHallinta extends Application {
                 varaus.setVarausId(rs.getInt("varaus_id"));
                 varaus.setAsiakasId(rs.getInt("asiakas_id"));
                 varaus.setMokkiId(rs.getInt("mokki_mokki_id"));
-                varaus.setVarattuPvm(rs.getTimestamp("varattu_pvm").toLocalDateTime());
                 varaus.setVahvistusPvm(rs.getTimestamp("vahvistus_pvm").toLocalDateTime());
                 varaus.setVarattuAlkupvm(rs.getTimestamp("varattu_alkupvm").toLocalDateTime());
                 varaus.setVarattuLoppupvm(rs.getTimestamp("varattu_loppupvm").toLocalDateTime());
@@ -60,7 +57,6 @@ public class VaraustenHallinta extends Application {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, varaus.getAsiakasId());
             stmt.setInt(2, varaus.getMokkiId());
-            stmt.setTimestamp(3, Timestamp.valueOf(varaus.getVarattuPvm()));
             stmt.setTimestamp(4, Timestamp.valueOf(varaus.getVahvistusPvm()));
             stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
             stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
@@ -87,7 +83,6 @@ public class VaraustenHallinta extends Application {
              PreparedStatement stmt = conn.prepareStatement("UPDATE varaus SET asiakas_id = ?, mokki_mokki_id = ?, varattu_pvm = ?, vahvistus_pvm = ?, varattu_alkupvm = ?, varattu_loppupvm = ? WHERE varaus_id = ?")) {
             stmt.setInt(1, varaus.getAsiakasId());
             stmt.setInt(2, varaus.getMokkiId());
-            stmt.setTimestamp(3, Timestamp.valueOf(varaus.getVarattuPvm()));
             stmt.setTimestamp(4, Timestamp.valueOf(varaus.getVahvistusPvm()));
             stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
             stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
