@@ -3,13 +3,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-public class VarausController {
+public class AsiakasController {
     @FXML
     private Button tallennaVarausBt;
     @FXML
