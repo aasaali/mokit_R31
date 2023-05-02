@@ -2,7 +2,7 @@ package com.example.mokit_r31;
 
 public class Alue {
     private int alueId;
-    private String nimi;
+    private String nimi; // 40
 
     public Alue(int alueId, String nimi){
         this.alueId = alueId;

@@ -1,0 +1,242 @@
+Index: src/main/java/com/example/mokit_r31/Mokit.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/Mokit.java b/src/main/java/com/example/mokit_r31/MokkienHallinta.java
+rename from src/main/java/com/example/mokit_r31/Mokit.java
+rename to src/main/java/com/example/mokit_r31/MokkienHallinta.java
+--- a/src/main/java/com/example/mokit_r31/Mokit.java	(revision e7af8ccf85310bde2c4b18bbd485449aa33eed37)
++++ b/src/main/java/com/example/mokit_r31/MokkienHallinta.java	(date 1682662518158)
+@@ -1,8 +1,78 @@
+ package com.example.mokit_r31;
+-
+-public class Mokit {
++import java.sql.*;
++public class MokkienHallinta {
+ 
+     //testaan taas, toimiiko?? :)
++        private Connection conn;
++
++        public MokkiHallinta() {
++            try {
++                Class.forName("org.sqlite.JDBC");
++                conn = DriverManager.getConnection("jdbc:sqlite:mokkihallinta.db");
++
++                // Luo taulut, jos niitä ei ole jo olemassa on olemassa
++                //Statement stmt = conn.createStatement();
++                //stmt.execute("CREATE TABLE IF NOT EXISTS alueet (id INTEGER PRIMARY KEY, nimi TEXT)");
++                //stmt.execute("CREATE TABLE IF NOT EXISTS mokit (id INTEGER PRIMARY KEY, alue_id INTEGER, postinumero TEXT, nimi TEXT, katuosoite TEXT, hinta REAL, kuvaus TEXT, varustelu TEXT, FOREIGN KEY (alue_id) REFERENCES alueet(id))");
++
++            } catch (Exception e) {
++                System.err.println(e.getMessage());
++            }
++        }
++
++        // Metodi alueen lisäämiseksi
++        public void lisaaAlue(String nimi) {
++            try {
++                PreparedStatement stmt = conn.prepareStatement("INSERT INTO alueet (nimi) VALUES (?)");
++                stmt.setString(1, nimi);
++                stmt.executeUpdate();
++            } catch (SQLException e) {
++                System.err.println(e.getMessage());
++            }
++        }
++
++        // Metodi alueen hakemiseksi tietokannasta
++        public void haeAlue(String nimi) {
++            try {
++                PreparedStatement stmt = conn.prepareStatement("SELECT * FROM alueet WHERE nimi = ?");
++                stmt.setString(1, nimi);
++                ResultSet rs = stmt.executeQuery();
++
++                // Käy läpi kaikki haetut rivit
++                while (rs.next()) {
++                    int id = rs.getInt("id");
++                    String alueenNimi = rs.getString("nimi");
++                    System.out.println("Alueen id: " + id + ", nimi: " + alueenNimi);
++                }
++
++            } catch (SQLException e) {
++                System.err.println(e.getMessage());
++            }
++        }
++
++        // Metodi alueen tietojen muuttamiseksi
++        public void muutaAlueenNimi(int id, String nimi) {
++            try {
++                PreparedStatement stmt = conn.prepareStatement("UPDATE alueet SET nimi = ? WHERE id = ?");
++                stmt.setString(1, nimi);
++                stmt.setInt(2, id);
++                stmt.executeUpdate();
++            } catch (SQLException e) {
++                System.err.println(e.getMessage());
++            }
++        }
++
++        // Metodi mökin lisäämiseksi
++        public void lisaaMokki(int alueId, String postinumero, String nimi, String katuosoite, double hinta, String kuvaus, String varustelu) {
++            try {
++                PreparedStatement stmt = conn.prepareStatement("INSERT INTO mokit (alue_id, postinumero, nimi, katuosoite, hinta, kuvaus, varustelu) VALUES (?, ?, ?, ?, ?, ?, ?)");
++                stmt.setInt(1, alueId);
++                stmt.setString(2, postinumero);
++                stmt.setString(3, nimi);
++                stmt.setString(4, katuosoite);
++                stmt.setDouble(5, hinta);
++                stmt.setDouble(6, kuvaus);
++                stmt.setDouble(7, varustelu);
+ 
+ 
+ }
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-231.8109.175\">\n    <data-source name=\"@localhost\" uuid=\"84add08f-a74d-4664-84a0-387cf314bdfa\">\n      <database-info product=\"MySQL\" version=\"8.0.31\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.31\" exact-driver-version=\"8.0\">\n        <extra-name-characters>#@</extra-name-characters>\n        <identifier-quote-string>`</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\n      <user-name>root</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\" qname=\"@\" />\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n    <data-source name=\"vn@localhost\" uuid=\"5f476e22-1f8b-4edd-a363-8a7d8d0b563b\">\n      <database-info product=\"MySQL\" version=\"8.0.31\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.31\" exact-driver-version=\"8.0\">\n        <extra-name-characters>#@</extra-name-characters>\n        <identifier-quote-string>`</identifier-quote-string>\n      </database-info>\n      <case-sensitivity plain-identifiers=\"lower\" quoted-identifiers=\"lower\" />\n      <user-name>root</user-name>\n      <schema-mapping>\n        <introspection-scope>\n          <node kind=\"schema\" qname=\"@\" />\n        </introspection-scope>\n      </schema-mapping>\n    </data-source>\n    <data-source name=\"@localhost\" uuid=\"0e6fd1d0-de6f-4549-94ac-7eaf04dabb00\">\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\n      <schema-mapping />\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision e7af8ccf85310bde2c4b18bbd485449aa33eed37)
++++ b/.idea/dataSources.local.xml	(date 1682590053028)
+@@ -1,35 +1,19 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="dataSourceStorageLocal" created-in="IU-231.8109.175">
+-    <data-source name="@localhost" uuid="84add08f-a74d-4664-84a0-387cf314bdfa">
+-      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
++    <data-source name="vn@localhost" uuid="a6fe68cb-de70-4e9b-a48b-e8d318ca55fa">
++      <database-info product="MySQL" version="8.0.33" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.33" exact-driver-version="8.0">
+         <extra-name-characters>#@</extra-name-characters>
+         <identifier-quote-string>`</identifier-quote-string>
+       </database-info>
+       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
++      <secret-storage>master_key</secret-storage>
+       <user-name>root</user-name>
+       <schema-mapping>
+         <introspection-scope>
+           <node kind="schema" qname="@" />
+         </introspection-scope>
+       </schema-mapping>
+-    </data-source>
+-    <data-source name="vn@localhost" uuid="5f476e22-1f8b-4edd-a363-8a7d8d0b563b">
+-      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
+-        <extra-name-characters>#@</extra-name-characters>
+-        <identifier-quote-string>`</identifier-quote-string>
+-      </database-info>
+-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+-      <user-name>root</user-name>
+-      <schema-mapping>
+-        <introspection-scope>
+-          <node kind="schema" qname="@" />
+-        </introspection-scope>
+-      </schema-mapping>
+-    </data-source>
+-    <data-source name="@localhost" uuid="0e6fd1d0-de6f-4549-94ac-7eaf04dabb00">
+-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+-      <schema-mapping />
+     </data-source>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"Varausikkunan tekoa\">\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/module-info.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/module-info.java\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"JavaFXApplication\" />\n        <option value=\"Class\" />\n        <option value=\"FxmlFile\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2Oj7obl4ZT3H0pR9hiNOMxfLnAr\" />\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\n  </component>\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\">{\n  &quot;keyToString&quot;: {\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/Downloads/xmlworker-5.5.13.3&quot;,\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\n  },\n  &quot;keyToStringList&quot;: {\n    &quot;DatabaseDriversLRU&quot;: [\n      &quot;mysql&quot;\n    ]\n  }\n}</component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31\" />\n      <recent name=\"$PROJECT_DIR$/src/main/resources\" />\n      <recent name=\"$PROJECT_DIR$/src\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Application.VaraustenHallinta\">\n    <configuration name=\"HelloApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.HelloApplication\" />\n      <module name=\"mokit_R31\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"PalvelujenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.PalvelujenHallinta\" />\n      <module name=\"mokit_R31\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <configuration name=\"VaraustenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.VaraustenHallinta\" />\n      <module name=\"mokit_R31\" />\n      <extension name=\"coverage\">\n        <pattern>\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\n          <option name=\"ENABLED\" value=\"true\" />\n        </pattern>\n      </extension>\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Application.VaraustenHallinta\" />\n        <item itemvalue=\"Application.HelloApplication\" />\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"\" />\n      <created>1682062312738</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1682062312738</updated>\n      <workItem from=\"1682062314356\" duration=\"347000\" />\n      <workItem from=\"1682064188241\" duration=\"366000\" />\n      <workItem from=\"1682074140032\" duration=\"12733000\" />\n      <workItem from=\"1682399692901\" duration=\"723000\" />\n      <workItem from=\"1682569504378\" duration=\"110000\" />\n      <workItem from=\"1682569620247\" duration=\"4443000\" />\n      <workItem from=\"1682580268164\" duration=\"4250000\" />\n    </task>\n    <task id=\"LOCAL−00001\" summary=\"Lisätty koodi\">\n      <created>1682068236965</created>\n      <option name=\"number\" value=\"LOCAL−00001\" />\n      <option name=\"presentableId\" value=\"LOCAL−00001\" />\n      <updated>1682068236965</updated>\n    </task>\n    <task id=\"LOCAL−00002\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\n      <created>1682101509232</created>\n      <option name=\"number\" value=\"LOCAL−00002\" />\n      <option name=\"presentableId\" value=\"LOCAL−00002\" />\n      <updated>1682101509232</updated>\n    </task>\n    <task id=\"LOCAL−00003\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\n      <created>1682101605186</created>\n      <option name=\"number\" value=\"LOCAL−00003\" />\n      <option name=\"presentableId\" value=\"LOCAL−00003\" />\n      <updated>1682101605186</updated>\n    </task>\n    <task id=\"LOCAL−00004\" summary=\"Luokat asiakkaille ja asiakashallinnan metodeille\">\n      <created>1682103875882</created>\n      <option name=\"number\" value=\"LOCAL−00004\" />\n      <option name=\"presentableId\" value=\"LOCAL−00004\" />\n      <updated>1682103875882</updated>\n    </task>\n    <task id=\"LOCAL−00005\" summary=\"Lisätty metodit varausten hallinnalle.\">\n      <created>1682571271223</created>\n      <option name=\"number\" value=\"LOCAL−00005\" />\n      <option name=\"presentableId\" value=\"LOCAL−00005\" />\n      <updated>1682571271223</updated>\n    </task>\n    <task id=\"LOCAL−00006\" summary=\"Varausikkunan tekoa\">\n      <created>1682583901221</created>\n      <option name=\"number\" value=\"LOCAL−00006\" />\n      <option name=\"presentableId\" value=\"LOCAL−00006\" />\n      <updated>1682583901221</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"7\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\n    <MESSAGE value=\"Lisätty koodi\" />\n    <MESSAGE value=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\" />\n    <MESSAGE value=\"Luokat asiakkaille ja asiakashallinnan metodeille\" />\n    <MESSAGE value=\"Lisätty metodit varausten hallinnalle.\" />\n    <MESSAGE value=\"Varausikkunan tekoa\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Varausikkunan tekoa\" />\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision e7af8ccf85310bde2c4b18bbd485449aa33eed37)
++++ b/.idea/workspace.xml	(date 1682662223053)
+@@ -4,11 +4,11 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varausikkunan tekoa">
++    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="yritetty tietokannan lisäystä, testaus onnistuuko yhdistäminen nyt">
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Mokit.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -173,7 +173,13 @@
+       <option name="presentableId" value="LOCAL−00006" />
+       <updated>1682583901221</updated>
+     </task>
+-    <option name="localTasksCounter" value="7" />
++    <task id="LOCAL−00007" summary="yritetty tietokannan lisäystä, testaus onnistuuko yhdistäminen nyt">
++      <created>1682590444180</created>
++      <option name="number" value="LOCAL−00007" />
++      <option name="presentableId" value="LOCAL−00007" />
++      <updated>1682590444180</updated>
++    </task>
++    <option name="localTasksCounter" value="8" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -197,7 +203,8 @@
+     <MESSAGE value="Luokat asiakkaille ja asiakashallinnan metodeille" />
+     <MESSAGE value="Lisätty metodit varausten hallinnalle." />
+     <MESSAGE value="Varausikkunan tekoa" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Varausikkunan tekoa" />
++    <MESSAGE value="yritetty tietokannan lisäystä, testaus onnistuuko yhdistäminen nyt" />
++    <option name="LAST_COMMIT_MESSAGE" value="yritetty tietokannan lisäystä, testaus onnistuuko yhdistäminen nyt" />
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"DataSourceManagerImpl\" format=\"xml\" multifile-model=\"true\">\n    <data-source source=\"LOCAL\" name=\"@localhost\" uuid=\"84add08f-a74d-4664-84a0-387cf314bdfa\">\n      <driver-ref>mysql.8</driver-ref>\n      <synchronize>true</synchronize>\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n    <data-source source=\"LOCAL\" name=\"@localhost\" uuid=\"0e6fd1d0-de6f-4549-94ac-7eaf04dabb00\">\n      <driver-ref>mysql.8</driver-ref>\n      <synchronize>true</synchronize>\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n    <data-source source=\"LOCAL\" name=\"@localhost [4]\" uuid=\"9a00152f-afe5-4c58-9e95-4e8724fc0b75\">\n      <driver-ref>mysql.8</driver-ref>\n      <synchronize>true</synchronize>\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n    <data-source source=\"LOCAL\" name=\"vn@localhost\" uuid=\"a6fe68cb-de70-4e9b-a48b-e8d318ca55fa\">\n      <driver-ref>mysql.8</driver-ref>\n      <synchronize>true</synchronize>\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\n      <jdbc-url>jdbc:mysql://localhost:3306/vn</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n    <data-source source=\"LOCAL\" name=\"@localhost [3]\" uuid=\"fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62\">\n      <driver-ref>mysql.8</driver-ref>\n      <synchronize>true</synchronize>\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\n      <working-dir>$ProjectFileDir$</working-dir>\n    </data-source>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+--- a/.idea/dataSources.xml	(revision e7af8ccf85310bde2c4b18bbd485449aa33eed37)
++++ b/.idea/dataSources.xml	(date 1682590053023)
+@@ -1,39 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+-    <data-source source="LOCAL" name="@localhost" uuid="84add08f-a74d-4664-84a0-387cf314bdfa">
+-      <driver-ref>mysql.8</driver-ref>
+-      <synchronize>true</synchronize>
+-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-    </data-source>
+-    <data-source source="LOCAL" name="@localhost" uuid="0e6fd1d0-de6f-4549-94ac-7eaf04dabb00">
+-      <driver-ref>mysql.8</driver-ref>
+-      <synchronize>true</synchronize>
+-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-    </data-source>
+-    <data-source source="LOCAL" name="@localhost [4]" uuid="9a00152f-afe5-4c58-9e95-4e8724fc0b75">
+-      <driver-ref>mysql.8</driver-ref>
+-      <synchronize>true</synchronize>
+-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-    </data-source>
+     <data-source source="LOCAL" name="vn@localhost" uuid="a6fe68cb-de70-4e9b-a48b-e8d318ca55fa">
+       <driver-ref>mysql.8</driver-ref>
+       <synchronize>true</synchronize>
+       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+       <jdbc-url>jdbc:mysql://localhost:3306/vn</jdbc-url>
+-      <working-dir>$ProjectFileDir$</working-dir>
+-    </data-source>
+-    <data-source source="LOCAL" name="@localhost [3]" uuid="fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62">
+-      <driver-ref>mysql.8</driver-ref>
+-      <synchronize>true</synchronize>
+-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+       <working-dir>$ProjectFileDir$</working-dir>
+     </data-source>
+   </component>
