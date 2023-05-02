@@ -42,6 +42,6 @@ public class Tietokanta {
             }
         }
 
-        sulje(kysely);
+        //sulje(kysely);
     }
 }
