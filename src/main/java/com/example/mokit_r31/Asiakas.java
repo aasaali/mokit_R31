@@ -9,22 +9,15 @@ import java.util.List;
 
 public class Asiakas {
 
-    private int asiakasId;
-    private String postinro;
-    private String etunimi;
-    private String sukunimi;
-    private String lahiosoite;
-    private String email;
-    private String puhelinnro;
+    private int asiakasId; private String postinro; private String etunimi; private String sukunimi;
+    private String lahiosoite; private String email; private String puhelinnro;
 
-    public Asiakas(int asiakasId, String postinro, String etunimi, String sukunimi, String lahiosoite, String email, String puhelinnro) {
-        this.asiakasId = asiakasId;
-        this.postinro = postinro;
-        this.etunimi = etunimi;
-        this.sukunimi = sukunimi;
-        this.lahiosoite = lahiosoite;
-        this.email = email;
-        this.puhelinnro = puhelinnro;
+    public Asiakas(int asiakasId, String postinro, String etunimi, String sukunimi, String lahiosoite,
+                   String email, String puhelinnro) {
+        this.asiakasId = asiakasId; this.postinro = postinro; this.etunimi = etunimi;
+        this.sukunimi = sukunimi; this.lahiosoite = lahiosoite; this.email = email; this.puhelinnro = puhelinnro;
+    }
+    public Asiakas(){
     }
 
     public int getAsiakasId() {
@@ -35,9 +28,7 @@ public class Asiakas {
         return postinro;
     }
 
-    public void setPostinro(String postinro) {
-        this.postinro = postinro;
-    }
+    public void setPostinro(String postinro) { this.postinro = postinro; }
 
     public String getEtunimi() {
         return etunimi;
@@ -79,27 +70,6 @@ public class Asiakas {
         this.puhelinnro = puhelinnro;
     }
 
-    public static Asiakas haeAsiakas(int asiakasId) throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
-        ResultSet tulokset = null;
-
-        try {
-            yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro FROM Asiakas WHERE asiakas_id = ?");
-            kysely.setInt(1, asiakasId);
-            tulokset = kysely.executeQuery();
-
-            if (tulokset.next()) {
-                return new Asiakas(asiakasId, tulokset.getString("postinro"), tulokset.getString("etunimi"), tulokset.getString("sukunimi"), tulokset.getString("lahiosoite"), tulokset.getString("email"), tulokset.getString("puhelinnro"));
-            } else {
-                return null;
-            }
-        } finally {
-            Tietokanta.sulje(tulokset, kysely, yhteys);
-        }
-    }
-
     public static List<Asiakas> haeKaikki() throws SQLException {
         Connection yhteys = null;
         PreparedStatement kysely = null;
@@ -107,13 +77,17 @@ public class Asiakas {
 
         try {
             yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("SELECT asiakas_id, postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro FROM Asiakas");
+            kysely = yhteys.prepareStatement(
+        "SELECT asiakas_id, postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro FROM Asiakas");
             tulokset = kysely.executeQuery();
 
             List<Asiakas> asiakkaat = new ArrayList<>();
 
             while (tulokset.next()) {
-                asiakkaat.add(new Asiakas(tulokset.getInt("asiakas_id"), tulokset.getString("postinro"), tulokset.getString("etunimi"), tulokset.getString("sukunimi"), tulokset.getString("lahiosoite"), tulokset.getString("email"), tulokset.getString("puhelinnro")));
+                asiakkaat.add(new Asiakas(tulokset.getInt("asiakas_id"),
+                        tulokset.getString("postinro"), tulokset.getString("etunimi"),
+                        tulokset.getString("sukunimi"), tulokset.getString("lahiosoite"),
+                        tulokset.getString("email"), tulokset.getString("puhelinnro")));
             }
 
             return asiakkaat;
@@ -129,7 +103,9 @@ public class Asiakas {
 
         try {
             yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("INSERT INTO Asiakas (postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro) VALUES (?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            kysely = yhteys.prepareStatement(
+                    "INSERT INTO Asiakas (postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro) " +
+                            "VALUES (?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
             kysely.setString(1, postinro);
             kysely.setString(2, etunimi);
             kysely.setString(3, sukunimi);
@@ -160,8 +136,8 @@ public class Asiakas {
 
         try {
             yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("UPDATE Asiakas SET postinro = ?, etunimi = ?, sukunimi = ?, lahiosoite = ?, email = ?, puhelinnro = ?
-                    kysely.setString(1, postinro);
+            //kysely = yhteys.prepareStatement("UPDATE Asiakas SET postinro = ?, etunimi = ?, sukunimi = ?, lahiosoite = ?, email = ?, puhelinnro = ? " +
+              //              "kysely.setString(1, postinro);
             kysely.setString(2, etunimi);
             kysely.setString(3, sukunimi);
             kysely.setString(4, lahiosoite);

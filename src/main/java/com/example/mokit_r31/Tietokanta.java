@@ -8,7 +8,7 @@ public class Tietokanta {
     private static final String SALASANA = "salasana";
 
     public static Connection getYhteys() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost/" + TIETOKANTAN_NIMI, KAYTTAJA, SALASANA);
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/vn", KAYTTAJA, SALASANA);
     }
 
     public static void sulje(Connection yhteys) {
