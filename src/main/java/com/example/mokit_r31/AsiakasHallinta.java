@@ -1,8 +1,12 @@
 package com.example.mokit_r31;
 
+import javafx.application.Application;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javafx.application.Application.launch;
 
 public class AsiakasHallinta {
 

@@ -3,6 +3,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
@@ -10,17 +11,17 @@ import java.time.LocalDateTime;
 
 public class AsiakasController {
     @FXML
-    private Button tallennaVarausBt;
+    private ListView asiakasIkkunaLista;
     @FXML
-    private TextField asiakasTf;
+    private Button buttonHae;
     @FXML
-    private TextField mokkiTf;
+    private Button buttonPaivita;
     @FXML
-    private DatePicker alkupaivaDP;
+    private Button buttonLuoUusi;
     @FXML
-    private DatePicker loppupaivaDP;
+    private Button buttonPoista;
 
-    @FXML
+   /** @FXML
     private void tallennaVarausButton(ActionEvent event) {
         int asiakas = Integer.parseInt(asiakasTf.getText());
         int mokki = Integer.parseInt(mokkiTf.getText());
@@ -36,5 +37,6 @@ public class AsiakasController {
             // Virheen käsittely
         }
     }
+   */
 
 }

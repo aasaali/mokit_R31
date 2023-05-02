@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
+/**
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -18,14 +18,14 @@ Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
 laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
-
+/**
 public class Lasku {
 
     private String nimi;
     private String osoite;
     private String puhelinnumero;
-    private Date aloituspvm;
-    private Date lopetuspvm;
+    private LocalDateTime aloituspvm;
+    private LocalDateTime lopetuspvm;
     private String kohde;
     private String lisapalvelut;
     private double hinta;
@@ -33,7 +33,7 @@ public class Lasku {
     private double summa;
     private LocalDateTime luomispvm;
     private int laskunnumero;
-    private Date erapaiva;
+    private LocalDateTime erapaiva;
 
     public void luoLaskuPdf(String tiedostonimi) {
         // Luodaan uusi PDF-dokumentti
@@ -92,3 +92,4 @@ public class Lasku {
     // ...
 
 }
+*/

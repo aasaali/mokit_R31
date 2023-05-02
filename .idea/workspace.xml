@@ -5,18 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="laskutusta kehitetään">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_13_48_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_13_48__Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_39__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_39__Changes_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_45_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_45__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_05__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_05__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_21__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_21__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,15 +29,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaFXApplication" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="localrepo" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -87,9 +89,9 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.VaraustenHallinta">
-    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.HelloApplication" />
+  <component name="RunManager" selected="Application.MainApplication">
+    <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.MainApplication" />
       <module name="mokit_R31" />
       <extension name="coverage">
         <pattern>
@@ -142,9 +144,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.MainApplication" />
         <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
-        <item itemvalue="Application.HelloApplication" />
         <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
       </list>
@@ -234,7 +236,13 @@
       <option name="presentableId" value="LOCAL−00011" />
       <updated>1682670210073</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL−00012" summary="Branchin alku">
+      <created>1683012330639</created>
+      <option name="number" value="LOCAL−00012" />
+      <option name="presentableId" value="LOCAL−00012" />
+      <updated>1683012330639</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -289,7 +297,8 @@
     <MESSAGE value="testi" />
     <MESSAGE value="testi2" />
     <MESSAGE value="laskutusta kehitetään" />
-    <option name="LAST_COMMIT_MESSAGE" value="laskutusta kehitetään" />
+    <MESSAGE value="Branchin alku" />
+    <option name="LAST_COMMIT_MESSAGE" value="Branchin alku" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
