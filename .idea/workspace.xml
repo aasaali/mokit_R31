@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Lisätty alustavaa koodia, vaatii vielä reippaasti muokkaamista">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AlueidenHallinta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Mökkien hallinta, alueidenhallinta ja alue ja mökki olioluokat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Alue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Alue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Mokit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Mokki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Mokki.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +28,19 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="a2cfef6c-cd0d-4611-beb1-77cff73f83e2" />
+        <option name="url" value="https://github.com/aasaali/mokit_R31.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -190,7 +196,13 @@
       <option name="presentableId" value="LOCAL−00007" />
       <updated>1682668278058</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL−00008" summary="Mökkien hallinta, alueidenhallinta ja alue ja mökki olioluokat">
+      <created>1683038938837</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1683038938838</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +227,8 @@
     <MESSAGE value="Lisätty metodit varausten hallinnalle." />
     <MESSAGE value="Varausikkunan tekoa" />
     <MESSAGE value="Lisätty alustavaa koodia, vaatii vielä reippaasti muokkaamista" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lisätty alustavaa koodia, vaatii vielä reippaasti muokkaamista" />
+    <MESSAGE value="Mökkien hallinta, alueidenhallinta ja alue ja mökki olioluokat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mökkien hallinta, alueidenhallinta ja alue ja mökki olioluokat" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
