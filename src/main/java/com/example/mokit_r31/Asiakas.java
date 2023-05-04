@@ -8,6 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Asiakas {
+    @Override
+    public String toString() {
+        return "Asiakas{" +
+                "asiakasId=" + asiakasId +
+                ", postinro='" + postinro + '\'' +
+                ", etunimi='" + etunimi + '\'' +
+                ", sukunimi='" + sukunimi + '\'' +
+                ", lahiosoite='" + lahiosoite + '\'' +
+                ", email='" + email + '\'' +
+                ", puhelinnro='" + puhelinnro + '\'' +
+                '}';
+    }
 
     private int asiakasId; private String postinro; private String etunimi; private String sukunimi;
     private String lahiosoite; private String email; private String puhelinnro;
