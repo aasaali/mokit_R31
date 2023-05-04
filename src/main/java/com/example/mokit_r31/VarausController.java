@@ -37,6 +37,18 @@ public class VarausController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private ListView<Varaus> varauksetLw;
+
+    public void initialize() {
+        try {
+            VaraustenHallinta hallinta = new VaraustenHallinta();
+            varauksetLw.getItems().setAll(hallinta.getVaraukset());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
 
