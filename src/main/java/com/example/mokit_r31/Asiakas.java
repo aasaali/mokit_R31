@@ -7,19 +7,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Asiakkaita hallinnoiva luokka
+ * kentät: asiakasId, postinro, etunimi, sukunimi, lähiosoite, email, puhelinnumero
+ * metodit:
+ */
 public class Asiakas {
-    @Override
-    public String toString() {
-        return "Asiakas{" +
-                "asiakasId=" + asiakasId +
-                ", postinro='" + postinro + '\'' +
-                ", etunimi='" + etunimi + '\'' +
-                ", sukunimi='" + sukunimi + '\'' +
-                ", lahiosoite='" + lahiosoite + '\'' +
-                ", email='" + email + '\'' +
-                ", puhelinnro='" + puhelinnro + '\'' +
-                '}';
-    }
 
     private int asiakasId; private String postinro; private String etunimi; private String sukunimi;
     private String lahiosoite; private String email; private String puhelinnro;
@@ -80,6 +72,18 @@ public class Asiakas {
 
     public void setPuhelinnro(String puhelinnro) {
         this.puhelinnro = puhelinnro;
+    }
+
+    @Override
+    public String toString() {
+        return "Asiakkaan tiedot: " +
+                "asiakasId=" + asiakasId +
+                ", postinro='" + postinro + '\'' +
+                ", etunimi='" + etunimi + '\'' +
+                ", sukunimi='" + sukunimi + '\'' +
+                ", lahiosoite='" + lahiosoite + '\'' +
+                ", email='" + email + '\'' +
+                ", puhelinnro='" + puhelinnro + '\'';
     }
 
     public static List<Asiakas> haeKaikki() throws SQLException {
@@ -167,23 +171,6 @@ public class Asiakas {
         }
     }
 
-    public void poista() throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
 
-        try {
-            yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("DELETE FROM Asiakas WHERE asiakas_id = ?");
-            kysely.setInt(1, asiakasId);
-
-            int rivit = kysely.executeUpdate();
-
-            if (rivit == 0) {
-                throw new SQLException("Asiakkaan poistaminen tietokannasta epäonnistui.");
-            }
-        } finally {
-            Tietokanta.sulje(kysely, yhteys);
-        }
-    }
 }
 

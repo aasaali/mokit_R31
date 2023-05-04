@@ -10,13 +10,11 @@ import static javafx.application.Application.launch;
 
 public class AsiakasHallinta {
 
-    private Tietokanta tietokanta;
+    private static Tietokanta tietokanta;
 
     public AsiakasHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;
     }
-
-
 
     public void lisaaAsiakas(Asiakas asiakas) throws SQLException {
         Connection yhteys = tietokanta.getYhteys();
@@ -79,7 +77,7 @@ public class AsiakasHallinta {
         }
     }
 
-    public void poistaAsiakas(int asiakasId) throws SQLException {
+    public static void poistaAsiakas(int asiakasId) throws SQLException {
         Connection yhteys = tietokanta.getYhteys();
         PreparedStatement poistolause = null;
         try {

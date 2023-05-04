@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class AsiakasController {
     @FXML
@@ -49,8 +50,7 @@ public class AsiakasController {
                         }
                     }
                 };
-
-                cell.setOnMouseClicked(event -> {
+            cell.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && !cell.isEmpty()) {
                         Asiakas asiakas = cell.getItem();
                         // Avaa uusi ikkuna tietojen muokkausta varten
@@ -67,19 +67,40 @@ public class AsiakasController {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-
                     }
                 });
 
                 return cell;
             });
-        }
 
-    @FXML
-    private void ButtonHae(ActionEvent event) {
-        ObservableList<Asiakas> asiakkaat = FXCollections.observableArrayList(asiakasHallinta.haeKaikkiAsiakkaat());
-        asiakasLista.setItems(asiakkaat);
-    }
+        buttonHae.setOnAction(e -> {
+            ObservableList<Asiakas> asiakkaatTietokannasta = FXCollections.observableArrayList(asiakasHallinta.haeKaikkiAsiakkaat());
+            asiakasLista.setItems(asiakkaatTietokannasta);
+        });
+
+        buttonPoista.setOnAction(e -> {
+            Asiakas valittuAsiakas = asiakasLista.getSelectionModel().getSelectedItem();
+            if (valittuAsiakas != null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Vahvista poisto");
+                alert.setHeaderText("Haluatko varmasti poistaa asiakkaan " + valittuAsiakas.getEtunimi() + " " + valittuAsiakas.getSukunimi() + "?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        AsiakasHallinta.poistaAsiakas(valittuAsiakas.getAsiakasId());
+                        asiakasLista.getItems().remove(valittuAsiakas);
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Valitse asiakas");
+                alert.setHeaderText("Valitse poistettava asiakas listasta.");
+                alert.showAndWait();
+            }
+        });
+        }
 
 }
 
