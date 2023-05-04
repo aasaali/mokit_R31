@@ -3,9 +3,9 @@ package com.example.mokit_r31;
 import java.sql.*;
 
 public class Tietokanta {
-    private static final String TIETOKANTAN_NIMI = "tietokannan_nimi";
-    private static final String KAYTTAJA = "kayttajatunnus";
-    private static final String SALASANA = "salasana";
+    private static final String TIETOKANTAN_NIMI = "jdbc:mysql://localhost:3306/vn";
+    private static final String KAYTTAJA = "root";
+    private static final String SALASANA = "R31_mokki";
 
     public static Connection getYhteys() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/vn", KAYTTAJA, SALASANA);

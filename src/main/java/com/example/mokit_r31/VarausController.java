@@ -1,10 +1,7 @@
 package com.example.mokit_r31;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -20,9 +17,11 @@ public class VarausController {
     private DatePicker alkupaivaDP;
     @FXML
     private DatePicker loppupaivaDP;
+    @FXML
+    private ListView VarauksetLw;
 
     @FXML
-    private void tallennaVarausButton(ActionEvent event) {
+    private void tallennaVarausBt(ActionEvent event) {
         int asiakas = Integer.parseInt(asiakasTf.getText());
         int mokki = Integer.parseInt(mokkiTf.getText());
         LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
@@ -32,10 +31,12 @@ public class VarausController {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             hallinta.lisaaVaraus(varaus);
             tallennaVarausBt.setText("Vahvistettu");
+
         }
         catch (SQLException e) {
-        // Virheen käsittely
+            e.printStackTrace();
+        }
     }
 }
 
-}
+
