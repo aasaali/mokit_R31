@@ -20,11 +20,23 @@ public class AsiakasController {
     @FXML
     private Button buttonHae;
     @FXML
-    private Button buttonPaivita;
-    @FXML
-    private Button buttonLuoUusi;
+    private Button buttonTallenna;
     @FXML
     private Button buttonPoista;
+    @FXML
+    private TextField tfAsiakasId;
+    @FXML
+    private TextField tfPostinumero;
+    @FXML
+    private TextField tfEtunimi;
+    @FXML
+    private TextField tfSukunimi;
+    @FXML
+    private TextField tfLahiosoite;
+    @FXML
+    private TextField tfEmail;
+    @FXML
+    private TextField tfPuhnro;
 
     Tietokanta tietokanta = new Tietokanta();
     private AsiakasHallinta asiakasHallinta = new AsiakasHallinta(tietokanta);
@@ -53,11 +65,11 @@ public class AsiakasController {
             cell.setOnMouseClicked(event -> {
                     if (event.getClickCount() == 2 && !cell.isEmpty()) {
                         Asiakas asiakas = cell.getItem();
+                        System.out.println(cell.getItem());
                         // Avaa uusi ikkuna tietojen muokkausta varten
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("MuokkaaAsiakasta.fxml"));
-                        Parent root = null;
                         try {
-                            root = loader.load();
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("MuokkaaAsiakasta.fxml"));
+                            Parent root = loader.load();
                             MuokkaaAsiakastaController controller = loader.getController();
                             controller.setAsiakas(asiakas);
                             Scene scene = new Scene(root);
@@ -78,12 +90,36 @@ public class AsiakasController {
             asiakasLista.setItems(asiakkaatTietokannasta);
         });
 
+        buttonTallenna.setOnAction(e -> {
+            String postinro = tfPostinumero.getText();
+            String etunimi = tfEtunimi.getText();
+            String sukunimi = tfSukunimi.getText();
+            String lahiosoite = tfLahiosoite.getText();
+            String email = tfEmail.getText();
+            String puhelinnro = tfPuhnro.getText();
+
+            Asiakas uusiAsiakas = new Asiakas(postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro);
+            try {
+                asiakasHallinta.lisaaAsiakas(uusiAsiakas);
+                asiakasLista.getItems().add(uusiAsiakas);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            tfPostinumero.clear();
+            tfEtunimi.clear();
+            tfSukunimi.clear();
+            tfLahiosoite.clear();
+            tfEmail.clear();
+            tfPuhnro.clear();
+        });
+
         buttonPoista.setOnAction(e -> {
             Asiakas valittuAsiakas = asiakasLista.getSelectionModel().getSelectedItem();
             if (valittuAsiakas != null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Vahvista poisto");
-                alert.setHeaderText("Haluatko varmasti poistaa asiakkaan " + valittuAsiakas.getEtunimi() + " " + valittuAsiakas.getSukunimi() + "?");
+                alert.setHeaderText("Haluatko varmasti poistaa asiakkaan " + valittuAsiakas.getEtunimi()
+                        + " " + valittuAsiakas.getSukunimi() + "?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
                     try {

@@ -7,7 +7,8 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MuokkaaAsiakastaController">
+<AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MuokkaaAsiakastaController">
    <children>
       <Text layoutX="27.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muokkaa asiakasta" />
       <TextField fx:id="etunimiTextField" layoutX="28.0" layoutY="141.0" promptText="Etunimi" />

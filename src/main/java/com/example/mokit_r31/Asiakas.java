@@ -21,6 +21,11 @@ public class Asiakas {
         this.asiakasId = asiakasId; this.postinro = postinro; this.etunimi = etunimi;
         this.sukunimi = sukunimi; this.lahiosoite = lahiosoite; this.email = email; this.puhelinnro = puhelinnro;
     }
+    public Asiakas(String postinro, String etunimi, String sukunimi, String lahiosoite,
+                   String email, String puhelinnro) {
+        this.postinro = postinro; this.etunimi = etunimi;
+        this.sukunimi = sukunimi; this.lahiosoite = lahiosoite; this.email = email; this.puhelinnro = puhelinnro;
+    }
     public Asiakas(){
     }
 
