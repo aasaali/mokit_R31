@@ -1,5 +1,6 @@
 package com.example.mokit_r31;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -7,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+
+// Muistiinpano: muokkausikkunaan vielä asiakas-id näkyville
 
 public class MuokkaaAsiakastaController {
 
@@ -33,13 +36,16 @@ public class MuokkaaAsiakastaController {
     Tietokanta tietokanta = new Tietokanta();
     public void setAsiakas(Asiakas asiakas) {
         this.asiakas = asiakas;
-        //naytaAsiakkaanTiedot();
+        naytaAsiakkaanTiedot();
     }
+
     public void initialize() {
 
         if (asiakas == null) {
             return;
         }
+
+        // Tässä on jokin virhe, eikä tähän koodin osaan koskaan päästä :P
 
         idTextField.setText(String.valueOf(asiakas.getAsiakasId()));
         postinroTextField.setText(asiakas.getPostinro());
@@ -72,12 +78,8 @@ public class MuokkaaAsiakastaController {
     public void setAsiakasHallinta(AsiakasHallinta asiakasHallinta) {
         this.asiakasHallinta = asiakasHallinta;
     }
-
-
-
-    /**
-    // @FXML
-    //private void naytaAsiakkaanTiedot() {
+    @FXML
+    private void naytaAsiakkaanTiedot() {
         etunimiTextField.setText(asiakas.getEtunimi());
         sukunimiTextField.setText(asiakas.getSukunimi());
         lahiosoiteTextField.setText(asiakas.getLahiosoite());
@@ -85,5 +87,4 @@ public class MuokkaaAsiakastaController {
         emailTextField.setText(asiakas.getEmail());
         puhelinnroTextField.setText(asiakas.getPuhelinnro());
     }
-    */
 }

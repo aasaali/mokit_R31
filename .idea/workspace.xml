@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAsiakastaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAsiakastaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaAsiakasta.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaAsiakasta.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +269,13 @@
       <option name="presentableId" value="LOCAL−00017" />
       <updated>1683227903757</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL−00018" summary="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.">
+      <created>1683232962114</created>
+      <option name="number" value="LOCAL−00018" />
+      <option name="presentableId" value="LOCAL−00018" />
+      <updated>1683232962114</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -332,7 +335,8 @@
     <MESSAGE value="MuokkaaAsiakasta-toiminto ym." />
     <MESSAGE value="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
     <MESSAGE value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
-    <option name="LAST_COMMIT_MESSAGE" value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
+    <MESSAGE value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
+    <option name="LAST_COMMIT_MESSAGE" value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -348,5 +352,10 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/mokit_R31$MainApplication.ic" NAME="MainApplication Coverage Results" MODIFIED="1683233626245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.mokit_r31.*</FILTER>
+    </SUITE>
   </component>
 </project>
