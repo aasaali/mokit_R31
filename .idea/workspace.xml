@@ -4,111 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="laskutusta kehitetään">
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.sha1.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.md5" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.md5.asc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.sha1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.sha1.asc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50__Changes_.xml" beforeDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Varaukset" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -155,7 +52,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Varaukset",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/taija/Downloads/itext-xmlworker-5.5.13.3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -237,10 +134,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.VaraustenHallinta" />
+        <item itemvalue="Application.PalvelujenHallinta" />
         <item itemvalue="Application.MainApplication" />
-        <item itemvalue="Application.PalvelujenHallinta" />
         <item itemvalue="Application.VaraustenHallinta" />
-        <item itemvalue="Application.PalvelujenHallinta" />
+        <item itemvalue="Application.MainApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -335,7 +232,13 @@
       <option name="presentableId" value="LOCAL−00012" />
       <updated>1683012330639</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL−00013" summary=".">
+      <created>1683197214649</created>
+      <option name="number" value="LOCAL−00013" />
+      <option name="presentableId" value="LOCAL−00013" />
+      <updated>1683197214649</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,18 +294,8 @@
     <MESSAGE value="testi2" />
     <MESSAGE value="laskutusta kehitetään" />
     <MESSAGE value="Branchin alku" />
-    <option name="LAST_COMMIT_MESSAGE" value="Branchin alku" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
