@@ -16,6 +16,8 @@ public class AsiakasHallinta {
         this.tietokanta = tietokanta;
     }
 
+
+
     public void lisaaAsiakas(Asiakas asiakas) throws SQLException {
         Connection yhteys = tietokanta.getYhteys();
         PreparedStatement lisayslause = null;
@@ -41,12 +43,16 @@ public class AsiakasHallinta {
 
         try {
             yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro FROM Asiakas WHERE asiakas_id = ?");
+            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro " +
+                    "FROM Asiakas WHERE asiakas_id = ?");
             kysely.setInt(1, asiakasId);
             tulokset = kysely.executeQuery();
 
             if (tulokset.next()) {
-                return new Asiakas(asiakasId, tulokset.getString("postinro"), tulokset.getString("etunimi"), tulokset.getString("sukunimi"), tulokset.getString("lahiosoite"), tulokset.getString("email"), tulokset.getString("puhelinnro"));
+                return new Asiakas(asiakasId, tulokset.getString("postinro"),
+                        tulokset.getString("etunimi"), tulokset.getString("sukunimi"),
+                        tulokset.getString("lahiosoite"), tulokset.getString("email"),
+                        tulokset.getString("puhelinnro"));
             } else {
                 return null;
             }

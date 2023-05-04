@@ -1,4 +1,6 @@
 package com.example.mokit_r31;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +13,7 @@ import java.time.LocalDateTime;
 
 public class AsiakasController {
     @FXML
-    private ListView asiakasIkkunaLista;
+    private ListView<Asiakas> asiakasLista;
     @FXML
     private Button buttonHae;
     @FXML
@@ -20,6 +22,26 @@ public class AsiakasController {
     private Button buttonLuoUusi;
     @FXML
     private Button buttonPoista;
+
+    Tietokanta tietokanta = new Tietokanta();
+    private AsiakasHallinta asiakasHallinta = new AsiakasHallinta(tietokanta);
+
+    @FXML
+    private void initialize() {
+        // Hae kaikki asiakkaat tietokannasta ja luo observable list
+        ObservableList<Asiakas> asiakkaat = FXCollections.observableArrayList(asiakasHallinta.haeKaikkiAsiakkaat());
+
+        // Aseta observable list ListView-komponentin dataksi
+        asiakasLista.setItems(asiakkaat);
+        System.out.println(asiakkaat);
+    }
+
+    @FXML
+    private void ButtonHae(ActionEvent event) {
+        ObservableList<Asiakas> asiakkaat = FXCollections.observableArrayList(asiakasHallinta.haeKaikkiAsiakkaat());
+        asiakasLista.setItems(asiakkaat);
+    }
+}
 
    /** @FXML
     private void tallennaVarausButton(ActionEvent event) {
@@ -39,4 +61,3 @@ public class AsiakasController {
     }
    */
 
-}
