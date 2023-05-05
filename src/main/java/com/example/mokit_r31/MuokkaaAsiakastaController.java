@@ -47,7 +47,7 @@ public class MuokkaaAsiakastaController {
     }
     @FXML
     private void tallennaButton() {
-
+        System.out.println("Testi");
         try {
             // Tallenna käyttäjän tekemät muutokset tietokantaan
             System.out.println(asiakas);
