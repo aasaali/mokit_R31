@@ -6,6 +6,7 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.FileOutputStream;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,26 +17,56 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 /** Laskun tietoja:
 asiakkaan tiedot: nimi, osoite, puhelinnumero
 Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
 laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
-/*
 public class Lasku {
     private double hinta;
     private double alv;
     private double summa;
-    private String nimi;
-    private String osoite;
-    private String puhelinnumero;
-    private LocalDateTime aloituspvm;
-    private LocalDateTime lopetuspvm;
-    private String kohde;
-    private String lisapalvelut;
+    private int laskuId;
+    private int varausId;
+    private Asiakas asiakas;
 
+    public Lasku(int varausId) {
+        this.varausId=varausId;
+    }
+    public Lasku(int laskuId, int varausId, double summa, double alv) {
+        this.varausId=varausId; this.laskuId=laskuId;
+        this.summa=summa; this.alv=alv;
+    }
+    public Lasku(int lasku_id, int varaus_id, double summa, double alv, Tietokanta tietokanta) throws SQLException {
+        this.laskuId = lasku_id;
+        this.varausId = varaus_id;
+        this.summa = summa;
+        this.alv = alv;
+        //this.asiakas = Asiakas.haeAsiakas(varaus_id); // hae asiakkaan tiedot varauksen id:n perusteella
+    }
+    public Lasku(){}
+
+    public int getVarausId() {
+        return varausId;}
+    public void setVarausId(int varausId) {
+        this.varausId = varausId;}
+    public double getHinta() {
+        return hinta;}
+    public void setHinta(double hinta) {
+        this.hinta = hinta;}
+    public double getAlv() {
+        return alv;}
+    public void setAlv(double alv) {
+        this.alv = alv;}
+    public double getSumma() {
+        return summa;}
+    public void setSumma(double summa) {
+        this.summa = summa;}
+    public int getLaskuId() {
+        return laskuId;}
+    public void setLaskuId(int laskuId) {
+        this.laskuId = laskuId;}
 
     public void laskeSummaJaAlv(double mokkiHinta, double palveluHinta, double palveluAlv) {
         double summa = mokkiHinta + palveluHinta;
@@ -45,7 +76,7 @@ public class Lasku {
     }
 
 
-
+/*
     public void luoLaskuPdf(String tiedostonimi) {
         // Luodaan uusi PDF-dokumentti
         Document document = new Document(PageSize.A4);
@@ -101,7 +132,5 @@ public class Lasku {
 
     // Metodit asettavat laskutuksen tiedot
     // ...
-
-}
-
 */
+}

@@ -12,25 +12,29 @@
    <children>
       <AnchorPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ListView fx:id="laskuLista" layoutX="4.0" layoutY="35.0" prefHeight="310.0" prefWidth="337.0" />
+            <ListView fx:id="laskutaVarausLw" layoutX="4.0" layoutY="35.0" prefHeight="310.0" prefWidth="170.0" />
+            <ListView fx:id="laskuLw" layoutX="189.0" layoutY="35.0" prefHeight="310.0" prefWidth="186.0" />
             <AnchorPane layoutX="346.0" prefHeight="344.0" prefWidth="264.0">
                <children>
-                  <TextField layoutX="29.0" layoutY="56.0" prefHeight="26.0" prefWidth="206.0" promptText="Sähköpostiosoite" />
+                  <TextField layoutX="49.0" layoutY="56.0" prefHeight="26.0" prefWidth="186.0" promptText="Sähköpostiosoite" />
                   <Text layoutX="63.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lähetä lasku sähköpostilla" />
-                  <Button layoutX="29.0" layoutY="89.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="206.0" text="Lähetä lasku" />
-                  <Button layoutX="89.0" layoutY="146.0" mnemonicParsing="false" text="Tallenna PDF" />
+                  <Button fx:id="btLahetaLasku" layoutX="49.0" layoutY="89.0" mnemonicParsing="false" onAction="#btLahetaLasku" prefHeight="26.0" prefWidth="186.0" text="Lähetä lasku" />
+                  <Button fx:id="btTallennaPDF" layoutX="49.0" layoutY="219.0" mnemonicParsing="false" onAction="#btTallennaPDF" prefHeight="26.0" prefWidth="186.0" text="Tallenna PDF" />
+                  <TextField fx:id="tfTiedostonimi" layoutX="49.0" layoutY="185.0" prefHeight="26.0" prefWidth="186.0" promptText="Syötä tiedostonimi" />
+                  <Text layoutX="62.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tallenna lasku PDF-tiedostona" />
                </children></AnchorPane>
             <ToolBar layoutY="355.0" prefHeight="37.0" prefWidth="610.0">
               <items>
-                  <Button fx:id="buttonHae" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="76.0" text="Päivitä" />
-                  <Button fx:id="buttonLuoUusi" mnemonicParsing="false" prefHeight="26.0" prefWidth="106.0" text="Luo uusi" />
-                <Button fx:id="buttonPoista" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Poista" />
+                  <Button fx:id="buttonPaivita" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btPaivitaLaskutus" prefHeight="26.0" prefWidth="100.0" text="Päivitä lista" />
+                  <Button fx:id="buttonLuoUusi" mnemonicParsing="false" prefHeight="26.0" prefWidth="136.0" onAction="#buttonLuoUusi" text="Luo uusi" />
+                <Button fx:id="buttonPoista" mnemonicParsing="false" prefHeight="26.0" prefWidth="110.0" text="Poista" />
               </items>
                <padding>
                   <Insets left="5.0" top="1.0" />
                </padding>
             </ToolBar>
             <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valitse varaus" wrappingWidth="106.39999999999998" />
+            <Text layoutX="198.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laskut" wrappingWidth="47.99997558593748" />
          </children>
       </AnchorPane>
    </children>
