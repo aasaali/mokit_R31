@@ -100,6 +100,7 @@ public class MuokkaaAsiakastaController {
     }
     @FXML
     private void naytaAsiakkaanTiedot() {
+        idTextField.setText(String.valueOf(asiakas.getAsiakasId()));
         etunimiTextField.setText(asiakas.getEtunimi());
         sukunimiTextField.setText(asiakas.getSukunimi());
         lahiosoiteTextField.setText(asiakas.getLahiosoite());
