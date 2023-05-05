@@ -24,7 +24,7 @@ public void lisaaMokki(Mokki newMokki) throws SQLException {
             // Asetetaan SQL-lauseelle arvot
             stmt.setInt(1, newMokki.getMokkiId());
             stmt.setInt(2, newMokki.getAlueId());
-            stmt.setString(3, newMokki.getPostiNro());
+            stmt.setInt(3, newMokki.getPostiNro());
             stmt.setString(4, newMokki.getNimi());
             stmt.setString(5, newMokki.getOsoite());
             stmt.setDouble(6, newMokki.getHinta());
@@ -77,7 +77,7 @@ public static List<Mokki> haeMokit(String hakusana) {
             while (rs.next()) {
                 int mokkiId = rs.getInt("mokki_id");
                 int alueId = rs.getInt("alue_id");
-                String postiNro = rs.getString("postinro");
+                int postiNro = rs.getInt("postinro");
                 String nimi = rs.getString("mokkinimi");
                 String osoite = rs.getString("katuosoite");
                 double hinta = rs.getDouble("hinta");
@@ -121,7 +121,7 @@ public static List<Mokki> haeMokit(String hakusana) {
 
                 // Asetetaan SQL-lauseelle arvot
                 stmt.setInt(1, mokki.getAlueId());
-                stmt.setString(2, mokki.getPostiNro());
+                stmt.setInt(2, mokki.getPostiNro());
                 stmt.setString(3, mokki.getNimi());
                 stmt.setString(4, mokki.getOsoite());
                 stmt.setDouble(5, mokki.getHinta());
@@ -196,7 +196,7 @@ public static void poistaMokki(int mokkiId) {
                 while (rs.next()) {
                     int mokkiId = rs.getInt("mokki_id");
                     int alueId = rs.getInt("alue_id");
-                    String postiNro = rs.getString("postinro");
+                    int postiNro = rs.getInt("postinro");
                     String nimi = rs.getString("mokkinimi");
                     String osoite = rs.getString("katuosoite");
                     double hinta = rs.getDouble("hinta");
@@ -223,7 +223,7 @@ public static void poistaMokki(int mokkiId) {
 
 
     public static void main(String[] args) throws SQLException {
-    Mokki testiMokki = new Mokki(345, 123, "70100", "Elämysmökki", "kotikatu", 500,"upea mökki keskellä kaupunkia", 5, "sauna" );
+    Mokki testiMokki = new Mokki(345, 123, 70100, "Elämysmökki", "kotikatu", 500,"upea mökki keskellä kaupunkia", 5, "sauna" );
 
     }
 }

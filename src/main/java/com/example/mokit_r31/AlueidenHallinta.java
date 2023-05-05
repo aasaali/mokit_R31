@@ -4,17 +4,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
 public class AlueidenHallinta {
-
+    private Tietokanta tietokanta;
+    public AlueidenHallinta(Tietokanta tietokanta) {
+        this.tietokanta = tietokanta;}
 // Alueen tietojen lisääminen tietokantaan SQL INSERT, jos aluetta ei ole lisätty samoilla tiedoilla
-    public static void lisaaAlueenTiedot(Alue newAlue) {
-        // Tietokannan yhteysosoite
-        String url = "jdbc:mysql://localhost:3306/vn";
-        // Käyttäjän tunnus ja salasana
-        String user = "root";
-        String password = "Heleppohomma23?3";
+    public void lisaaAlueenTiedot(Alue newAlue) {
 
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
+            Connection conn = tietokanta.getYhteys();
             {
                 System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
@@ -156,8 +153,7 @@ public static void poistaAlueenTiedot(int alueId) {
 }
 
     public static void main(String[] args) throws SQLException {
-    Alue alue1 = new Alue(1,"Kauppi");
-    lisaaAlueenTiedot(alue1);
+    Alue alue1 = new Alue("Kauppi");
     haeAlueenTiedot("Kuopio");
     paivitaAlueenTiedot(1, "Petonen");
     haeAlueenTiedot("Petonen");

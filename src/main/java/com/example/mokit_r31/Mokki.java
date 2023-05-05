@@ -3,7 +3,7 @@ package com.example.mokit_r31;
 public class Mokki {
     private int mokkiId;
     private int alueId;
-    private String postiNro; //5
+    private int postiNro; //5
     private String nimi; //45
     private String osoite; //45
     private double hinta; //8,2
@@ -11,7 +11,7 @@ public class Mokki {
     private int hlo;
     private String varustelu; //100
 
-public Mokki(int mokkiId,int alueId, String postiNro, String nimi, String osoite, double hinta, String kuvaus, int hlo, String varustelu){
+public Mokki(int mokkiId,int alueId, int postiNro, String nimi, String osoite, double hinta, String kuvaus, int hlo, String varustelu){
     this.mokkiId = mokkiId;
     this.alueId = alueId;
     this.postiNro = postiNro;
@@ -80,11 +80,11 @@ public Mokki(int mokkiId,int alueId, String postiNro, String nimi, String osoite
         this.alueId = alueId;
     }
 
-    public void setPostiNro(String postiNro) {
+    public void setPostiNro(int postiNro) {
         this.postiNro = postiNro;
     }
 
-    public String getPostiNro() {
+    public int getPostiNro() {
         return postiNro;
     }
 
