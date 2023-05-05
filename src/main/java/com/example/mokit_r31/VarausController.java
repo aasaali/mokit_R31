@@ -1,7 +1,12 @@
 package com.example.mokit_r31;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import org.w3c.dom.events.MouseEvent;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -27,7 +32,7 @@ public class VarausController {
 
 
     @FXML
-    private void tallennaVarausBt(ActionEvent event) {
+    private void tallennaVarausBt() {
         int asiakas = Integer.parseInt(asiakasTf.getText());
         int mokki = Integer.parseInt(mokkiTf.getText());
         LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
@@ -44,6 +49,31 @@ public class VarausController {
         }
     }
 
+    @FXML
+    private void btPoista(ActionEvent event) {
+        Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
+        if (varaus != null) {
+            try {
+                VaraustenHallinta hallinta = new VaraustenHallinta();
+                hallinta.poistaVaraus(varaus.getVarausId());
+                varauksetLw.getItems().remove(varaus);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void btHae(ActionEvent event) {
+        VaraustenHallinta hallinta = new VaraustenHallinta();
+        try {
+            varauksetLw.getItems().setAll(hallinta.getVaraukset());
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+
 
     public void initialize() {
         try {
@@ -54,5 +84,6 @@ public class VarausController {
         }
     }
 }
+
 
 
