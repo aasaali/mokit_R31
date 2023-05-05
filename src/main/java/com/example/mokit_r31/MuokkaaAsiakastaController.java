@@ -40,6 +40,7 @@ public class MuokkaaAsiakastaController {
     }
     @FXML
     private void initialize() {
+
         tallennaButton.setOnAction(e -> {
             tallennaButton();
         });

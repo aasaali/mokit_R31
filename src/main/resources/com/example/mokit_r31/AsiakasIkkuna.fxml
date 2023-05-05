@@ -21,7 +21,7 @@
                   <TextField fx:id="tfLahiosoite" layoutX="15.0" layoutY="160.0" prefHeight="26.0" prefWidth="282.0" promptText="Lähiosoite" />
                   <TextField fx:id="tfEmail" layoutX="14.0" layoutY="195.0" prefHeight="26.0" prefWidth="282.0" promptText="Email" />
                   <TextField fx:id="tfPuhnro" layoutX="14.0" layoutY="230.0" prefHeight="26.0" prefWidth="150.0" promptText="Puhelinnumero" />
-                  <Button fx:id="buttonTallenna" layoutX="73.0" layoutY="282.0" mnemonicParsing="false" text="Luo asiakas - tallenna tiedot" />
+                  <Button fx:id="buttonTallenna" layoutX="73.0" layoutY="282.0" mnemonicParsing="false" text="Luo uusi asiakas - tallenna tiedot" />
                </children></AnchorPane>
             <ToolBar layoutY="329.0" prefHeight="37.0" prefWidth="600.0">
               <items>
