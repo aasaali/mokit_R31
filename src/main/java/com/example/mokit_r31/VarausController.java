@@ -86,11 +86,11 @@ public class VarausController {
             // Jos varaus on valittu, avataan sen tiedot uuteen ikkunaan
             if (varaus != null) {
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VarausTiedot.fxml"));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MuokkaaVaraustaIkkuna.fxml"));
                     Parent parent = fxmlLoader.load();
                     //VarausTiedotController controller = fxmlLoader.getController();
                     //controller.setVaraus(varaus);
-                    Scene scene = new Scene(parent, 400, 300);
+                    Scene scene = new Scene(parent, 600, 400);
                     Stage stage = new Stage();
                     stage.setScene(scene);
                     stage.show();
@@ -105,10 +105,12 @@ public class VarausController {
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             varauksetLw.getItems().setAll(hallinta.getVaraukset());
+            varauksetLw.setOnMouseClicked(event -> handleVarausListDoubleClick(event));
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }
 
 
