@@ -9,8 +9,6 @@ import javafx.stage.Stage;
 
 import java.sql.SQLException;
 
-// Muistiinpano: muokkausikkunaan vielä asiakas-id näkyville
-
 public class MuokkaaAsiakastaController {
 
     @FXML
@@ -30,19 +28,23 @@ public class MuokkaaAsiakastaController {
     @FXML
     private Button tallennaButton;
 
-    private AsiakasHallinta asiakasHallinta;
-
     private Asiakas asiakas;
     Tietokanta tietokanta = new Tietokanta();
+    AsiakasHallinta asiakasHallinta = new AsiakasHallinta(tietokanta);
     public void setAsiakas(Asiakas asiakas) {
         this.asiakas = asiakas;
         naytaAsiakkaanTiedot();
+    }
+    public void alustaAsiakashallinta(AsiakasHallinta asiakasHallinta){
+        this.asiakasHallinta=asiakasHallinta;
     }
     @FXML
     private void tallennaButton(ActionEvent event) {
 
         try {
             // Tallenna käyttäjän tekemät muutokset tietokantaan
+            System.out.println(asiakas);
+            paivitaAsiakkaantiedot();
             asiakasHallinta.paivitaAsiakas(asiakas);
 
             // Sulje ikkuna, jos tallennus onnistui
@@ -56,44 +58,16 @@ public class MuokkaaAsiakastaController {
             alert.setContentText("Tapahtui virhe tallennettaessa muutoksia tietokantaan:\n" + ex.getMessage());
             alert.showAndWait();
         }
-
     }
-/*
-    public void initialize() {
 
-        if (asiakas == null) {
-            return;
-        }
-
-        // Tässä on jokin virhe, eikä tähän koodin osaan koskaan päästä :P
-
-        idTextField.setText(String.valueOf(asiakas.getAsiakasId()));
-        postinroTextField.setText(asiakas.getPostinro());
-        etunimiTextField.setText(asiakas.getEtunimi());
-        sukunimiTextField.setText(asiakas.getSukunimi());
-        lahiosoiteTextField.setText(asiakas.getLahiosoite());
-        emailTextField.setText(asiakas.getEmail());
-        puhelinnroTextField.setText(asiakas.getPuhelinnro());
-
-        tallennaButton.setOnAction(event -> {
-            try {
-                // Tallenna käyttäjän tekemät muutokset tietokantaan
-                asiakasHallinta.paivitaAsiakas(asiakas);
-
-                // Sulje ikkuna, jos tallennus onnistui
-                Stage stage = (Stage) tallennaButton.getScene().getWindow();
-                stage.close();
-            } catch (SQLException ex) {
-                // Näytä virheilmoitus dialogilla, jos tallennus epäonnistui
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Virhe");
-                alert.setHeaderText("Asiakkaan tallentaminen epäonnistui");
-                alert.setContentText("Tapahtui virhe tallennettaessa muutoksia tietokantaan:\n" + ex.getMessage());
-                alert.showAndWait();
-            }
-        });
-
-    } */
+    public void paivitaAsiakkaantiedot() {
+        asiakas.setPostinro(postinroTextField.getText());
+        asiakas.setEtunimi(etunimiTextField.getText());
+        asiakas.setSukunimi(sukunimiTextField.getText());
+        asiakas.setLahiosoite(lahiosoiteTextField.getText());
+        asiakas.setEmail(emailTextField.getText());
+        asiakas.setPuhelinnro(puhelinnroTextField.getText());
+    }
 
     public void setAsiakasHallinta(AsiakasHallinta asiakasHallinta) {
         this.asiakasHallinta = asiakasHallinta;
