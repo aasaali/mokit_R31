@@ -21,6 +21,12 @@ public class VarausController {
     private ListView<Varaus> varauksetLw;
 
     @FXML
+    private Button btHae;
+    @FXML
+    private Button btPoista;
+
+
+    @FXML
     private void tallennaVarausBt(ActionEvent event) {
         int asiakas = Integer.parseInt(asiakasTf.getText());
         int mokki = Integer.parseInt(mokkiTf.getText());
