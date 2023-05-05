@@ -58,7 +58,8 @@ public class AsiakasController {
                     if (empty || asiakas == null) {
                             setText(null);
                         } else {
-                            setText(asiakas.getEtunimi() + " " + asiakas.getSukunimi());
+                            setText(asiakas.getEtunimi() + " " + asiakas.getSukunimi() + " - asiakas ID: "
+                                    + asiakas.getAsiakasId());
                         }
                     }
                 };
@@ -104,6 +105,10 @@ public class AsiakasController {
                 asiakasLista.getItems().add(uusiAsiakas);
             } catch (SQLException ex) {
                 ex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Tallennus epäonnistui");
+                alert.setHeaderText("Tallennus epäonnistui. Tarkista syöttämäsi tiedot.");
+                alert.showAndWait();
             }
             tfPostinumero.clear();
             tfEtunimi.clear();
