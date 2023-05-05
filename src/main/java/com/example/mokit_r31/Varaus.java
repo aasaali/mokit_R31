@@ -74,5 +74,16 @@ public class Varaus {
         this.varattuLoppupvm = varattuLoppupvm;
     }
 
+    @Override
+    public String toString() {
+        return "Varaus{" +
+                "varausId=" + varausId +
+                ", asiakasId=" + asiakasId +
+                ", mokkiId=" + mokkiId +
+                ", vahvistusPvm=" + vahvistusPvm +
+                ", varattuAlkupvm=" + varattuAlkupvm +
+                ", varattuLoppupvm=" + varattuLoppupvm +
+                '}';
+    }
 }
 
