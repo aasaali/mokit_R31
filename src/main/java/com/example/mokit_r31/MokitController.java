@@ -18,8 +18,7 @@ import java.sql.ResultSet;
 
 public class MokitController {
 
-        @FXML
-        private Button BtpalaaMain;
+
         @FXML
         private TextField TfMokki;
         @FXML
@@ -35,60 +34,32 @@ public class MokitController {
         @FXML
         private ListView<Mokki> MokitJaAlueetLista;
 
-   /** Tietokanta tietokanta = new Tietokanta();
-    private MokkienHallinta NewMokkienHallinta = new MokkienHallinta(tietokanta);
-
-    @FXML
-    private void initialize() {
-        // Hae kaikki mokit tietokannasta ja luo observable list
-        ObservableList<Mokki> mokit = FXCollections.observableArrayList(NewMokkienHallinta.haeKaikkiMokit());
-
-        // Aseta observable list ListView-komponentin dataksi
-        MokitJaAlueetLista.setItems(mokit);
-
-        // Lisää tapahtumankäsittelijä jokaiselle listan elementille
-        MokitJaAlueetLista.setCellFactory(param -> {
-            ListCell<Mokki> cell = new ListCell<>() {
-                @Override
-                protected void updateItem(Mokki NewMokki, boolean empty) {
-                    super.updateItem(NewMokki, empty);
-                    if (empty || NewMokki == null) {
-                        setText(null);
-                    } else {
-                        setText(NewMokki.getNimi() + " " + NewMokki.getHinta());
-                    }
+        public void initialize(){
+        BtLisaaMokki.setOnAction(event ->{
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LisaaMokki.fxml"));
+                    Parent root = fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            };
-
-          /**  cell.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && !cell.isEmpty()) {
-                    Mokki NewMokki = cell.getItem();
-                    // Avaa uusi ikkuna tietojen muokkausta varten
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MuokkaaAsiakasta.fxml"));
-                    Parent root = null;
-                    try {
-                        root = loader.load();
-                        MuokkaaAsiakastaController controller = loader.getController();
-                        controller.setAsiakas(asiakas);
-                        Scene scene = new Scene(root);
-                        Stage stage = new Stage();
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-
+            });
+        BtLisaaAlue.setOnAction(event ->{
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LisaaAlue.fxml"));
+                    Parent root = fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            });*/
+            });
 
-          /**  return cell;
-        });
+
+            }
+
     }
 
-    @FXML
-    private void ButtonHae(ActionEvent event) {
-        ObservableList<Mokki> mokit = FXCollections.observableArrayList(NewMokkienHallinta.haeKaikkiMokit());
-        MokitJaAlueetLista.setItems(mokit);
-    }*/
-
-    }
