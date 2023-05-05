@@ -18,7 +18,7 @@ public class VarausController {
     @FXML
     private DatePicker loppupaivaDP;
     @FXML
-    private ListView VarauksetLw;
+    private ListView<Varaus> varauksetLw;
 
     @FXML
     private void tallennaVarausBt(ActionEvent event) {
@@ -38,8 +38,6 @@ public class VarausController {
         }
     }
 
-    @FXML
-    private ListView<Varaus> varauksetLw;
 
     public void initialize() {
         try {
