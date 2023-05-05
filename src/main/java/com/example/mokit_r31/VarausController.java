@@ -30,6 +30,7 @@ public class VarausController {
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             hallinta.lisaaVaraus(varaus);
+            varauksetLw.getItems().setAll(hallinta.getVaraukset());
             tallennaVarausBt.setText("Vahvistettu");
 
         }
