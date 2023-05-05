@@ -23,9 +23,11 @@ Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
 laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
-
+/*
 public class Lasku {
-
+    private double hinta;
+    private double alv;
+    private double summa;
     private String nimi;
     private String osoite;
     private String puhelinnumero;
@@ -33,12 +35,16 @@ public class Lasku {
     private LocalDateTime lopetuspvm;
     private String kohde;
     private String lisapalvelut;
-    private double hinta;
-    private double alv;
-    private double summa;
-    private LocalDateTime luomispvm = LocalDateTime.now();
-    private int laskunnumero;
-    private LocalDateTime erapaiva = luomispvm.plus(14, ChronoUnit.DAYS);
+
+
+    public void laskeSummaJaAlv(double mokkiHinta, double palveluHinta, double palveluAlv) {
+        double summa = mokkiHinta + palveluHinta;
+        double alv = palveluAlv;
+        this.summa = summa;
+        this.alv = alv;
+    }
+
+
 
     public void luoLaskuPdf(String tiedostonimi) {
         // Luodaan uusi PDF-dokumentti
@@ -97,3 +103,5 @@ public class Lasku {
     // ...
 
 }
+
+*/
