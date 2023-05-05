@@ -4,18 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MokkienHallinta {
-
+    private Tietokanta tietokanta;
+    public MokkienHallinta(Tietokanta tietokanta) {
+        this.tietokanta = tietokanta;}
 
 // Mökin tietojen lisääminen tietokantaan SQL INSERT
-public static void lisaaMokki(Mokki newMokki) {
+public void lisaaMokki(Mokki newMokki) throws SQLException {
     // Tietokannan yhteysosoite
-    String url = "jdbc:mysql://localhost:3306/vn";
-    // Käyttäjän tunnus ja salasana
-    String user = "root";
-    String password = "Heleppohomma23?3";
 
     try {
-        Connection conn = DriverManager.getConnection(url, user, password);
+        Connection conn = tietokanta.getYhteys();
         {
             System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
@@ -170,14 +168,62 @@ public static void poistaMokki(int mokkiId) {
         conn.close();
 
         System.out.println("Mökki poistettu tietokannasta.");
-    }
-    catch (SQLException e) {
+    } catch (SQLException e) {
         System.out.println("Mökin poistaminen tietokannasta epäonnistui!");
         e.printStackTrace();
     }
 }
+    public static List<Mokki> haeKaikkiMokit() {
+        // Tietokannan yhteysosoite
+        String url = "jdbc:mysql://localhost:3306/vn";
+        // Käyttäjän tunnus ja salasana
+        String user = "root";
+        String password = "Heleppohomma23?3";
+
+        List<Mokki> mokit = new ArrayList<>();
+
+        try {
+            Connection conn = DriverManager.getConnection(url, user, password);
+            {
+                System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
+
+                // Luodaan SQL-lause, jolla mökit haetaan tietokannasta
+                String sql = "SELECT * FROM mokki";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+                // Suoritetaan SQL-lause ja käydään tulokset läpi
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    int mokkiId = rs.getInt("mokki_id");
+                    int alueId = rs.getInt("alue_id");
+                    String postiNro = rs.getString("postinro");
+                    String nimi = rs.getString("mokkinimi");
+                    String osoite = rs.getString("katuosoite");
+                    double hinta = rs.getDouble("hinta");
+                    String kuvaus = rs.getString("kuvaus");
+                    int hlo = rs.getInt("henkilomaara");
+                    String varustelu = rs.getString("varustelu");
+
+                    Mokki hakuMokki = new Mokki(mokkiId, alueId, postiNro, nimi, osoite, hinta, kuvaus, hlo, varustelu);
+                    mokit.add(hakuMokki);
+                }
+
+                // Suljetaan tietokantayhteys ja vapautetaan resurssit
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Yhteys tietokantaan epäonnistui!");
+            e.printStackTrace();
+        }
+
+        return mokit;
+    }
+
+
     public static void main(String[] args) throws SQLException {
     Mokki testiMokki = new Mokki(345, 123, "70100", "Elämysmökki", "kotikatu", 500,"upea mökki keskellä kaupunkia", 5, "sauna" );
-    lisaaMokki(testiMokki);
+
     }
 }

@@ -1,0 +1,20 @@
+Index: src/main/java/com/example/mokit_r31/MokitController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.mokit_r31;\n\nimport javafx.collections.FXCollections;\nimport javafx.collections.ObservableList;\nimport javafx.event.ActionEvent;\nimport javafx.fxml.FXML;\nimport javafx.fxml.FXMLLoader;\nimport javafx.scene.Parent;\nimport javafx.scene.Scene;\nimport javafx.scene.control.Button;\nimport javafx.scene.control.ListCell;\nimport javafx.scene.control.ListView;\nimport javafx.scene.control.TextField;\nimport javafx.stage.Stage;\n\nimport java.io.IOException;\nimport java.sql.ResultSet;\n\npublic class MokitController {\n\n        @FXML\n        private Button BtpalaaMain;\n        @FXML\n        private TextField TfMokki;\n        @FXML\n        private Button BtHaeMokki;\n        @FXML\n        private TextField TfAlue;\n        @FXML\n        private Button BtHaeAlue;\n        @FXML\n        private Button BtLisaaMokki;\n        @FXML\n        private Button BtLisaaAlue;\n        @FXML\n        private ListView<Mokki> MokitJaAlueetLista;\n\n   /** Tietokanta tietokanta = new Tietokanta();\n    private MokkienHallinta NewMokkienHallinta = new MokkienHallinta(tietokanta);\n\n    @FXML\n    private void initialize() {\n        // Hae kaikki mokit tietokannasta ja luo observable list\n        ObservableList<Mokki> mokit = FXCollections.observableArrayList(NewMokkienHallinta.haeKaikkiMokit());\n\n        // Aseta observable list ListView-komponentin dataksi\n        MokitJaAlueetLista.setItems(mokit);\n\n        // Lisää tapahtumankäsittelijä jokaiselle listan elementille\n        MokitJaAlueetLista.setCellFactory(param -> {\n            ListCell<Mokki> cell = new ListCell<>() {\n                @Override\n                protected void updateItem(Mokki NewMokki, boolean empty) {\n                    super.updateItem(NewMokki, empty);\n                    if (empty || NewMokki == null) {\n                        setText(null);\n                    } else {\n                        setText(NewMokki.getNimi() + \" \" + NewMokki.getHinta());\n                    }\n                }\n            };\n\n          /**  cell.setOnMouseClicked(event -> {\n                if (event.getClickCount() == 2 && !cell.isEmpty()) {\n                    Mokki NewMokki = cell.getItem();\n                    // Avaa uusi ikkuna tietojen muokkausta varten\n                    FXMLLoader loader = new FXMLLoader(getClass().getResource(\"MuokkaaAsiakasta.fxml\"));\n                    Parent root = null;\n                    try {\n                        root = loader.load();\n                        MuokkaaAsiakastaController controller = loader.getController();\n                        controller.setAsiakas(asiakas);\n                        Scene scene = new Scene(root);\n                        Stage stage = new Stage();\n                        stage.setScene(scene);\n                        stage.show();\n                    } catch (IOException e) {\n                        throw new RuntimeException(e);\n                    }\n\n                }\n            });*/\n\n          /**  return cell;\n        });\n    }\n\n    @FXML\n    private void ButtonHae(ActionEvent event) {\n        ObservableList<Mokki> mokit = FXCollections.observableArrayList(NewMokkienHallinta.haeKaikkiMokit());\n        MokitJaAlueetLista.setItems(mokit);\n    }*/\n\n    }\n
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/MokitController.java b/src/main/java/com/example/mokit_r31/MokitController.java
+--- a/src/main/java/com/example/mokit_r31/MokitController.java	
++++ b/src/main/java/com/example/mokit_r31/MokitController.java	
+@@ -19,9 +19,9 @@
+ public class MokitController {
+ 
+         @FXML
+-        private Button BtpalaaMain;
++        private Button BtpalaaMain; //Palaa Main sivulle
+         @FXML
+-        private TextField TfMokki;
++        private TextField TfMokki; // Mökin nimi, hinta varustelu
+         @FXML
+         private Button BtHaeMokki;
+         @FXML
