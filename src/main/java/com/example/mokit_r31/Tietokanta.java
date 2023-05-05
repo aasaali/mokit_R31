@@ -5,10 +5,10 @@ import java.sql.*;
 public class Tietokanta {
     private static final String TIETOKANTAN_NIMI = "jdbc:mysql://localhost:3306/vn";
     private static final String KAYTTAJA = "root";
-    private static final String SALASANA = "R31_mokki";
+    //private static final String SALASANA = "R31_mokki";
 
     // TAIJAN VERSIO, koska en saa muutettua tietokannan kirjautumistietoja
-    //private static final String SALASANA = "admin";
+    private static final String SALASANA = "admin";
     // kommentoi tämä rivi pois ja ota ylempi salasana käyttöön
 
     public static Connection getYhteys() throws SQLException {

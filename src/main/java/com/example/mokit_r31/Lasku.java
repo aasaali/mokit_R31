@@ -1,5 +1,10 @@
 package com.example.mokit_r31;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -11,10 +16,6 @@ import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 /** Laskun tietoja:
 asiakkaan tiedot: nimi, osoite, puhelinnumero
