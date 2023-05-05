@@ -38,7 +38,27 @@ public class MuokkaaAsiakastaController {
         this.asiakas = asiakas;
         naytaAsiakkaanTiedot();
     }
+    @FXML
+    private void tallennaButton(ActionEvent event) {
 
+        try {
+            // Tallenna käyttäjän tekemät muutokset tietokantaan
+            asiakasHallinta.paivitaAsiakas(asiakas);
+
+            // Sulje ikkuna, jos tallennus onnistui
+            Stage stage = (Stage) tallennaButton.getScene().getWindow();
+            stage.close();
+        } catch (SQLException ex) {
+            // Näytä virheilmoitus dialogilla, jos tallennus epäonnistui
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Virhe");
+            alert.setHeaderText("Asiakkaan tallentaminen epäonnistui");
+            alert.setContentText("Tapahtui virhe tallennettaessa muutoksia tietokantaan:\n" + ex.getMessage());
+            alert.showAndWait();
+        }
+
+    }
+/*
     public void initialize() {
 
         if (asiakas == null) {
@@ -73,13 +93,14 @@ public class MuokkaaAsiakastaController {
             }
         });
 
-    }
+    } */
 
     public void setAsiakasHallinta(AsiakasHallinta asiakasHallinta) {
         this.asiakasHallinta = asiakasHallinta;
     }
     @FXML
     private void naytaAsiakkaanTiedot() {
+        idTextField.setText(String.valueOf(asiakas.getAsiakasId()));
         etunimiTextField.setText(asiakas.getEtunimi());
         sukunimiTextField.setText(asiakas.getSukunimi());
         lahiosoiteTextField.setText(asiakas.getLahiosoite());

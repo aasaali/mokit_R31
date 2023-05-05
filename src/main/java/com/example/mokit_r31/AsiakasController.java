@@ -58,7 +58,8 @@ public class AsiakasController {
                     if (empty || asiakas == null) {
                             setText(null);
                         } else {
-                            setText(asiakas.getEtunimi() + " " + asiakas.getSukunimi());
+                            setText(asiakas.getEtunimi() + " " + asiakas.getSukunimi() + " - asiakas ID: "
+                                    + asiakas.getAsiakasId());
                         }
                     }
                 };
