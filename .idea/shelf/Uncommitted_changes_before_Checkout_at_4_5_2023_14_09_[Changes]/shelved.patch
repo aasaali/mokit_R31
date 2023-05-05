@@ -1,0 +1,71 @@
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-231.8109.175\">\r\n    <data-source name=\"@localhost\" uuid=\"84add08f-a74d-4664-84a0-387cf314bdfa\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost\" uuid=\"0e6fd1d0-de6f-4549-94ac-7eaf04dabb00\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [4]\" uuid=\"9a00152f-afe5-4c58-9e95-4e8724fc0b75\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"vn@localhost\" uuid=\"a6fe68cb-de70-4e9b-a48b-e8d318ca55fa\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [3]\" uuid=\"fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [2]\" uuid=\"9748761e-5bba-4fc0-b42c-f003b6515a98\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [5]\" uuid=\"c8650c45-01f7-4576-9eb5-7c1899dbd549\">\r\n      <database-info product=\"MySQL\" version=\"8.0.33\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.33\" exact-driver-version=\"8.0\">\r\n        <extra-name-characters>#@</extra-name-characters>\r\n        <identifier-quote-string>`</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\r\n      <secret-storage>master_key</secret-storage>\r\n      <user-name>root</user-name>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"schema\" qname=\"@\" />\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	
++++ b/.idea/dataSources.local.xml	
+@@ -2,8 +2,18 @@
+ <project version="4">
+   <component name="dataSourceStorageLocal" created-in="IU-231.8109.175">
+     <data-source name="@localhost" uuid="84add08f-a74d-4664-84a0-387cf314bdfa">
+-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+-      <schema-mapping />
++      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
++        <extra-name-characters>#@</extra-name-characters>
++        <identifier-quote-string>`</identifier-quote-string>
++      </database-info>
++      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
++      <secret-storage>master_key</secret-storage>
++      <user-name>root</user-name>
++      <schema-mapping>
++        <introspection-scope>
++          <node kind="schema" qname="@" />
++        </introspection-scope>
++      </schema-mapping>
+     </data-source>
+     <data-source name="@localhost" uuid="0e6fd1d0-de6f-4549-94ac-7eaf04dabb00">
+       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+@@ -26,18 +36,8 @@
+       <schema-mapping />
+     </data-source>
+     <data-source name="@localhost [5]" uuid="c8650c45-01f7-4576-9eb5-7c1899dbd549">
+-      <database-info product="MySQL" version="8.0.33" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.33" exact-driver-version="8.0">
+-        <extra-name-characters>#@</extra-name-characters>
+-        <identifier-quote-string>`</identifier-quote-string>
+-      </database-info>
+-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+-      <secret-storage>master_key</secret-storage>
+-      <user-name>root</user-name>
+-      <schema-mapping>
+-        <introspection-scope>
+-          <node kind="schema" qname="@" />
+-        </introspection-scope>
+-      </schema-mapping>
++      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
++      <schema-mapping />
+     </data-source>
+   </component>
+ </project>
+\ No newline at end of file
+Index: src/main/java/module-info.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>module com.example.mokit_r31 {\r\n    requires javafx.controls;\r\n    requires javafx.fxml;\r\n    requires java.sql;\r\n    requires itextpdf;\r\n\r\n\r\n    opens com.example.mokit_r31 to javafx.fxml;\r\n    exports com.example.mokit_r31;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/module-info.java b/src/main/java/module-info.java
+--- a/src/main/java/module-info.java	
++++ b/src/main/java/module-info.java	
+@@ -3,6 +3,7 @@
+     requires javafx.fxml;
+     requires java.sql;
+     requires itextpdf;
++    // requires itextpdf;
+ 
+ 
+     opens com.example.mokit_r31 to javafx.fxml;

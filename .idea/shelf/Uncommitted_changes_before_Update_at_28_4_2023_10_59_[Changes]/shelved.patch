@@ -1,0 +1,50 @@
+Index: .idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<dataSource name=\"@localhost\">\r\n  <database-model serializer=\"dbm\" dbms=\"MYSQL\" family-id=\"MYSQL\" format-version=\"4.48\">\r\n    <root id=\"1\"/>\r\n    <schema id=\"2\" parent=\"1\" name=\"information_schema\"/>\r\n    <schema id=\"3\" parent=\"1\" name=\"mysql\"/>\r\n    <schema id=\"4\" parent=\"1\" name=\"performance_schema\"/>\r\n    <schema id=\"5\" parent=\"1\" name=\"sys\"/>\r\n    <schema id=\"6\" parent=\"1\" name=\"vn\"/>\r\n  </database-model>\r\n</dataSource>
+===================================================================
+diff --git a/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml b/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml
+--- a/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml	
++++ b/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml	
+@@ -1,11 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <dataSource name="@localhost">
+   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
+-    <root id="1"/>
++    <root id="1">
++      <DefaultCasing>lower/lower</DefaultCasing>
++      <ServerVersion>8.0.31</ServerVersion>
++    </root>
+     <schema id="2" parent="1" name="information_schema"/>
+-    <schema id="3" parent="1" name="mysql"/>
+-    <schema id="4" parent="1" name="performance_schema"/>
+-    <schema id="5" parent="1" name="sys"/>
+-    <schema id="6" parent="1" name="vn"/>
++    <schema id="3" parent="1" name="laakityshaittariskit"/>
++    <schema id="4" parent="1" name="mysql"/>
++    <schema id="5" parent="1" name="performance_schema"/>
++    <schema id="6" parent="1" name="sakila"/>
++    <schema id="7" parent="1" name="sys"/>
+   </database-model>
+ </dataSource>
+\ No newline at end of file
+Index: .idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<dataSource name=\"vn@localhost\">\r\n  <database-model serializer=\"dbm\" dbms=\"MYSQL\" family-id=\"MYSQL\" format-version=\"4.48\">\r\n    <root id=\"1\">\r\n      <DefaultCasing>mixed/mixed</DefaultCasing>\r\n      <ServerVersion>8.0.33</ServerVersion>\r\n    </root>\r\n    <schema id=\"2\" parent=\"1\" name=\"information_schema\"/>\r\n    <schema id=\"3\" parent=\"1\" name=\"mysql\"/>\r\n    <schema id=\"4\" parent=\"1\" name=\"performance_schema\"/>\r\n    <schema id=\"5\" parent=\"1\" name=\"sys\"/>\r\n    <schema id=\"6\" parent=\"1\" name=\"vn\">\r\n      <Current>1</Current>\r\n    </schema>\r\n  </database-model>\r\n</dataSource>
+===================================================================
+diff --git a/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml b/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml
+--- a/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml	
++++ b/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml	
+@@ -1,10 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <dataSource name="vn@localhost">
+   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
+-    <root id="1">
+-      <DefaultCasing>mixed/mixed</DefaultCasing>
+-      <ServerVersion>8.0.33</ServerVersion>
+-    </root>
++    <root id="1"/>
+     <schema id="2" parent="1" name="information_schema"/>
+     <schema id="3" parent="1" name="mysql"/>
+     <schema id="4" parent="1" name="performance_schema"/>

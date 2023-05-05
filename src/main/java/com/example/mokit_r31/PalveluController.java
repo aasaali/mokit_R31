@@ -1,10 +1,15 @@
 package com.example.mokit_r31;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import java.sql.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.sql.*;
 
 
 
@@ -15,6 +20,8 @@ public class PalveluController extends PalvelujenHallinta {
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "x!";
     private static Connection conn;
+
+
 
     PalvelujenHallinta hallinta = new PalvelujenHallinta();
 
@@ -58,8 +65,20 @@ public class PalveluController extends PalvelujenHallinta {
 
 
     @FXML
-
     private void initialize() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("uudempiPalvelu.fxml"));
+            loader.setController(this);
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     // luoPalveluBt tapahtumankäsittelijä
         luoPalveluBt.setOnAction(e -> {
         int id = Integer.parseInt(palveluIDTf.getText());

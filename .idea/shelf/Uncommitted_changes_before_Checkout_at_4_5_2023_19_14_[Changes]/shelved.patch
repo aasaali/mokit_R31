@@ -1,0 +1,1187 @@
+Index: src/main/java/com/example/mokit_r31/PalvelujenHallinta.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.mokit_r31;\r\nimport javafx.application.Application;\r\nimport javafx.stage.Stage;\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.Scanner;\r\n\r\n\r\n\r\npublic class PalvelujenHallinta extends Application  {\r\n\r\n\r\n\r\n    private static final String DB_URL = \"jdbc:mysql://localhost:3306/vn\";\r\n    private static final String DB_USER = \"root\";\r\n    private static final String DB_PASSWORD = \"x\";\r\n\r\n    private static Connection conn;\r\n\r\n    public static void main(String[] args) {\r\n\r\n        try {\r\n            // Yhdistä tietokantaan\r\n            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);\r\n\r\n            // Luo tietokantaan tarvittavat taulut\r\n            createTables();\r\n\r\n            // Luo valikko\r\n            Scanner scanner = new Scanner(System.in);\r\n            int valinta;\r\n            do {\r\n                System.out.println(\"1. Lisää palvelu\");\r\n                System.out.println(\"2. Näytä palvelut\");\r\n                System.out.println(\"3. Poista palvelu\");\r\n                System.out.println(\"4. Muokkaa palvelun tietoja\");\r\n                System.out.println(\"0. Lopeta\");\r\n                System.out.print(\"Valitse toiminto: \");\r\n                valinta = scanner.nextInt();\r\n                scanner.nextLine(); // Tyhjennä rivinvaihtomerkki\r\n\r\n                switch (valinta) {\r\n                    case 1:\r\n                        lisaaPalvelu(scanner);\r\n                        break;\r\n                    case 2:\r\n                         naytaPalvelut();\r\n                        break;\r\n                    case 3:\r\n                       poistaPalvelu(scanner);\r\n                        break;\r\n                    case 4:\r\n                        muokkaaPalvelunTietoja(scanner);\r\n                        break;\r\n                    case 0:\r\n                        System.out.println(\"Kiitos ohjelman käytöstä!\");\r\n                        break;\r\n                    default:\r\n                        System.out.println(\"Virheellinen valinta.\");\r\n                }\r\n                System.out.println();\r\n            } while (valinta != 0);\r\n\r\n            // Sulje yhteys tietokantaan\r\n            conn.close();\r\n\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Tietokantavirhe: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n    private static void muokkaaPalvelunTietoja(Scanner scanner) {\r\n\r\n            System.out.println(\"Anna muokattavan palvelun ID:\");\r\n            int id = scanner.nextInt();\r\n            scanner.nextLine(); // Tyhjennetään rivinvaihto\r\n\r\n         ArrayList<Palvelu> palvelut = new ArrayList<>();\r\n\r\n            // Etsitään palvelu ID:n perusteella\r\n            Palvelu muokattavaPalvelu = null;\r\n            for (Palvelu palvelu : palvelut) {\r\n                if (palvelu.getId() == id) {\r\n                    muokattavaPalvelu = palvelu;\r\n                    break;\r\n                }\r\n            }\r\n\r\n            if (muokattavaPalvelu == null) {\r\n                System.out.println(\"Palvelua ei löydy ID:n perusteella.\");\r\n                return;\r\n            }\r\n\r\n            System.out.println(\"Anna uusi nimi (max. 40 merkkiä):\");\r\n            String uusiNimi = scanner.nextLine();\r\n            if (uusiNimi.length() > 40) {\r\n                System.out.println(\"Nimi on liian pitkä.\");\r\n                return;\r\n            }\r\n\r\n            System.out.println(\"Anna uusi tyyppi (1-10):\");\r\n            int uusiTyyppi = scanner.nextInt();\r\n            scanner.nextLine(); // Tyhjennetään rivinvaihto\r\n            if (uusiTyyppi < 1 || uusiTyyppi > 10) {\r\n                System.out.println(\"Tyyppi on virheellinen.\");\r\n                return;\r\n            }\r\n\r\n            System.out.println(\"Anna uusi kuvaus (max. 225 merkkiä):\");\r\n            String uusiKuvaus = scanner.nextLine();\r\n            if (uusiKuvaus.length() > 225) {\r\n                System.out.println(\"Kuvaus on liian pitkä.\");\r\n                return;\r\n            }\r\n\r\n            System.out.println(\"Anna uusi hinta (max. 8 numeron mittainen luku kahden desimaalin tarkkuudella):\");\r\n            double uusiHinta = scanner.nextDouble();\r\n            if (uusiHinta <= 0 || uusiHinta > 99999999.99) {\r\n                System.out.println(\"Hinta on virheellinen.\");\r\n                return;\r\n            }\r\n\r\n            // Lasketaan uusi arvonlisävero\r\n            final double ALV_PROSENTTI = 24.0;\r\n            double uusiALV = uusiHinta * ALV_PROSENTTI / 100.0;\r\n\r\n            // Päivitetään palvelun tiedot\r\n            muokattavaPalvelu.setNimi(uusiNimi);\r\n            muokattavaPalvelu.setTyyppi(uusiTyyppi);\r\n            muokattavaPalvelu.setKuvaus(uusiKuvaus);\r\n            muokattavaPalvelu.setHinta(uusiHinta);\r\n            muokattavaPalvelu.setAlv(uusiALV);\r\n\r\n            System.out.println(\"Palvelun tiedot päivitetty.\");\r\n        }\r\n\r\n\r\n\r\n    private static void poistaPalvelu(Scanner scanner) {{\r\n            try {\r\n                Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);\r\n                Statement statement = connection.createStatement();\r\n                ResultSet resultSet = statement.executeQuery(\"SELECT * FROM palvelut\");\r\n\r\n                System.out.println(\"Valitse poistettava palvelu (syötä id):\");\r\n                while (resultSet.next()) {\r\n                    System.out.println(resultSet.getInt(\"id\") + \": \" + resultSet.getString(\"nimi\"));\r\n                }\r\n\r\n                int id = scanner.nextInt();\r\n                statement.executeUpdate(\"DELETE FROM palvelut WHERE id=\" + id);\r\n\r\n                System.out.println(\"Palvelu poistettu onnistuneesti.\");\r\n\r\n                resultSet.close();\r\n                statement.close();\r\n                connection.close();\r\n            } catch (SQLException e) {\r\n                e.printStackTrace();\r\n            }\r\n        }\r\n    }\r\n\r\n    private static void naytaPalvelut() {\r\n\r\n        try {\r\n            // Avaa tietokantayhteys\r\n            Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);\r\n\r\n            // Hae kaikki palvelut tietokannasta\r\n            Statement stmt = con.createStatement();\r\n            ResultSet rs = stmt.executeQuery(\"SELECT * FROM palvelut\");\r\n\r\n            // Tulosta palvelut\r\n            while (rs.next()) {\r\n                System.out.println(\"ID: \" + rs.getInt(\"id\") + \" | Nimi: \" + rs.getString(\"nimi\") + \" | Tyyppi: \" + rs.getInt(\"tyyppi\") + \" | Kuvaus: \" + rs.getString(\"kuvaus\") + \" | Hinta: \" + rs.getDouble(\"hinta\") + \" | ALV: \" + rs.getDouble(\"alv\"));\r\n            }\r\n\r\n            // Sulje tietokantayhteys\r\n            rs.close();\r\n            stmt.close();\r\n            con.close();\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Virhe: \" + e.getMessage());\r\n        }\r\n    }\r\n\r\n\r\n    private static void createTables() throws SQLException {\r\n        Statement stmt = conn.createStatement();\r\n        String sql = \"CREATE TABLE IF NOT EXISTS alueet (\"\r\n                + \"id INT(11) NOT NULL AUTO_INCREMENT,\"\r\n                + \"nimi VARCHAR(40) NOT NULL,\"\r\n                + \"PRIMARY KEY (id)\"\r\n                + \")\";\r\n        stmt.executeUpdate(sql);\r\n\r\n        sql = \"CREATE TABLE IF NOT EXISTS palvelut (\"\r\n                + \"id INT(11) NOT NULL AUTO_INCREMENT,\"\r\n                + \"alue_id INT(11) NOT NULL,\"\r\n                + \"nimi VARCHAR(40) NOT NULL,\"\r\n                + \"tyyppi INT(11) NOT NULL,\"\r\n                + \"kuvaus VARCHAR(225) NOT NULL,\"\r\n                + \"hinta DECIMAL(10,2) NOT NULL,\"\r\n                + \"alv DECIMAL(10,2) NOT NULL,\"\r\n                + \"PRIMARY KEY (id),\"\r\n                + \"FOREIGN KEY (alue_id) REFERENCES alueet(id) ON DELETE CASCADE\"\r\n                + \")\";\r\n        stmt.executeUpdate(sql);\r\n\r\n        stmt.close();\r\n    }\r\n\r\n        private static void lisaaPalvelu(Scanner scanner) throws SQLException {\r\n            System.out.println(\"\\nLisää uusi palvelu\");\r\n            System.out.print(\"Palvelun nimi (max 40 merkkiä): \");\r\n            String nimi = scanner.nextLine();\r\n            while (nimi.length() > 40) {\r\n                System.out.print(\"Liian pitkä nimi. Anna uusi nimi (max 40 merkkiä): \");\r\n                nimi = scanner.nextLine();\r\n            }\r\n            System.out.print(\"Palvelun tyyppi: \");\r\n            int tyyppi = Integer.parseInt(scanner.nextLine());\r\n            System.out.print(\"Palvelun kuvaus (max 225 merkkiä): \");\r\n            String kuvaus = scanner.nextLine();\r\n            while (kuvaus.length() > 225) {\r\n                System.out.print(\"Liian pitkä kuvaus. Anna uusi kuvaus (max 225 merkkiä): \");\r\n                kuvaus = scanner.nextLine();\r\n            }\r\n            System.out.print(\"Palvelun hinta (max 8 numeron mittainen luku kahden desimaalin tarkkuudella): \");\r\n            double hinta = Double.parseDouble(scanner.nextLine());\r\n            System.out.print(\"Palvelun alv-prosentti: \");\r\n            double alvProsentti = Double.parseDouble(scanner.nextLine());\r\n\r\n            String sql = \"INSERT INTO palvelut (nimi, tyyppi, kuvaus, hinta, alv_prosentti) VALUES (?, ?, ?, ?, ?)\";\r\n            try (PreparedStatement stmt = conn.prepareStatement(sql)) {\r\n                stmt.setString(1, nimi);\r\n\r\n\r\n\r\n\r\n\r\n    }}\r\n\r\n    @Override\r\n    public void start(Stage stage) throws Exception {\r\n\r\n    }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java b/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java
+--- a/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
++++ b/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java	(date 1683216655380)
+@@ -1,250 +1,115 @@
+ package com.example.mokit_r31;
+ import javafx.application.Application;
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Parent;
+ import javafx.stage.Stage;
++import java.io.IOException;
+ import java.sql.*;
+-import java.util.ArrayList;
+-import java.util.Scanner;
++import javafx.scene.Scene;
+ 
+ 
+ 
+-public class PalvelujenHallinta extends Application  {
++public class PalvelujenHallinta extends Application {
+ 
+-
+-
+-    private static final String DB_URL = "jdbc:mysql://localhost:3306/vn";
+-    private static final String DB_USER = "root";
+-    private static final String DB_PASSWORD = "x";
+-
+-    private static Connection conn;
++        private static final String DB_URL = "jdbc:mysql://localhost:3306/vn";
++        private static final String DB_USER = "root";
++        private static final String DB_PASSWORD = "R31_mokki";
++        private static Connection conn;
++        @Override
++        public void start(Stage stage) throws IOException {
++            Parent root = FXMLLoader.load(getClass().getResource("Palvelunhallinta.fxml"));
++            Scene scene = new Scene(root, 600,400);
++            stage.setScene(scene);
++            stage.show();
++        }
+ 
+-    public static void main(String[] args) {
+ 
++    // Metodi palvelun lisäämiseen tietokantaan
++    public void lisaaPalvelu(int postinumero, String nimi, int tyyppi, String kuvaus, double hinta) {
+         try {
+-            // Yhdistä tietokantaan
+-            conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+-
+-            // Luo tietokantaan tarvittavat taulut
+-            createTables();
+-
+-            // Luo valikko
+-            Scanner scanner = new Scanner(System.in);
+-            int valinta;
+-            do {
+-                System.out.println("1. Lisää palvelu");
+-                System.out.println("2. Näytä palvelut");
+-                System.out.println("3. Poista palvelu");
+-                System.out.println("4. Muokkaa palvelun tietoja");
+-                System.out.println("0. Lopeta");
+-                System.out.print("Valitse toiminto: ");
+-                valinta = scanner.nextInt();
+-                scanner.nextLine(); // Tyhjennä rivinvaihtomerkki
+-
+-                switch (valinta) {
+-                    case 1:
+-                        lisaaPalvelu(scanner);
+-                        break;
+-                    case 2:
+-                         naytaPalvelut();
+-                        break;
+-                    case 3:
+-                       poistaPalvelu(scanner);
+-                        break;
+-                    case 4:
+-                        muokkaaPalvelunTietoja(scanner);
+-                        break;
+-                    case 0:
+-                        System.out.println("Kiitos ohjelman käytöstä!");
+-                        break;
+-                    default:
+-                        System.out.println("Virheellinen valinta.");
+-                }
+-                System.out.println();
+-            } while (valinta != 0);
+-
+-            // Sulje yhteys tietokantaan
+-            conn.close();
+-
++            PreparedStatement stmt = conn.prepareStatement(
++                    "INSERT INTO Palvelu (postinumero, nimi, tyyppi, kuvaus, hinta, alv) " +
++                            "VALUES (?, ?, ?, ?, ?, ?)"
++            );
++            stmt.setInt(1, postinumero);
++            stmt.setString(2, nimi);
++            stmt.setInt(3, tyyppi);
++            stmt.setString(4, kuvaus);
++            stmt.setDouble(5, hinta);
++            stmt.setDouble(6, hinta * 0.24); // Lasketaan arvonlisävero automaattisesti
++            stmt.executeUpdate();
++            System.out.println("Palvelu lisätty tietokantaan.");
+         } catch (SQLException e) {
+-            System.out.println("Tietokantavirhe: " + e.getMessage());
++            System.out.println("Virhe lisättäessä palvelua: " + e.getMessage());
+         }
+     }
+-
+-    private static void muokkaaPalvelunTietoja(Scanner scanner) {
+-
+-            System.out.println("Anna muokattavan palvelun ID:");
+-            int id = scanner.nextInt();
+-            scanner.nextLine(); // Tyhjennetään rivinvaihto
+-
+-         ArrayList<Palvelu> palvelut = new ArrayList<>();
+-
+-            // Etsitään palvelu ID:n perusteella
+-            Palvelu muokattavaPalvelu = null;
+-            for (Palvelu palvelu : palvelut) {
+-                if (palvelu.getId() == id) {
+-                    muokattavaPalvelu = palvelu;
+-                    break;
+-                }
+-            }
+-
+-            if (muokattavaPalvelu == null) {
+-                System.out.println("Palvelua ei löydy ID:n perusteella.");
+-                return;
+-            }
+-
+-            System.out.println("Anna uusi nimi (max. 40 merkkiä):");
+-            String uusiNimi = scanner.nextLine();
+-            if (uusiNimi.length() > 40) {
+-                System.out.println("Nimi on liian pitkä.");
+-                return;
+-            }
+-
+-            System.out.println("Anna uusi tyyppi (1-10):");
+-            int uusiTyyppi = scanner.nextInt();
+-            scanner.nextLine(); // Tyhjennetään rivinvaihto
+-            if (uusiTyyppi < 1 || uusiTyyppi > 10) {
+-                System.out.println("Tyyppi on virheellinen.");
+-                return;
+-            }
+-
+-            System.out.println("Anna uusi kuvaus (max. 225 merkkiä):");
+-            String uusiKuvaus = scanner.nextLine();
+-            if (uusiKuvaus.length() > 225) {
+-                System.out.println("Kuvaus on liian pitkä.");
+-                return;
+-            }
+-
+-            System.out.println("Anna uusi hinta (max. 8 numeron mittainen luku kahden desimaalin tarkkuudella):");
+-            double uusiHinta = scanner.nextDouble();
+-            if (uusiHinta <= 0 || uusiHinta > 99999999.99) {
+-                System.out.println("Hinta on virheellinen.");
+-                return;
+-            }
+ 
+-            // Lasketaan uusi arvonlisävero
+-            final double ALV_PROSENTTI = 24.0;
+-            double uusiALV = uusiHinta * ALV_PROSENTTI / 100.0;
+-
+-            // Päivitetään palvelun tiedot
+-            muokattavaPalvelu.setNimi(uusiNimi);
+-            muokattavaPalvelu.setTyyppi(uusiTyyppi);
+-            muokattavaPalvelu.setKuvaus(uusiKuvaus);
+-            muokattavaPalvelu.setHinta(uusiHinta);
+-            muokattavaPalvelu.setAlv(uusiALV);
+-
+-            System.out.println("Palvelun tiedot päivitetty.");
+-        }
+-
+-
+-
+-    private static void poistaPalvelu(Scanner scanner) {{
+-            try {
+-                Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+-                Statement statement = connection.createStatement();
+-                ResultSet resultSet = statement.executeQuery("SELECT * FROM palvelut");
+-
+-                System.out.println("Valitse poistettava palvelu (syötä id):");
+-                while (resultSet.next()) {
+-                    System.out.println(resultSet.getInt("id") + ": " + resultSet.getString("nimi"));
+-                }
+-
+-                int id = scanner.nextInt();
+-                statement.executeUpdate("DELETE FROM palvelut WHERE id=" + id);
+-
+-                System.out.println("Palvelu poistettu onnistuneesti.");
+-
+-                resultSet.close();
+-                statement.close();
+-                connection.close();
+-            } catch (SQLException e) {
+-                e.printStackTrace();
+-            }
++    // Metodi palveluiden hakemiseen tietokannasta ja tulostamiseen listana
++    public void naytaPalvelut() {
++        try {
++            Statement stmt = conn.createStatement();
++            ResultSet rs = stmt.executeQuery("SELECT * FROM Palvelu");
++            while (rs.next()) {
++                System.out.println(rs.getInt("id") + " - " + rs.getString("nimi"));
++            }
++        } catch (SQLException e) {
++            System.out.println("Virhe haettaessa palveluita: " + e.getMessage());
+         }
+     }
+ 
+-    private static void naytaPalvelut() {
+-
++    // Metodi palvelun poistamiseen tietokannasta
++    public void poistaPalvelu(int id) {
+         try {
+-            // Avaa tietokantayhteys
+-            Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
++            PreparedStatement stmt = conn.prepareStatement(
++                    "DELETE FROM Palvelu WHERE id = ?"
++            );
++            stmt.setInt(1, id);
++            int count = stmt.executeUpdate();
++            if (count > 0) {
++                System.out.println("Palvelu poistettu tietokannasta.");
++            } else {
++                System.out.println("Palvelua ei löytynyt tietokannasta.");
++            }
++        } catch (SQLException e) {
++            System.out.println("Virhe poistettaessa palvelua: " + e.getMessage());
++        }
++
++        String nimi;
++        String kuvaus;
++
++        // Metodi palvelun muokkaamiseen tietokannassa
++        public void muokkaaPalvelua(int id, int postinumero, String nimi, int tyyppi, String kuvaus, double hinta) {
++            try {
++                PreparedStatement stmt = conn.prepareStatement(
++                        "UPDATE Palvelu SET postinumero = ?, nimi = ?, tyyppi = ?, kuvaus = ?, hinta = ?, alv = ? " +
++                                "WHERE id = ?"
++                );
++                stmt.setInt(1, postinumero);
++                stmt.setString(2, nimi);
++                stmt.setInt(3, tyyppi);
++                stmt.setString(4, kuvaus);
++                stmt.setDouble(5, hinta);
+ 
+-            // Hae kaikki palvelut tietokannasta
+-            Statement stmt = con.createStatement();
+-            ResultSet rs = stmt.executeQuery("SELECT * FROM palvelut");
++                // Lasketaan arvonlisävero ja asetetaan se parametrina valmisteltuun lauseeseen
++                double alv = hinta * 0.24;
++                stmt.setDouble(6, alv);
+ 
+-            // Tulosta palvelut
+-            while (rs.next()) {
+-                System.out.println("ID: " + rs.getInt("id") + " | Nimi: " + rs.getString("nimi") + " | Tyyppi: " + rs.getInt("tyyppi") + " | Kuvaus: " + rs.getString("kuvaus") + " | Hinta: " + rs.getDouble("hinta") + " | ALV: " + rs.getDouble("alv"));
+-            }
++                stmt.setInt(7, id);
++
++                // Suoritetaan päivityskysely
++                int lkm = stmt.executeUpdate();
++
++                if (lkm == 0) {
++                    System.out.println("Päivitys epäonnistui: palvelua ei löytynyt tietokannasta");
++                } else {
++                    System.out.println("Palvelun tiedot päivitetty onnistuneesti");
++                }
+ 
+-            // Sulje tietokantayhteys
+-            rs.close();
+-            stmt.close();
+-            con.close();
+-        } catch (SQLException e) {
+-            System.out.println("Virhe: " + e.getMessage());
+-        }
+-    }
+-
+-
+-    private static void createTables() throws SQLException {
+-        Statement stmt = conn.createStatement();
+-        String sql = "CREATE TABLE IF NOT EXISTS alueet ("
+-                + "id INT(11) NOT NULL AUTO_INCREMENT,"
+-                + "nimi VARCHAR(40) NOT NULL,"
+-                + "PRIMARY KEY (id)"
+-                + ")";
+-        stmt.executeUpdate(sql);
+-
+-        sql = "CREATE TABLE IF NOT EXISTS palvelut ("
+-                + "id INT(11) NOT NULL AUTO_INCREMENT,"
+-                + "alue_id INT(11) NOT NULL,"
+-                + "nimi VARCHAR(40) NOT NULL,"
+-                + "tyyppi INT(11) NOT NULL,"
+-                + "kuvaus VARCHAR(225) NOT NULL,"
+-                + "hinta DECIMAL(10,2) NOT NULL,"
+-                + "alv DECIMAL(10,2) NOT NULL,"
+-                + "PRIMARY KEY (id),"
+-                + "FOREIGN KEY (alue_id) REFERENCES alueet(id) ON DELETE CASCADE"
+-                + ")";
+-        stmt.executeUpdate(sql);
+-
+-        stmt.close();
+-    }
+-
+-        private static void lisaaPalvelu(Scanner scanner) throws SQLException {
+-            System.out.println("\nLisää uusi palvelu");
+-            System.out.print("Palvelun nimi (max 40 merkkiä): ");
+-            String nimi = scanner.nextLine();
+-            while (nimi.length() > 40) {
+-                System.out.print("Liian pitkä nimi. Anna uusi nimi (max 40 merkkiä): ");
+-                nimi = scanner.nextLine();
++                // Suljetaan PreparedStatement
++                stmt.close();
++            } catch (SQLException e) {
++                System.out.println("Tapahtui virhe: " + e.getMessage());
+             }
+-            System.out.print("Palvelun tyyppi: ");
+-            int tyyppi = Integer.parseInt(scanner.nextLine());
+-            System.out.print("Palvelun kuvaus (max 225 merkkiä): ");
+-            String kuvaus = scanner.nextLine();
+-            while (kuvaus.length() > 225) {
+-                System.out.print("Liian pitkä kuvaus. Anna uusi kuvaus (max 225 merkkiä): ");
+-                kuvaus = scanner.nextLine();
+-            }
+-            System.out.print("Palvelun hinta (max 8 numeron mittainen luku kahden desimaalin tarkkuudella): ");
+-            double hinta = Double.parseDouble(scanner.nextLine());
+-            System.out.print("Palvelun alv-prosentti: ");
+-            double alvProsentti = Double.parseDouble(scanner.nextLine());
+-
+-            String sql = "INSERT INTO palvelut (nimi, tyyppi, kuvaus, hinta, alv_prosentti) VALUES (?, ?, ?, ?, ?)";
+-            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+-                stmt.setString(1, nimi);
+-
+-
+-
+-
+-
+-    }}
+-
+-    @Override
+-    public void start(Stage stage) throws Exception {
+-
+-    }
+-}
++        }
+ 
++    }}
+\ No newline at end of file
+Index: .idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_25_[Changes]/shelved.patch
+===================================================================
+diff --git a/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_25_[Changes]/shelved.patch b/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_25_[Changes]/shelved.patch
+deleted file mode 100644
+--- a/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_25_[Changes]/shelved.patch	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
++++ /dev/null	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
+@@ -1,117 +0,0 @@
+-Index: .idea/workspace.xml
+-IDEA additional info:
+-Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+-<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"Lisätty koodi\">\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Palvelu.java\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaFXApplication\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Oj7obl4ZT3H0pR9hiNOMxfLnAr\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/src\" />\r\n      <recent name=\"$PROJECT_DIR$/src/main/resources\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.PalvelujenHallinta\">\r\n    <configuration name=\"PalvelujenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.PalvelujenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"VaraustenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.VaraustenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\r\n        <item itemvalue=\"Application.VaraustenHallinta\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"\" />\r\n      <created>1682062312738</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1682062312738</updated>\r\n      <workItem from=\"1682062314356\" duration=\"347000\" />\r\n      <workItem from=\"1682064188241\" duration=\"366000\" />\r\n      <workItem from=\"1682074140032\" duration=\"11600000\" />\r\n    </task>\r\n    <task id=\"LOCAL−00001\" summary=\"Lisätty koodi\">\r\n      <created>1682068236965</created>\r\n      <option name=\"number\" value=\"LOCAL−00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00001\" />\r\n      <updated>1682068236965</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"2\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Lisätty koodi\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Lisätty koodi\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>\r\n          <line>4</line>\r\n          <option name=\"timeStamp\" value=\"2\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n</project>
+-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+-<+>UTF-8
+-===================================================================
+-diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+---- a/.idea/workspace.xml	(revision f61bb04776dfb4ec3db179ced54e1d1e02e4e34c)
+-+++ b/.idea/workspace.xml	(date 1682101524284)
+-@@ -4,12 +4,7 @@
+-     <option name="autoReloadType" value="SELECTIVE" />
+-   </component>
+-   <component name="ChangeListManager">
+--    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Lisätty koodi">
+--      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Palvelu.java" afterDir="false" />
+--      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+--      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+--    </list>
+-+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
+-     <option name="SHOW_DIALOG" value="false" />
+-     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+-     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+-@@ -37,33 +32,34 @@
+-     <option name="hideEmptyMiddlePackages" value="true" />
+-     <option name="showLibraryContents" value="true" />
+-   </component>
+--  <component name="PropertiesComponent">{
+--  &quot;keyToString&quot;: {
+--    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+--    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+--    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+--    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+--    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+--    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+--    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+--    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+--    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+--    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+--    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+--    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+--    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+--    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+--    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+--    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+--    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+--    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+-+  <component name="PropertiesComponent"><![CDATA[{
+-+  "keyToString": {
+-+    "ASKED_ADD_EXTERNAL_FILES": "true",
+-+    "Downloaded.Files.Path.Enabled": "true",
+-+    "Repository.Attach.Annotations": "false",
+-+    "Repository.Attach.JavaDocs": "false",
+-+    "Repository.Attach.Sources": "false",
+-+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-+    "RunOnceActivity.ShowReadmeOnStart": "true",
+-+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-+    "WebServerToolWindowFactoryState": "false",
+-+    "last_opened_file_path": "C:/Users/amand/IdeaProjects/mokit_R31/src/mysql-connector.jar",
+-+    "node.js.detected.package.eslint": "true",
+-+    "node.js.detected.package.tslint": "true",
+-+    "node.js.selected.package.eslint": "(autodetect)",
+-+    "node.js.selected.package.tslint": "(autodetect)",
+-+    "project.structure.last.edited": "Libraries",
+-+    "project.structure.proportion": "0.15",
+-+    "project.structure.side.proportion": "0.2",
+-+    "settings.editor.selected.configurable": "preferences.pluginManager",
+-+    "vue.rearranger.settings.migration": "true"
+-   },
+--  &quot;keyToStringList&quot;: {
+--    &quot;DatabaseDriversLRU&quot;: [
+--      &quot;mysql&quot;
+-+  "keyToStringList": {
+-+    "DatabaseDriversLRU": [
+-+      "mysql"
+-     ]
+-   }
+--}</component>
+-+}]]></component>
+-   <component name="RecentsManager">
+-     <key name="MoveFile.RECENT_KEYS">
+-       <recent name="$PROJECT_DIR$/src" />
+-@@ -114,7 +110,7 @@
+-       <updated>1682062312738</updated>
+-       <workItem from="1682062314356" duration="347000" />
+-       <workItem from="1682064188241" duration="366000" />
+--      <workItem from="1682074140032" duration="11600000" />
+-+      <workItem from="1682074140032" duration="12027000" />
+-     </task>
+-     <task id="LOCAL−00001" summary="Lisätty koodi">
+-       <created>1682068236965</created>
+-@@ -122,7 +118,13 @@
+-       <option name="presentableId" value="LOCAL−00001" />
+-       <updated>1682068236965</updated>
+-     </task>
+--    <option name="localTasksCounter" value="2" />
+-+    <task id="LOCAL−00002" summary=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.">
+-+      <created>1682101509232</created>
+-+      <option name="number" value="LOCAL−00002" />
+-+      <option name="presentableId" value="LOCAL−00002" />
+-+      <updated>1682101509232</updated>
+-+    </task>
+-+    <option name="localTasksCounter" value="3" />
+-     <servers />
+-   </component>
+-   <component name="TypeScriptGeneratedFilesManager">
+-@@ -142,7 +144,8 @@
+-   <component name="VcsManagerConfiguration">
+-     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+-     <MESSAGE value="Lisätty koodi" />
+--    <option name="LAST_COMMIT_MESSAGE" value="Lisätty koodi" />
+-+    <MESSAGE value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
+-+    <option name="LAST_COMMIT_MESSAGE" value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
+-   </component>
+-   <component name="XDebuggerManager">
+-     <breakpoint-manager>
+Index: src/main/java/com/example/mokit_r31/PalveluController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/PalveluController.java b/src/main/java/com/example/mokit_r31/PalveluController.java
+new file mode 100644
+--- /dev/null	(date 1683216691602)
++++ b/src/main/java/com/example/mokit_r31/PalveluController.java	(date 1683216691602)
+@@ -0,0 +1,76 @@
++package com.example.mokit_r31;
++
++import javafx.event.ActionEvent;
++import javafx.fxml.FXML;
++import javafx.scene.control.Button;
++import javafx.scene.control.ListView;
++import javafx.scene.control.TextField;
++import java.sql.*;
++
++
++public class PalveluController {
++
++        @FXML
++        private TextField alueenPostinumeroTf;
++
++        @FXML
++        private Button luoPalveluBt;
++
++        @FXML
++        private Button naytaPalveluBt;
++
++
++        @FXML
++        private TextField palveluArvonlisaveroTf;
++
++        @FXML
++        private TextField palveluHintaTf;
++
++        @FXML
++        private TextField palveluIDTf;
++
++        @FXML
++        private TextField palveluKuvausTf;
++
++        @FXML
++        private ListView<?> palveluLista;
++
++        @FXML
++        private TextField palveluNimiTf;
++
++        @FXML
++        private Button poistaPalveluBt;
++
++        @FXML
++        private Button tallennaPalveluBt;
++
++
++
++
++    @FXML
++    private void LuoPalveluBt(ActionEvent event) {
++        // Kutsu metodia "lisaaPalvelu" tässä
++        lisaaPalvelu(1, "palvelun nimi", 2, "kuvaus", 3.5);
++    }
++
++    @FXML
++    private void naytaPalvelutBt(ActionEvent event) {
++        // Kutsu metodia "naytaPalvelut" tässä
++        naytaPalvelut();
++    }
++
++    @FXML
++    private void PoistaPalveluBt(ActionEvent event) {
++        // Kutsu metodia "poistaPalvelu" tässä
++        poistaPalvelu(1);
++    }
++
++    @FXML
++    private void TallennaPalveluBt(ActionEvent event) {
++        // Kutsu metodia "muokkaaPalvelua" tässä
++        muokkaaPalvelua(1, 2, "palvelun nimi", 3, "kuvaus", 3.5);
++    }
++
++}
++}
++
+Index: src/main/resources/com/example/mokit_r31/Palvelunhallinta.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/mokit_r31/Palvelunhallinta.fxml b/src/main/resources/com/example/mokit_r31/Palvelunhallinta.fxml
+new file mode 100644
+--- /dev/null	(date 1683216691607)
++++ b/src/main/resources/com/example/mokit_r31/Palvelunhallinta.fxml	(date 1683216691607)
+@@ -0,0 +1,33 @@
++<?xml version="1.0" encoding="UTF-8"?>
++
++<?import javafx.scene.control.Button?>
++<?import javafx.scene.control.ListView?>
++<?import javafx.scene.control.TextField?>
++<?import javafx.scene.layout.AnchorPane?>
++<?import javafx.scene.text.Text?>
++
++<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.PalveluController">
++   <children>
++      <ListView fx:id="palveluLista" prefHeight="313.0" prefWidth="294.0" />
++      <Button fx:id="luoPalveluBt" layoutX="185.0" layoutY="353.0" mnemonicParsing="false" text="Luo uusi palvelu" />
++      <AnchorPane layoutX="294.0" prefHeight="400.0" prefWidth="306.0">
++         <children>
++            <Button fx:id="poistaPalveluBt" layoutX="189.0" layoutY="352.0" mnemonicParsing="false" text="Poista palvelu" />
++            <Text layoutX="12.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palvelu" />
++            <Text layoutX="13.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alue" />
++            <TextField fx:id="palveluIDTf" layoutX="114.0" layoutY="37.0" text="PalveluID" />
++            <TextField fx:id="alueenPostinumeroTf" layoutX="114.0" layoutY="73.0" text="Postinumero" />
++            <Button fx:id="tallennaPalveluBt" layoutX="33.0" layoutY="352.0" mnemonicParsing="false" text="Tallenna palvelu" />
++            <TextField fx:id="palveluNimiTf" layoutX="114.0" layoutY="107.0" text="Palvelun nimi" />
++            <TextField fx:id="palveluKuvausTf" layoutX="113.0" layoutY="147.0" prefHeight="95.0" prefWidth="150.0" text="Max. 225 merkkiä." />
++            <Text layoutX="14.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nimi" wrappingWidth="37.453125" />
++            <Text layoutX="16.0" layoutY="160.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kuvaus" wrappingWidth="55.0531005859375" />
++            <Text layoutX="14.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hinta" wrappingWidth="37.453125" />
++            <Text layoutX="12.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arvonlisäveron määrä" wrappingWidth="107.85302734375" />
++            <TextField fx:id="palveluHintaTf" layoutX="118.0" layoutY="268.0" />
++            <TextField fx:id="palveluArvonlisaveroTf" layoutX="120.0" layoutY="308.0" />
++         </children>
++      </AnchorPane>
++      <Button fx:id="naytaPalveluBt" layoutX="45.0" layoutY="353.0" mnemonicParsing="false" text="Näytä palvelut" />
++   </children>
++</AnchorPane>
+Index: src/main/java/com/example/mokit_r31/Raportit.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/Raportit.java b/src/main/java/com/example/mokit_r31/Raportit.java
+new file mode 100644
+--- /dev/null	(date 1683216655387)
++++ b/src/main/java/com/example/mokit_r31/Raportit.java	(date 1683216655387)
+@@ -0,0 +1,163 @@
++package com.example.mokit_r31;
++import com.itextpdf.text.Document;
++import com.itextpdf.text.DocumentException;
++import com.itextpdf.text.Paragraph;
++import com.itextpdf.text.pdf.PdfWriter;
++import javafx.application.Application;
++import javafx.stage.Stage;
++import java.io.FileNotFoundException;
++import java.io.FileOutputStream;
++import java.sql.Connection;
++import java.sql.PreparedStatement;
++import java.sql.ResultSet;
++import java.sql.SQLException;
++import java.text.SimpleDateFormat;
++import java.util.ArrayList;
++import java.util.Date;
++import java.util.List;
++import java.util.Scanner;
++import javafx.scene.Scene;
++import javafx.scene.control.*;
++import javafx.scene.layout.VBox;
++
++public class Raportit extends Application {
++
++    private Connection connection;
++
++    public Raportit(Connection connection) {
++        this.connection = connection;
++    }
++
++
++
++
++    public void naytaMajoittumisraportti(String x, String y) {
++
++        Stage stage = new Stage();
++        VBox root = new VBox();
++        root.getChildren().addAll(new Label("Anna ajanjakso (pp.kk.vvvv - pp.kk.vvvv):"), new TextField(), new Label("Anna postinumero: "), new TextField());
++        stage.setScene(new Scene(root));
++        stage.show();
++
++        Scanner scanner = new Scanner(System.in);
++        System.out.print("Anna ajanjakso (pp.kk.vvvv - pp.kk.vvvv): ");
++        String syotettyAjanjakso = scanner.nextLine();
++
++        String[] ajankohdat = syotettyAjanjakso.split("-");
++        if (ajankohdat.length != 2) {
++            System.out.println("Virheellinen ajanjakso!");
++            return;
++        }
++
++        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
++        Date ensimmainenPaiva;
++        Date viimeinenPaiva;
++        try {
++            ensimmainenPaiva = sdf.parse(ajankohdat[0].trim());
++            viimeinenPaiva = sdf.parse(ajankohdat[1].trim());
++        } catch (Exception e) {
++            System.out.println("Virheellinen päivämäärä!");
++            return;
++        }
++
++        System.out.print("Anna postinumero: ");
++        String postinumero = scanner.nextLine();
++
++        // Tarkistetaan, että postinumero löytyy tietokannasta
++        String query = "SELECT * FROM alueet WHERE postinumero = ?";
++        try {
++            PreparedStatement statement = connection.prepareStatement(query);
++            statement.setString(1, postinumero);
++            ResultSet result = statement.executeQuery();
++
++            if (!result.next()) {
++                System.out.println("Postinumeroa ei löytynyt tietokannasta!");
++                return;
++            }
++        } catch (SQLException e) {
++            System.out.println("Virhe tietokantakyselyssä: " + e.getMessage());
++            return;
++        }
++
++        // Haetaan majoitustiedot halutulta ajanjaksolta ja postinumerolta
++        query = "SELECT mokki_id, varattu_alkupvm, varattu_loppupvm FROM varaukset WHERE varattu_alkupvm >= ? AND varattu_loppupvm <= ? AND mokki_id IN (SELECT mokki_id FROM mokit WHERE postinumero = ?)";
++        List<String[]> majoitustiedot = new ArrayList<>();
++        try {
++            PreparedStatement statement = connection.prepareStatement(query);
++            statement.setDate(1, new java.sql.Date(ensimmainenPaiva.getTime()));
++            ResultSet result = statement.executeQuery();
++
++            while (result.next()) {
++                String[] tiedot = new String[3];
++                tiedot[0] = result.getString("mokki_id");
++                tiedot[1] = result.getDate("varattu_alkupvm").toString();
++                tiedot[2] = result.getDate("varattu_loppupvm").toString();
++                majoitustiedot.add(tiedot);
++            }
++        } catch (SQLException e) {
++            System.out.println("Virhe tietokantakyselyssä: " + e.getMessage());
++            return;
++        }
++
++        // Luodaan pdf-tiedosto majoittumisraporttia varten
++        Document document = new Document();
++
++        try {
++            PdfWriter.getInstance(document, new FileOutputStream("majoittumisraportti.pdf"));
++
++            document.open();
++            document.add(new Paragraph("Majoittumisraportti"));
++            document.add(new Paragraph("Ajanjakso: " + sdf.format(ensimmainenPaiva) + " - " + sdf.format(viimeinenPaiva)));
++            document.add(new Paragraph("Postinumero: " + postinumero));
++            document.add(new Paragraph("\n"));
++
++            for (String[] tiedot : majoitustiedot) {
++                document.add(new Paragraph("Mökki ID: " + tiedot[0]));
++                document.add(new Paragraph("Varattu alkupäivämäärä: " + tiedot[1]));
++                document.add(new Paragraph("Varattu loppupäivämäärä: " + tiedot[2]));
++                document.add(new Paragraph("\n"));
++            }
++
++            document.close();
++            System.out.println("Majoittumisraportti luotu!");
++        } catch (DocumentException | FileNotFoundException e) {
++            System.out.println("Virhe tiedoston luomisessa: " + e.getMessage());
++        }
++    }
++
++    @Override
++    public void start(Stage stage) throws Exception {
++
++            // Luodaan tekstikentät, joissa voidaan syöttää tiedot
++            TextField ajanjaksoTextField = new TextField();
++            TextField postinumeroTextField = new TextField();
++
++            // Luodaan napit, joilla voidaan suorittaa raportin luonti ja tyhjentää kentät
++            Button luoRaporttiButton = new Button("Luo raportti");
++            Button tyhjennaButton = new Button("Tyhjennä kentät");
++
++            // Luodaan tapahtumankuuntelijat nappeihin
++            luoRaporttiButton.setOnAction(e -> {
++                String syotettyAjanjakso = ajanjaksoTextField.getText();
++                String postinumero = postinumeroTextField.getText();
++                naytaMajoittumisraportti(syotettyAjanjakso, postinumero);
++            });
++
++            tyhjennaButton.setOnAction(e -> {
++                ajanjaksoTextField.setText("");
++                postinumeroTextField.setText("");
++            });
++
++            // Luodaan VBox, johon lisätään kaikki komponentit
++            VBox vbox = new VBox(10);
++            vbox.getChildren().addAll(new Label("Anna ajanjakso (pp.kk.vvvv - pp.kk.vvvv):"), ajanjaksoTextField, new Label("Anna postinumero:"), postinumeroTextField, luoRaporttiButton, tyhjennaButton);
++
++            Scene scene = new Scene(vbox, 300, 200);
++
++            // Näytetään käyttöliittymä
++            stage.setTitle("Majoittumisraportti");
++            stage.setScene(scene);
++            stage.show();
++
++
++            }}
+\ No newline at end of file
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-231.8109.175\">\r\n    <data-source name=\"@localhost\" uuid=\"84add08f-a74d-4664-84a0-387cf314bdfa\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost\" uuid=\"0e6fd1d0-de6f-4549-94ac-7eaf04dabb00\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [4]\" uuid=\"9a00152f-afe5-4c58-9e95-4e8724fc0b75\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"vn@localhost\" uuid=\"a6fe68cb-de70-4e9b-a48b-e8d318ca55fa\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [3]\" uuid=\"fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [2]\" uuid=\"9748761e-5bba-4fc0-b42c-f003b6515a98\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [5]\" uuid=\"c8650c45-01f7-4576-9eb5-7c1899dbd549\">\r\n      <database-info product=\"MySQL\" version=\"8.0.33\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.33\" exact-driver-version=\"8.0\">\r\n        <extra-name-characters>#@</extra-name-characters>\r\n        <identifier-quote-string>`</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\r\n      <secret-storage>master_key</secret-storage>\r\n      <user-name>root</user-name>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"schema\" qname=\"@\" />\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
++++ b/.idea/dataSources.local.xml	(date 1683216672702)
+@@ -2,8 +2,18 @@
+ <project version="4">
+   <component name="dataSourceStorageLocal" created-in="IU-231.8109.175">
+     <data-source name="@localhost" uuid="84add08f-a74d-4664-84a0-387cf314bdfa">
+-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+-      <schema-mapping />
++      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
++        <extra-name-characters>#@</extra-name-characters>
++        <identifier-quote-string>`</identifier-quote-string>
++      </database-info>
++      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
++      <secret-storage>master_key</secret-storage>
++      <user-name>root</user-name>
++      <schema-mapping>
++        <introspection-scope>
++          <node kind="schema" qname="@" />
++        </introspection-scope>
++      </schema-mapping>
+     </data-source>
+     <data-source name="@localhost" uuid="0e6fd1d0-de6f-4549-94ac-7eaf04dabb00">
+       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+@@ -24,20 +34,6 @@
+     <data-source name="@localhost [2]" uuid="9748761e-5bba-4fc0-b42c-f003b6515a98">
+       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+       <schema-mapping />
+-    </data-source>
+-    <data-source name="@localhost [5]" uuid="c8650c45-01f7-4576-9eb5-7c1899dbd549">
+-      <database-info product="MySQL" version="8.0.33" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.33" exact-driver-version="8.0">
+-        <extra-name-characters>#@</extra-name-characters>
+-        <identifier-quote-string>`</identifier-quote-string>
+-      </database-info>
+-      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+-      <secret-storage>master_key</secret-storage>
+-      <user-name>root</user-name>
+-      <schema-mapping>
+-        <introspection-scope>
+-          <node kind="schema" qname="@" />
+-        </introspection-scope>
+-      </schema-mapping>
+     </data-source>
+   </component>
+ </project>
+\ No newline at end of file
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <groupId>com.example</groupId>\r\n    <artifactId>mokit_R31</artifactId>\r\n    <version>1.0-SNAPSHOT</version>\r\n    <name>mokit_R31</name>\r\n\r\n    <properties>\r\n        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\r\n        <junit.version>5.9.1</junit.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-controls</artifactId>\r\n            <version>17.0.2</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.openjfx</groupId>\r\n            <artifactId>javafx-fxml</artifactId>\r\n            <version>17.0.2</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-api</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter-engine</artifactId>\r\n            <version>${junit.version}</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <plugins>\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-compiler-plugin</artifactId>\r\n                <version>3.10.1</version>\r\n                <configuration>\r\n                    <source>17</source>\r\n                    <target>17</target>\r\n                </configuration>\r\n            </plugin>\r\n            <plugin>\r\n                <groupId>org.openjfx</groupId>\r\n                <artifactId>javafx-maven-plugin</artifactId>\r\n                <version>0.0.8</version>\r\n                <executions>\r\n                    <execution>\r\n                        <!-- Default configuration for running with: mvn clean javafx:run -->\r\n                        <id>default-cli</id>\r\n                        <configuration>\r\n                            <mainClass>com.example.mokit_r31/com.example.mokit_r31.MainApplication</mainClass>\r\n                            <launcher>app</launcher>\r\n                            <jlinkZipName>app</jlinkZipName>\r\n                            <jlinkImageName>app</jlinkImageName>\r\n                            <noManPages>true</noManPages>\r\n                            <stripDebug>true</stripDebug>\r\n                            <noHeaderFiles>true</noHeaderFiles>\r\n                        </configuration>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
++++ b/pom.xml	(date 1683216672717)
+@@ -26,6 +26,14 @@
+             <version>17.0.2</version>
+         </dependency>
+ 
++
++        <dependency>
++            <groupId>com.itextpdf</groupId>
++            <artifactId>itextpdf</artifactId>
++            <version>5.5.13.3</version>
++        </dependency>
++
++
+         <dependency>
+             <groupId>org.junit.jupiter</groupId>
+             <artifactId>junit-jupiter-api</artifactId>
+@@ -73,4 +81,4 @@
+             </plugin>
+         </plugins>
+     </build>
+-</project>
+\ No newline at end of file
++</project>
+Index: src/main/java/module-info.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>module com.example.mokit_r31 {\r\n    requires javafx.controls;\r\n    requires javafx.fxml;\r\n    requires java.sql;\r\n    requires itextpdf;\r\n\r\n\r\n    opens com.example.mokit_r31 to javafx.fxml;\r\n    exports com.example.mokit_r31;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/module-info.java b/src/main/java/module-info.java
+--- a/src/main/java/module-info.java	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
++++ b/src/main/java/module-info.java	(date 1683216690268)
+@@ -3,6 +3,7 @@
+     requires javafx.fxml;
+     requires java.sql;
+     requires itextpdf;
++    // requires itextpdf;
+ 
+ 
+     opens com.example.mokit_r31 to javafx.fxml;
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"laskutusta kehitetään\">\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.sha1.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.md5\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.md5.asc\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.sha1\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.sha1.asc\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50_[Changes]/shelved.patch\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50__Changes_.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaFXApplication\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"main\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Oj7obl4ZT3H0pR9hiNOMxfLnAr\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\r\n    \"Downloaded.Files.Path.Enabled\": \"true\",\r\n    \"Repository.Attach.Annotations\": \"false\",\r\n    \"Repository.Attach.JavaDocs\": \"false\",\r\n    \"Repository.Attach.Sources\": \"false\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"git-widget-placeholder\": \"Varaukset\",\r\n    \"last_opened_file_path\": \"C:/Users/taija/Downloads/itext-xmlworker-5.5.13.3\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"mysql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31\" />\r\n      <recent name=\"$PROJECT_DIR$/src/main/resources\" />\r\n      <recent name=\"$PROJECT_DIR$/src\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.VaraustenHallinta\">\r\n    <configuration name=\"MainApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.MainApplication\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PalvelujenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.PalvelujenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"VaraustenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.VaraustenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"mokit_R31\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"mokit_R31\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.VaraustenHallinta\" />\r\n        <item itemvalue=\"Application.MainApplication\" />\r\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\r\n        <item itemvalue=\"Application.VaraustenHallinta\" />\r\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"\" />\r\n      <created>1682062312738</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1682062312738</updated>\r\n      <workItem from=\"1682062314356\" duration=\"347000\" />\r\n      <workItem from=\"1682064188241\" duration=\"366000\" />\r\n      <workItem from=\"1682074140032\" duration=\"12733000\" />\r\n      <workItem from=\"1682399692901\" duration=\"723000\" />\r\n      <workItem from=\"1682569504378\" duration=\"110000\" />\r\n      <workItem from=\"1682569620247\" duration=\"4443000\" />\r\n      <workItem from=\"1682580268164\" duration=\"4250000\" />\r\n      <workItem from=\"1682659681883\" duration=\"728000\" />\r\n      <workItem from=\"1682663072872\" duration=\"3555000\" />\r\n      <workItem from=\"1683177075338\" duration=\"3898000\" />\r\n    </task>\r\n    <task id=\"LOCAL−00001\" summary=\"Lisätty koodi\">\r\n      <created>1682068236965</created>\r\n      <option name=\"number\" value=\"LOCAL−00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00001\" />\r\n      <updated>1682068236965</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00002\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\r\n      <created>1682101509232</created>\r\n      <option name=\"number\" value=\"LOCAL−00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00002\" />\r\n      <updated>1682101509232</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00003\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\r\n      <created>1682101605186</created>\r\n      <option name=\"number\" value=\"LOCAL−00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00003\" />\r\n      <updated>1682101605186</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00004\" summary=\"Luokat asiakkaille ja asiakashallinnan metodeille\">\r\n      <created>1682103875882</created>\r\n      <option name=\"number\" value=\"LOCAL−00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00004\" />\r\n      <updated>1682103875882</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00005\" summary=\"Lisätty metodit varausten hallinnalle.\">\r\n      <created>1682571271223</created>\r\n      <option name=\"number\" value=\"LOCAL−00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00005\" />\r\n      <updated>1682571271223</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00006\" summary=\"Varausikkunan tekoa\">\r\n      <created>1682583901221</created>\r\n      <option name=\"number\" value=\"LOCAL−00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00006\" />\r\n      <updated>1682583901221</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00007\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682660336204</created>\r\n      <option name=\"number\" value=\"LOCAL−00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00007\" />\r\n      <updated>1682660336205</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00008\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682660366698</created>\r\n      <option name=\"number\" value=\"LOCAL−00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00008\" />\r\n      <updated>1682660366698</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00009\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682664197632</created>\r\n      <option name=\"number\" value=\"LOCAL−00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00009\" />\r\n      <updated>1682664197632</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00010\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682665677788</created>\r\n      <option name=\"number\" value=\"LOCAL−00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00010\" />\r\n      <updated>1682665677788</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00011\" summary=\"laskutusta kehitetään\">\r\n      <created>1682670210073</created>\r\n      <option name=\"number\" value=\"LOCAL−00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00011\" />\r\n      <updated>1682670210073</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00012\" summary=\"Branchin alku\">\r\n      <created>1683012330639</created>\r\n      <option name=\"number\" value=\"LOCAL−00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00012\" />\r\n      <updated>1683012330639</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"13\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"varaukset\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"varaukset\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Lisätty koodi\" />\r\n    <MESSAGE value=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\" />\r\n    <MESSAGE value=\"Luokat asiakkaille ja asiakashallinnan metodeille\" />\r\n    <MESSAGE value=\"Lisätty metodit varausten hallinnalle.\" />\r\n    <MESSAGE value=\"Varausikkunan tekoa\" />\r\n    <MESSAGE value=\"fxml - varauksille ja alustava controller\" />\r\n    <MESSAGE value=\"testi\" />\r\n    <MESSAGE value=\"testi2\" />\r\n    <MESSAGE value=\"laskutusta kehitetään\" />\r\n    <MESSAGE value=\"Branchin alku\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Branchin alku\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>\r\n          <line>66</line>\r\n          <option name=\"timeStamp\" value=\"3\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision bfa55027403fbdca78d550dc3bc2910324f60dea)
++++ b/.idea/workspace.xml	(date 1683216691589)
+@@ -4,112 +4,19 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="laskutusta kehitetään">
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-pdfa-5.5.13.3 kopio/itext-pdfa-5.5.13.3.pom.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itext-xtra-5.5.13.3 kopio/itext-xtra-5.5.13.3.pom.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/itextpdf-5.5.13.3 kopio/itextpdf-5.5.13.3.pom.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-javadoc.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3-sources.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.jar.sha1.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.md5" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.md5.asc" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.sha1" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/xmlworker-5.5.13.3 kopio/xmlworker-5.5.13.3.pom.sha1.asc" afterDir="false" />
++    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="fxml - varauksille ja alustava controller">
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Raportit.java" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/Palvelunhallinta.fxml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50_[Changes]/shelved.patch" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_25_4_2023_9_50__Changes_.xml" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_21_4_2023_21_25_[Changes]/shelved.patch" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_05__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_05__Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_21__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_23_4_2023__15_21__Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/mysql-connector-j-8.0.33.jar" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -119,19 +26,27 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
+-        <option value="JavaFXApplication" />
+         <option value="FxmlFile" />
+         <option value="Class" />
++        <option value="JavaFXApplication" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
+-    <option name="RECENT_BRANCH_BY_REPOSITORY">
+-      <map>
+-        <entry key="$PROJECT_DIR$" value="main" />
+-      </map>
+-    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
++  "lastFilter": {
++    "state": "OPEN"
++  }
++}]]></component>
++  <component name="GithubPullRequestsUISettings">
++    <option name="selectedUrlAndAccountId">
++      <UrlAndAccount>
++        <option name="accountId" value="b7337d36-ae8c-4c41-8981-696b29cc0679" />
++        <option name="url" value="https://github.com/aasaali/mokit_R31.git" />
++      </UrlAndAccount>
++    </option>
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -155,17 +70,16 @@
+     "RunOnceActivity.ShowReadmeOnStart": "true",
+     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+     "WebServerToolWindowFactoryState": "false",
+-    "git-widget-placeholder": "Varaukset",
+-    "last_opened_file_path": "C:/Users/taija/Downloads/itext-xmlworker-5.5.13.3",
++    "last_opened_file_path": "C:/Users/amand/IdeaProjects/mokit_R31/src/main/resources/com/example/mokit_r31",
+     "node.js.detected.package.eslint": "true",
+     "node.js.detected.package.tslint": "true",
+     "node.js.selected.package.eslint": "(autodetect)",
+     "node.js.selected.package.tslint": "(autodetect)",
+     "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
++    "project.structure.last.edited": "Libraries",
+     "project.structure.proportion": "0.15",
+     "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
++    "settings.editor.selected.configurable": "preferences.JavaFX",
+     "vue.rearranger.settings.migration": "true"
+   },
+   "keyToStringList": {
+@@ -175,15 +89,18 @@
+   }
+ }]]></component>
+   <component name="RecentsManager">
++    <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\amand\IdeaProjects\mokit_R31\src\main\resources\com\example\mokit_r31" />
++    </key>
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31" />
+       <recent name="$PROJECT_DIR$/src/main/resources" />
+       <recent name="$PROJECT_DIR$/src" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.VaraustenHallinta">
+-    <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+-      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.MainApplication" />
++  <component name="RunManager" selected="Application.PalvelujenHallinta">
++    <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.HelloApplication" />
+       <module name="mokit_R31" />
+       <extension name="coverage">
+         <pattern>
+@@ -217,28 +134,15 @@
+           <option name="ENABLED" value="true" />
+         </pattern>
+       </extension>
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <configuration default="true" type="JetRunConfigurationType">
+-      <module name="mokit_R31" />
+-      <method v="2">
+-        <option name="Make" enabled="true" />
+-      </method>
+-    </configuration>
+-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+-      <module name="mokit_R31" />
+-      <option name="filePath" />
+       <method v="2">
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.PalvelujenHallinta" />
+         <item itemvalue="Application.VaraustenHallinta" />
+-        <item itemvalue="Application.MainApplication" />
+-        <item itemvalue="Application.PalvelujenHallinta" />
++        <item itemvalue="Application.HelloApplication" />
+         <item itemvalue="Application.VaraustenHallinta" />
+         <item itemvalue="Application.PalvelujenHallinta" />
+       </list>
+@@ -261,7 +165,6 @@
+       <workItem from="1682580268164" duration="4250000" />
+       <workItem from="1682659681883" duration="728000" />
+       <workItem from="1682663072872" duration="3555000" />
+-      <workItem from="1683177075338" duration="3898000" />
+     </task>
+     <task id="LOCAL−00001" summary="Lisätty koodi">
+       <created>1682068236965</created>
+@@ -323,19 +226,7 @@
+       <option name="presentableId" value="LOCAL−00010" />
+       <updated>1682665677788</updated>
+     </task>
+-    <task id="LOCAL−00011" summary="laskutusta kehitetään">
+-      <created>1682670210073</created>
+-      <option name="number" value="LOCAL−00011" />
+-      <option name="presentableId" value="LOCAL−00011" />
+-      <updated>1682670210073</updated>
+-    </task>
+-    <task id="LOCAL−00012" summary="Branchin alku">
+-      <created>1683012330639</created>
+-      <option name="number" value="LOCAL−00012" />
+-      <option name="presentableId" value="LOCAL−00012" />
+-      <updated>1683012330639</updated>
+-    </task>
+-    <option name="localTasksCounter" value="13" />
++    <option name="localTasksCounter" value="11" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+@@ -389,17 +280,15 @@
+     <MESSAGE value="fxml - varauksille ja alustava controller" />
+     <MESSAGE value="testi" />
+     <MESSAGE value="testi2" />
+-    <MESSAGE value="laskutusta kehitetään" />
+-    <MESSAGE value="Branchin alku" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Branchin alku" />
++    <option name="LAST_COMMIT_MESSAGE" value="testi2" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+       <breakpoints>
+         <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
+-          <line>66</line>
+-          <option name="timeStamp" value="3" />
++          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java</url>
++          <line>44</line>
++          <option name="timeStamp" value="1" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>
+@@ -408,4 +297,9 @@
+     <expand />
+     <select />
+   </component>
++  <component name="com.intellij.coverage.CoverageDataManagerImpl">
++    <SUITE FILE_PATH="coverage/mokit_R31$VaraustenHallinta.ic" NAME="VaraustenHallinta Coverage Results" MODIFIED="1682590437621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
++      <FILTER>com.example.mokit_r31.*</FILTER>
++    </SUITE>
++  </component>
+ </project>
+\ No newline at end of file
