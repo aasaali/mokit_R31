@@ -7,6 +7,11 @@ import java.sql.SQLException;
 
 public class LaskunHallinta {
 
+    Tietokanta tietokanta = new Tietokanta();
+    public LaskunHallinta(Tietokanta tietokanta) {
+        this.tietokanta = tietokanta;
+    }
+
     public void laskeJaTallennaLasku(int laskuId, int varausId, double alv) {
         Connection conn = null;
         PreparedStatement stmt = null;

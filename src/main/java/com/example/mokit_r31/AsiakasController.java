@@ -145,21 +145,3 @@ public class AsiakasController {
 
 }
 
-   /** @FXML
-    private void tallennaVarausButton(ActionEvent event) {
-        int asiakas = Integer.parseInt(asiakasTf.getText());
-        int mokki = Integer.parseInt(mokkiTf.getText());
-        LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
-        LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
-        Varaus varaus = new Varaus(asiakas,mokki,alkupaiva,loppupaiva);
-        try {
-            VaraustenHallinta hallinta = new VaraustenHallinta();
-            hallinta.lisaaVaraus(varaus);
-            tallennaVarausBt.setText("Vahvistettu");
-        }
-        catch (SQLException e) {
-            // Virheen käsittely
-        }
-    }
-   */
-

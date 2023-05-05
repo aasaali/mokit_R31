@@ -2,11 +2,15 @@ package com.example.mokit_r31;
 
 import java.io.FileOutputStream;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-/**
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
@@ -18,7 +22,7 @@ Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
 laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
-/**
+
 public class Lasku {
 
     private String nimi;
@@ -31,16 +35,16 @@ public class Lasku {
     private double hinta;
     private double alv;
     private double summa;
-    private LocalDateTime luomispvm;
+    private LocalDateTime luomispvm = LocalDateTime.now();
     private int laskunnumero;
-    private LocalDateTime erapaiva;
+    private LocalDateTime erapaiva = luomispvm.plus(14, ChronoUnit.DAYS);
 
     public void luoLaskuPdf(String tiedostonimi) {
         // Luodaan uusi PDF-dokumentti
         Document document = new Document(PageSize.A4);
 
         // Sen hetkinen päivämäärä?
-        // luomispvm = java.time.LocalDate.now();
+        luomispvm = LocalDateTime.now();
 
         //erapaiva = luomispvm + 14
         //https://www.javatpoint.com/java-date-add-days
@@ -92,4 +96,3 @@ public class Lasku {
     // ...
 
 }
-*/

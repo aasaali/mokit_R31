@@ -14,6 +14,8 @@ public class LaskuController {
     private Button buttonLuoUusi;
     @FXML
     private Button buttonPoista;
+    Tietokanta tietokanta = new Tietokanta();
+    private LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
 
    /** @FXML
     private void tallennaVarausButton(ActionEvent event) {
