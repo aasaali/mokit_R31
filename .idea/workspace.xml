@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varaus">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varauskorjaus">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAsiakastaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAsiakastaController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +88,20 @@
       <recent name="com.example.mokit_r31" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.VaraustenHallinta">
+  <component name="RunManager" selected="Application.MainApplication">
+    <configuration name="AlueidenHallinta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.AlueidenHallinta" />
+      <module name="mokit_R31" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.mokit_r31.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.MainApplication" />
       <module name="mokit_R31" />
@@ -131,11 +143,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.MainApplication" />
+        <item itemvalue="Application.VaraustenHallinta" />
+        <item itemvalue="Application.AlueidenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
         <item itemvalue="Application.VaraustenHallinta" />
-        <item itemvalue="Application.PalvelujenHallinta" />
       </list>
     </recent_temporary>
   </component>
@@ -272,7 +284,13 @@
       <option name="presentableId" value="LOCAL−00019" />
       <updated>1683271879070</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL−00020" summary="Varauskorjaus">
+      <created>1683273988669</created>
+      <option name="number" value="LOCAL−00020" />
+      <option name="presentableId" value="LOCAL−00020" />
+      <updated>1683273988669</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,7 +352,8 @@
     <MESSAGE value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
     <MESSAGE value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
     <MESSAGE value="Varaus" />
-    <option name="LAST_COMMIT_MESSAGE" value="Varaus" />
+    <MESSAGE value="Varauskorjaus" />
+    <option name="LAST_COMMIT_MESSAGE" value="Varauskorjaus" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -343,6 +362,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
           <line>79</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

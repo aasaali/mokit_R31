@@ -31,7 +31,6 @@ public class VarausController {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             hallinta.lisaaVaraus(varaus);
             varauksetLw.getItems().setAll(hallinta.getVaraukset());
-            tallennaVarausBt.setText("Vahvistettu");
 
         }
         catch (SQLException e) {
