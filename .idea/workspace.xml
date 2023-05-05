@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="MuokkaaAsiakasta-toiminto ym.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AlueetController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokitController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokitLisaaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/HallintaSivuMokit.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/LisaaAlue.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/LisaaMokki.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAsiakastaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAsiakastaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +79,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.43103448&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -244,25 +260,7 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1683200720682</updated>
     </task>
-    <task id="LOCAL−00016" summary="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.">
-      <created>1683201410799</created>
-      <option name="number" value="LOCAL−00016" />
-      <option name="presentableId" value="LOCAL−00016" />
-      <updated>1683201410799</updated>
-    </task>
-    <task id="LOCAL−00017" summary="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.">
-      <created>1683227903757</created>
-      <option name="number" value="LOCAL−00017" />
-      <option name="presentableId" value="LOCAL−00017" />
-      <updated>1683227903757</updated>
-    </task>
-    <task id="LOCAL−00018" summary="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.">
-      <created>1683232962114</created>
-      <option name="number" value="LOCAL−00018" />
-      <option name="presentableId" value="LOCAL−00018" />
-      <updated>1683232962114</updated>
-    </task>
-    <option name="localTasksCounter" value="19" />
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,10 +318,7 @@
     <MESSAGE value="Branchin alku" />
     <MESSAGE value="päivityksiä" />
     <MESSAGE value="MuokkaaAsiakasta-toiminto ym." />
-    <MESSAGE value="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
-    <MESSAGE value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
-    <MESSAGE value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
-    <option name="LAST_COMMIT_MESSAGE" value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
+    <option name="LAST_COMMIT_MESSAGE" value="MuokkaaAsiakasta-toiminto ym." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -339,10 +334,5 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/mokit_R31$MainApplication.ic" NAME="MainApplication Coverage Results" MODIFIED="1683233626245" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>com.example.mokit_r31.*</FILTER>
-    </SUITE>
   </component>
 </project>
