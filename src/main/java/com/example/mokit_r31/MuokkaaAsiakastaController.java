@@ -39,7 +39,13 @@ public class MuokkaaAsiakastaController {
         this.asiakasHallinta=asiakasHallinta;
     }
     @FXML
-    private void tallennaButton(ActionEvent event) {
+    private void initialize() {
+        tallennaButton.setOnAction(e -> {
+            tallennaButton();
+        });
+    }
+    @FXML
+    private void tallennaButton() {
 
         try {
             // Tallenna käyttäjän tekemät muutokset tietokantaan
@@ -60,7 +66,7 @@ public class MuokkaaAsiakastaController {
         }
     }
 
-    public void paivitaAsiakkaantiedot() {
+    private void paivitaAsiakkaantiedot() {
         asiakas.setPostinro(postinroTextField.getText());
         asiakas.setEtunimi(etunimiTextField.getText());
         asiakas.setSukunimi(sukunimiTextField.getText());

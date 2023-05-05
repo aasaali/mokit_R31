@@ -298,7 +298,13 @@
       <option name="presentableId" value="LOCAL−00022" />
       <updated>1683274505812</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL−00023" summary="MuokkaaAsiakastaControllerin debugausta">
+      <created>1683275736990</created>
+      <option name="number" value="LOCAL−00023" />
+      <option name="presentableId" value="LOCAL−00023" />
+      <updated>1683275736990</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
