@@ -1,0 +1,234 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"Luokat asiakkaille ja asiakashallinnan metodeille\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/5f476e22-1f8b-4edd-a363-8a7d8d0b563b.xml\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Varaus.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Varaus.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaFXApplication\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Oj7obl4ZT3H0pR9hiNOMxfLnAr\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/Downloads/xmlworker-5.5.13.3&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/src\" />\r\n      <recent name=\"$PROJECT_DIR$/src/main/resources\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.HelloApplication\">\r\n    <configuration name=\"HelloApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.HelloApplication\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PalvelujenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.PalvelujenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"VaraustenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.VaraustenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"mokit_R31\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"mokit_R31\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.HelloApplication\" />\r\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\r\n        <item itemvalue=\"Application.VaraustenHallinta\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"\" />\r\n      <created>1682062312738</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1682062312738</updated>\r\n      <workItem from=\"1682062314356\" duration=\"347000\" />\r\n      <workItem from=\"1682064188241\" duration=\"366000\" />\r\n      <workItem from=\"1682074140032\" duration=\"12733000\" />\r\n      <workItem from=\"1682399692901\" duration=\"723000\" />\r\n    </task>\r\n    <task id=\"LOCAL−00001\" summary=\"Lisätty koodi\">\r\n      <created>1682068236965</created>\r\n      <option name=\"number\" value=\"LOCAL−00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00001\" />\r\n      <updated>1682068236965</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00002\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\r\n      <created>1682101509232</created>\r\n      <option name=\"number\" value=\"LOCAL−00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00002\" />\r\n      <updated>1682101509232</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00003\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\r\n      <created>1682101605186</created>\r\n      <option name=\"number\" value=\"LOCAL−00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00003\" />\r\n      <updated>1682101605186</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00004\" summary=\"Luokat asiakkaille ja asiakashallinnan metodeille\">\r\n      <created>1682103875882</created>\r\n      <option name=\"number\" value=\"LOCAL−00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00004\" />\r\n      <updated>1682103875882</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"5\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Lisätty koodi\" />\r\n    <MESSAGE value=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\" />\r\n    <MESSAGE value=\"Luokat asiakkaille ja asiakashallinnan metodeille\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Luokat asiakkaille ja asiakashallinnan metodeille\" />\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 47f36d0bfdd75b058733b6a7e9010e6eea3070b7)
++++ b/.idea/workspace.xml	(date 1683011744512)
+@@ -4,14 +4,7 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Luokat asiakkaille ja asiakashallinnan metodeille">
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5f476e22-1f8b-4edd-a363-8a7d8d0b563b.xml" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/84add08f-a74d-4664-84a0-387cf314bdfa.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Varaus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Varaus.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" afterDir="false" />
+-    </list>
++    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Fiksattu errorin aiheuttava metodikutsu" />
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -22,10 +15,16 @@
+       <list>
+         <option value="JavaFXApplication" />
+         <option value="Class" />
++        <option value="FxmlFile" />
+       </list>
+     </option>
+   </component>
+   <component name="Git.Settings">
++    <option name="RECENT_BRANCH_BY_REPOSITORY">
++      <map>
++        <entry key="$PROJECT_DIR$" value="main" />
++      </map>
++    </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="MarkdownSettingsMigration">
+@@ -50,11 +49,12 @@
+     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/Downloads/xmlworker-5.5.13.3&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/Downloads/itext-xmlworker-5.5.13.3&quot;,
+     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+@@ -69,11 +69,12 @@
+ }</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+-      <recent name="$PROJECT_DIR$/src" />
++      <recent name="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31" />
+       <recent name="$PROJECT_DIR$/src/main/resources" />
++      <recent name="$PROJECT_DIR$/src" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.HelloApplication">
++  <component name="RunManager" selected="Application.VaraustenHallinta">
+     <configuration name="HelloApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.HelloApplication" />
+       <module name="mokit_R31" />
+@@ -128,9 +129,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.VaraustenHallinta" />
++        <item itemvalue="Application.PalvelujenHallinta" />
+         <item itemvalue="Application.HelloApplication" />
+-        <item itemvalue="Application.PalvelujenHallinta" />
+         <item itemvalue="Application.VaraustenHallinta" />
++        <item itemvalue="Application.PalvelujenHallinta" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -146,6 +149,11 @@
+       <workItem from="1682064188241" duration="366000" />
+       <workItem from="1682074140032" duration="12733000" />
+       <workItem from="1682399692901" duration="723000" />
++      <workItem from="1682569504378" duration="110000" />
++      <workItem from="1682569620247" duration="4443000" />
++      <workItem from="1682580268164" duration="4250000" />
++      <workItem from="1682659681883" duration="728000" />
++      <workItem from="1682663072872" duration="3555000" />
+     </task>
+     <task id="LOCAL−00001" summary="Lisätty koodi">
+       <created>1682068236965</created>
+@@ -171,18 +179,105 @@
+       <option name="presentableId" value="LOCAL−00004" />
+       <updated>1682103875882</updated>
+     </task>
+-    <option name="localTasksCounter" value="5" />
++    <task id="LOCAL−00005" summary="Lisätty metodit varausten hallinnalle.">
++      <created>1682571271223</created>
++      <option name="number" value="LOCAL−00005" />
++      <option name="presentableId" value="LOCAL−00005" />
++      <updated>1682571271223</updated>
++    </task>
++    <task id="LOCAL−00006" summary="Varausikkunan tekoa">
++      <created>1682583901221</created>
++      <option name="number" value="LOCAL−00006" />
++      <option name="presentableId" value="LOCAL−00006" />
++      <updated>1682583901221</updated>
++    </task>
++    <task id="LOCAL−00007" summary="fxml - varauksille ja alustava controller">
++      <created>1682660336204</created>
++      <option name="number" value="LOCAL−00007" />
++      <option name="presentableId" value="LOCAL−00007" />
++      <updated>1682660336205</updated>
++    </task>
++    <task id="LOCAL−00008" summary="fxml - varauksille ja alustava controller">
++      <created>1682660366698</created>
++      <option name="number" value="LOCAL−00008" />
++      <option name="presentableId" value="LOCAL−00008" />
++      <updated>1682660366698</updated>
++    </task>
++    <task id="LOCAL−00009" summary="fxml - varauksille ja alustava controller">
++      <created>1682664197632</created>
++      <option name="number" value="LOCAL−00009" />
++      <option name="presentableId" value="LOCAL−00009" />
++      <updated>1682664197632</updated>
++    </task>
++    <task id="LOCAL−00010" summary="fxml - varauksille ja alustava controller">
++      <created>1682665677788</created>
++      <option name="number" value="LOCAL−00010" />
++      <option name="presentableId" value="LOCAL−00010" />
++      <updated>1682665677788</updated>
++    </task>
++    <task id="LOCAL−00011" summary="laskutusta kehitetään">
++      <created>1682670210073</created>
++      <option name="number" value="LOCAL−00011" />
++      <option name="presentableId" value="LOCAL−00011" />
++      <updated>1682670210073</updated>
++    </task>
++    <task id="LOCAL−00012" summary="Työtä jatkettu asiakas ym. ja käyttöliittymä">
++      <created>1683011203577</created>
++      <option name="number" value="LOCAL−00012" />
++      <option name="presentableId" value="LOCAL−00012" />
++      <updated>1683011203577</updated>
++    </task>
++    <task id="LOCAL−00013" summary="Luokan nimi korjattu">
++      <created>1683011384503</created>
++      <option name="number" value="LOCAL−00013" />
++      <option name="presentableId" value="LOCAL−00013" />
++      <updated>1683011384503</updated>
++    </task>
++    <task id="LOCAL−00014" summary="Fiksattu errorin aiheuttava metodikutsu">
++      <created>1683011481396</created>
++      <option name="number" value="LOCAL−00014" />
++      <option name="presentableId" value="LOCAL−00014" />
++      <updated>1683011481396</updated>
++    </task>
++    <option name="localTasksCounter" value="15" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="RECENT_FILTERS">
++      <map>
++        <entry key="Branch">
++          <value>
++            <list>
++              <RecentGroup>
++                <option name="FILTER_VALUES">
++                  <option value="varaukset" />
++                </option>
++              </RecentGroup>
++            </list>
++          </value>
++        </entry>
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
+         <entry key="MAIN">
+           <value>
+-            <State />
++            <State>
++              <option name="FILTERS">
++                <map>
++                  <entry key="branch">
++                    <value>
++                      <list>
++                        <option value="varaukset" />
++                      </list>
++                    </value>
++                  </entry>
++                </map>
++              </option>
++            </State>
+           </value>
+         </entry>
+       </map>
+@@ -193,7 +288,27 @@
+     <MESSAGE value="Lisätty koodi" />
+     <MESSAGE value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
+     <MESSAGE value="Luokat asiakkaille ja asiakashallinnan metodeille" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Luokat asiakkaille ja asiakashallinnan metodeille" />
++    <MESSAGE value="Lisätty metodit varausten hallinnalle." />
++    <MESSAGE value="Varausikkunan tekoa" />
++    <MESSAGE value="fxml - varauksille ja alustava controller" />
++    <MESSAGE value="testi" />
++    <MESSAGE value="testi2" />
++    <MESSAGE value="laskutusta kehitetään" />
++    <MESSAGE value="Työtä jatkettu asiakas ym. ja käyttöliittymä" />
++    <MESSAGE value="Luokan nimi korjattu" />
++    <MESSAGE value="Fiksattu errorin aiheuttava metodikutsu" />
++    <option name="LAST_COMMIT_MESSAGE" value="Fiksattu errorin aiheuttava metodikutsu" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java</url>
++          <line>44</line>
++          <option name="timeStamp" value="1" />
++        </line-breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
+   </component>
+   <component name="XSLT-Support.FileAssociations.UIState">
+     <expand />
