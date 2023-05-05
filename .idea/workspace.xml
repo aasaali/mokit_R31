@@ -4,10 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varausten toiminnot">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaVaraustaIkkuna.fxml" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="uusi yritys saada github toimimaan">
+      <change afterPath="$PROJECT_DIR$/lib/itextpdf-5.5.13.3.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/protobuf-java-3.19.4.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/protobuf-java-3.21.9.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Palvelu3Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,16 +25,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaFXApplication" />
         <option value="FxmlFile" />
         <option value="Class" />
+        <option value="JavaFXApplication" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/Varaukset" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="laskutus" />
+        <entry key="$PROJECT_DIR$" value="Varaukset" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -54,13 +65,13 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;Varaukset&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/IdeaProjects/mokit_R31/mysql-connector-j-8.0.33.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/amand/IdeaProjects/mokit_R31UUSI&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.43103448&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
@@ -74,6 +85,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\amand\IdeaProjects\mokit_R31UUSI\src\main\resources\com\example\mokit_r31" />
       <recent name="C:\Users\amand\IdeaProjects\mokit_R31UUSI\src\main\java\com\example\mokit_r31" />
       <recent name="C:\Users\taija\IdeaProjects\mokit_R31\src\main\resources\com\example\mokit_r31" />
     </key>
@@ -86,9 +98,35 @@
       <recent name="com.example.mokit_r31" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.VaraustenHallinta">
+  <component name="RunManager" selected="Application.MainApplication">
+    <configuration name="AlueidenHallinta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.AlueidenHallinta" />
+      <module name="mokit_R31" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.mokit_r31.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.MainApplication" />
+      <module name="mokit_R31" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.example.mokit_r31.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PalveluController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.PalveluController" />
       <module name="mokit_R31" />
       <extension name="coverage">
         <pattern>
@@ -128,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.MainApplication" />
+        <item itemvalue="Application.PalveluController" />
         <item itemvalue="Application.PalvelujenHallinta" />
         <item itemvalue="Application.VaraustenHallinta" />
-        <item itemvalue="Application.PalvelujenHallinta" />
+        <item itemvalue="Application.AlueidenHallinta" />
       </list>
     </recent_temporary>
   </component>
@@ -154,6 +192,8 @@
       <workItem from="1682659681883" duration="728000" />
       <workItem from="1682663072872" duration="3555000" />
       <workItem from="1683177075338" duration="3898000" />
+      <workItem from="1683280216491" duration="1875000" />
+      <workItem from="1683285251004" duration="3554000" />
     </task>
     <task id="LOCAL−00001" summary="Lisätty koodi">
       <created>1682068236965</created>
@@ -263,67 +303,58 @@
       <option name="presentableId" value="LOCAL−00018" />
       <updated>1683232962114</updated>
     </task>
-    <task id="LOCAL−00019" summary="muokkauksia">
-      <created>1683271906715</created>
+    <task id="LOCAL−00019" summary="Varaus">
+      <created>1683271879070</created>
       <option name="number" value="LOCAL−00019" />
       <option name="presentableId" value="LOCAL−00019" />
-      <updated>1683271906715</updated>
+      <updated>1683271879070</updated>
     </task>
-    <task id="LOCAL−00020" summary="muokkauksia">
-      <created>1683271914953</created>
+    <task id="LOCAL−00020" summary="Varauskorjaus">
+      <created>1683273988669</created>
       <option name="number" value="LOCAL−00020" />
       <option name="presentableId" value="LOCAL−00020" />
-      <updated>1683271914953</updated>
+      <updated>1683273988669</updated>
     </task>
-    <task id="LOCAL−00021" summary="MuokkaaAsiakastaControllerin debugia">
-      <created>1683273454860</created>
+    <task id="LOCAL−00021" summary="Varauskorjaus">
+      <created>1683278043921</created>
       <option name="number" value="LOCAL−00021" />
       <option name="presentableId" value="LOCAL−00021" />
-      <updated>1683273454860</updated>
+      <updated>1683278043921</updated>
     </task>
-    <task id="LOCAL−00022" summary="MuokkaaAsiakastaControllerin debugausta">
-      <created>1683274505812</created>
+    <task id="LOCAL−00022" summary="uusi yritys saada github toimimaan">
+      <created>1683280610808</created>
       <option name="number" value="LOCAL−00022" />
       <option name="presentableId" value="LOCAL−00022" />
-      <updated>1683274505812</updated>
+      <updated>1683280610808</updated>
     </task>
-    <task id="LOCAL−00023" summary="MuokkaaAsiakastaControllerin debugausta">
-      <created>1683275736990</created>
+    <task id="LOCAL−00023" summary="uusi yritys saada github toimimaan">
+      <created>1683280816070</created>
       <option name="number" value="LOCAL−00023" />
       <option name="presentableId" value="LOCAL−00023" />
-      <updated>1683275736990</updated>
+      <updated>1683280816070</updated>
     </task>
-    <task id="LOCAL−00024" summary="MuokkaaAsiakastaControllerin debugausta">
-      <created>1683276910945</created>
-      <option name="number" value="LOCAL−00024" />
-      <option name="presentableId" value="LOCAL−00024" />
-      <updated>1683276910945</updated>
-    </task>
-    <task id="LOCAL−00025" summary="asdokjhasdökahsld">
-      <created>1683285560237</created>
-      <option name="number" value="LOCAL−00025" />
-      <option name="presentableId" value="LOCAL−00025" />
-      <updated>1683285560237</updated>
-    </task>
-    <task id="LOCAL−00026" summary="Varausten toiminnot">
-      <created>1683287059310</created>
-      <option name="number" value="LOCAL−00026" />
-      <option name="presentableId" value="LOCAL−00026" />
-      <updated>1683287059310</updated>
-    </task>
-    <task id="LOCAL−00027" summary="Varausten toiminnot">
-      <created>1683287485811</created>
-      <option name="number" value="LOCAL−00027" />
-      <option name="presentableId" value="LOCAL−00027" />
-      <updated>1683287485811</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="varaukset" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -341,21 +372,6 @@
                 </map>
               </option>
             </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="varaukset" />
-                </option>
-              </RecentGroup>
-            </list>
           </value>
         </entry>
       </map>
@@ -378,12 +394,10 @@
     <MESSAGE value="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
     <MESSAGE value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
     <MESSAGE value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
-    <MESSAGE value="muokkauksia" />
-    <MESSAGE value="MuokkaaAsiakastaControllerin debugia" />
-    <MESSAGE value="MuokkaaAsiakastaControllerin debugausta" />
-    <MESSAGE value="asdokjhasdökahsld" />
-    <MESSAGE value="Varausten toiminnot" />
-    <option name="LAST_COMMIT_MESSAGE" value="Varausten toiminnot" />
+    <MESSAGE value="Varaus" />
+    <MESSAGE value="Varauskorjaus" />
+    <MESSAGE value="uusi yritys saada github toimimaan" />
+    <option name="LAST_COMMIT_MESSAGE" value="uusi yritys saada github toimimaan" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -392,6 +406,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
           <line>79</line>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

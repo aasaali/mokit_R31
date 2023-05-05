@@ -28,7 +28,7 @@
             </Tab>
             <Tab fx:id="tabPalvelut" text="Palvelut">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="579.0" />
+                   <fx:include source="uudempiPalvelu.fxml"/>
                </content>
             </Tab>
             <Tab fx:id="tabLaskutus" text="Laskutus">
