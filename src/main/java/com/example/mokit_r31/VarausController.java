@@ -5,9 +5,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
-import org.w3c.dom.events.MouseEvent;
+import javafx.stage.Stage;
+import javafx.scene.input.MouseEvent;
 
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
@@ -73,7 +77,29 @@ public class VarausController {
         }
     }
 
+    @FXML
+    private void handleVarausListDoubleClick(MouseEvent event) {
+        if (event.getClickCount() == 2) {
+            // Haetaan valittu varaus
+            Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
 
+            // Jos varaus on valittu, avataan sen tiedot uuteen ikkunaan
+            if (varaus != null) {
+                try {
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("VarausTiedot.fxml"));
+                    Parent parent = fxmlLoader.load();
+                    //VarausTiedotController controller = fxmlLoader.getController();
+                    //controller.setVaraus(varaus);
+                    Scene scene = new Scene(parent, 400, 300);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public void initialize() {
         try {
