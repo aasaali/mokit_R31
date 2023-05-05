@@ -43,9 +43,22 @@ public class VaraustenHallinta extends Application {
                 varaus.setVarausId(rs.getInt("varaus_id"));
                 varaus.setAsiakasId(rs.getInt("asiakas_id"));
                 varaus.setMokkiId(rs.getInt("mokki_mokki_id"));
-                varaus.setVahvistusPvm(rs.getTimestamp("vahvistus_pvm").toLocalDateTime());
-                varaus.setVarattuAlkupvm(rs.getTimestamp("varattu_alkupvm").toLocalDateTime());
-                varaus.setVarattuLoppupvm(rs.getTimestamp("varattu_loppupvm").toLocalDateTime());
+
+                Timestamp vahvistusPvmTimestamp = rs.getTimestamp("vahvistus_pvm");
+                if (vahvistusPvmTimestamp != null) {
+                    varaus.setVahvistusPvm(vahvistusPvmTimestamp.toLocalDateTime());
+                }
+
+                Timestamp varattuAlkupvmTimestamp = rs.getTimestamp("varattu_alkupvm");
+                if (varattuAlkupvmTimestamp != null) {
+                    varaus.setVarattuAlkupvm(varattuAlkupvmTimestamp.toLocalDateTime());
+                }
+
+                Timestamp varattuLoppupvmTimestamp = rs.getTimestamp("varattu_loppupvm");
+                if (varattuLoppupvmTimestamp != null) {
+                    varaus.setVarattuLoppupvm(varattuLoppupvmTimestamp.toLocalDateTime());
+                }
+
                 varaukset.add(varaus);
             }
         } finally {
