@@ -2,7 +2,8 @@ module com.example.mokit_r31 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-   // requires itextpdf;
+    requires itextpdf;
+    // requires itextpdf;
 
 
     opens com.example.mokit_r31 to javafx.fxml;

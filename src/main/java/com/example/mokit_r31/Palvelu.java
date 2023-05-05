@@ -47,6 +47,16 @@ public class Palvelu {
         return alv;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setAlueId(int alueId) { this.alueId = alueId; }
+
+    public int setAlueId() {
+        return alueId;
+    }
+
     public void setNimi(String nimi) {
         this.nimi = nimi;
     }
