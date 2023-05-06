@@ -112,13 +112,12 @@ public class VaraustenHallinta extends Application {
 
         try {
             conn = Tietokanta.getYhteys();
-            stmt = conn.prepareStatement("UPDATE varaus SET asiakas_id = ?, mokki_mokki_id = ?, varattu_pvm = ?, vahvistus_pvm = ?, varattu_alkupvm = ?, varattu_loppupvm = ? WHERE varaus_id = ?");
+            stmt = conn.prepareStatement("UPDATE varaus SET asiakas_id = ?, mokki_mokki_id = ?, varattu_alkupvm = ?, varattu_loppupvm = ? WHERE varaus_id = ?");
             stmt.setInt(1, varaus.getAsiakasId());
             stmt.setInt(2, varaus.getMokkiId());
-            stmt.setTimestamp(4, Timestamp.valueOf(varaus.getVahvistusPvm()));
-            stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
-            stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
-            stmt.setInt(7, varaus.getVarausId());
+            stmt.setTimestamp(3, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
+            stmt.setTimestamp(4, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
+            stmt.setInt(5, varaus.getVarausId());
             stmt.executeUpdate();
         } finally {
             Tietokanta.sulje(stmt, conn);

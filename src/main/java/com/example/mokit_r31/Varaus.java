@@ -17,6 +17,7 @@ public class Varaus {
 
     //Alustaja
     public Varaus(int asiakasId, int mokkiId, LocalDateTime varattuAlkupvm, LocalDateTime varattuLoppupvm) {
+        this.varausId = varausId;
         this.asiakasId = asiakasId;
         this.mokkiId = mokkiId;
         this.vahvistusPvm = LocalDateTime.now();
@@ -76,7 +77,11 @@ public class Varaus {
 
     @Override
     public String toString() {
-        return "VarausID: " + varausId;
+        return "VarausID:\t" + varausId + "\n" +
+                "Asiakas:\t" + asiakasId + "\n" +
+                "Mökki:\t" + mokkiId + "\n" +
+                "Alkupvm:\t" + varattuAlkupvm + "\n" +
+                "Loppupvm:\t" + varattuLoppupvm + "\n";
     }
 }
 

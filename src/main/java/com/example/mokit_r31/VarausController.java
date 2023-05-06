@@ -77,6 +77,7 @@ public class VarausController {
         }
     }
 
+
     @FXML
     private void handleVarausListDoubleClick(MouseEvent event) {
         if (event.getClickCount() == 2) {
@@ -88,8 +89,8 @@ public class VarausController {
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MuokkaaVaraustaIkkuna.fxml"));
                     Parent parent = fxmlLoader.load();
-                    //VarausTiedotController controller = fxmlLoader.getController();
-                    //controller.setVaraus(varaus);
+                    MuokkaaVaraustaController controller = fxmlLoader.getController();
+                    controller.setVaraus(varaus);
                     Scene scene = new Scene(parent, 600, 400);
                     Stage stage = new Stage();
                     stage.setScene(scene);
