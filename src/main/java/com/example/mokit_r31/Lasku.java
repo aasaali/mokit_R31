@@ -24,37 +24,25 @@ laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
 public class Lasku {
-    private double hinta;
+
     private double alv;
     private double summa;
     private int laskuId;
     private int varausId;
+
     private Asiakas asiakas;
 
     public Lasku(int varausId) {
         this.varausId=varausId;
     }
-    public Lasku(int laskuId, int varausId, double summa, double alv) {
-        this.varausId=varausId; this.laskuId=laskuId;
-        this.summa=summa; this.alv=alv;
-    }
-    public Lasku(int lasku_id, int varaus_id, double summa, double alv, Tietokanta tietokanta) throws SQLException {
-        this.laskuId = lasku_id;
-        this.varausId = varaus_id;
-        this.summa = summa;
-        this.alv = alv;
-        //this.asiakas = Asiakas.haeAsiakas(varaus_id); // hae asiakkaan tiedot varauksen id:n perusteella
-    }
+
+
     public Lasku(){}
 
     public int getVarausId() {
         return varausId;}
     public void setVarausId(int varausId) {
         this.varausId = varausId;}
-    public double getHinta() {
-        return hinta;}
-    public void setHinta(double hinta) {
-        this.hinta = hinta;}
     public double getAlv() {
         return alv;}
     public void setAlv(double alv) {

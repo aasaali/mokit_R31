@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LaskunHallinta {
 
@@ -29,11 +30,85 @@ public class LaskunHallinta {
     public LaskunHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;
     }
+
     public void luoPDF(int varausId) {
 
 
-
     }
+
+    public Lasku luoLasku(Varaus varaus) throws SQLException {
+
+        Lasku luodaanLasku = new Lasku();
+        Connection yhteys = tietokanta.getYhteys();
+
+        // Haetaan mokin hinta
+        double mokinHinta = 0.0;
+        String mokinHintaQuery = "SELECT hinta FROM mokki WHERE mokki_id = ?";
+        try (PreparedStatement mokinHintaStmt = yhteys.prepareStatement(mokinHintaQuery)) {
+            mokinHintaStmt.setInt(1, varaus.getMokkiId());
+            ResultSet mokinHintaResult = mokinHintaStmt.executeQuery();
+            if (mokinHintaResult.next()) {
+                mokinHinta = mokinHintaResult.getDouble("hinta");
+            }
+        }
+
+// Haetaan varauksen palveluiden hinnat ja alvit
+        double palveluidenSumma = 0.0;
+        double palveluidenAlvSumma = 0.0;
+        String palveluidenQuery = "SELECT p.hinta, p.alv FROM palvelu p JOIN varauksen_palvelut vp ON " +
+                "p.palvelu_id = vp.palvelu_id WHERE vp.varaus_id = ?";
+        try (PreparedStatement palveluidenStmt = yhteys.prepareStatement(palveluidenQuery)) {
+            palveluidenStmt.setInt(1, varaus.getVarausId());
+            ResultSet palveluidenResult = palveluidenStmt.executeQuery();
+            while (palveluidenResult.next()) {
+                palveluidenSumma += palveluidenResult.getDouble("hinta");
+                palveluidenAlvSumma += palveluidenResult.getDouble("alv") *
+                        palveluidenResult.getDouble("hinta");
+            }
+        }
+
+// Lasketaan yhteishinta ja alv
+        double yhteishinta = mokinHinta + palveluidenSumma;
+        double yhteisalv = palveluidenAlvSumma;
+
+// Tallennetaan lasku tietokantaan
+        String tallennaLaskuQuery = "INSERT INTO lasku (varaus_id, summa, alv) VALUES (?, ?, ?)";
+        try (PreparedStatement tallennaLaskuStmt = yhteys.prepareStatement(tallennaLaskuQuery)) {
+            tallennaLaskuStmt.setInt(1, varaus.getVarausId());
+            tallennaLaskuStmt.setDouble(2, yhteishinta);
+            tallennaLaskuStmt.setDouble(3, yhteisalv);
+            tallennaLaskuStmt.executeUpdate();
+        }
+
+        return luodaanLasku;
+    }
+
+    public List<Lasku> haeKaikkiLaskut() throws SQLException {
+        List<Lasku> laskut = new ArrayList<>();
+        Connection yhteys = null;
+        PreparedStatement haku = null;
+        ResultSet tulosjoukko = null;
+        try {
+            yhteys = tietokanta.getYhteys();
+            String sql = "SELECT * FROM lasku";
+            haku = yhteys.prepareStatement(sql);
+            tulosjoukko = haku.executeQuery();
+            while (tulosjoukko.next()) {
+                Lasku lasku = new Lasku();
+                lasku.setLaskuId(tulosjoukko.getInt("lasku_id"));
+                lasku.setVarausId(tulosjoukko.getInt("varaus_id"));
+                lasku.setSumma(tulosjoukko.getDouble("summa"));
+                lasku.setAlv(tulosjoukko.getDouble("alv"));
+                laskut.add(lasku);
+            }
+        } finally {
+            tietokanta.sulje(tulosjoukko, haku, yhteys);
+        }
+        return laskut;
+    }
+}
+
+/*
     public void luoLasku(int varausId) throws SQLException, FileNotFoundException, DocumentException {
         // Yhdistetään tietokantaan
         Connection conn = null;
@@ -100,12 +175,7 @@ public class LaskunHallinta {
         }
     }
 /*
-    public void luoLasku(Mokki mokki, Palvelu palvelu) {
-        Lasku uusiLasku = new Lasku();
-        uusiLasku.setVarausId(laskutaVarausLw.getSelectionModel().getSelectedItem());
-        uusiLasku.laskeSummaJaAlv(mokki.getHinta(), palvelu.getHinta(), palvelu.getAlv());
-        // Tallenna uusi lasku tietokantaan tai tee mitä tarvitset
-    }*/
+
 
     public void lisaaLasku(Lasku lasku) throws SQLException {
         Connection yhteys = tietokanta.getYhteys();
@@ -122,67 +192,9 @@ public class LaskunHallinta {
         } finally {
             Tietokanta.sulje(lisayslause, yhteys);
         }
-    }
+    }*/
 
-    public List<Lasku> haeKaikkiLaskut() throws SQLException {
-        List<Lasku> laskut = new ArrayList<>();
-        Connection yhteys = null;
-        PreparedStatement haku = null;
-        ResultSet tulosjoukko = null;
-        try {
-            yhteys = tietokanta.getYhteys();
-            String sql = "SELECT * FROM lasku";
-            haku = yhteys.prepareStatement(sql);
-            tulosjoukko = haku.executeQuery();
-            while (tulosjoukko.next()) {
-                Lasku lasku = new Lasku();
-                lasku.setLaskuId(tulosjoukko.getInt("lasku_id"));
-                lasku.setVarausId(tulosjoukko.getInt("varaus_id"));
-                lasku.setSumma(tulosjoukko.getDouble("summa"));
-                lasku.setAlv(tulosjoukko.getDouble("alv"));
-                laskut.add(lasku);
-            }
-        } finally {
-            tietokanta.sulje(tulosjoukko, haku, yhteys);
-        }
-        return laskut;
-    }
 
-    public VarausAsiakas haeVarausAsiakas(int varausId) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        VarausAsiakas varausAsiakas = null;
-
-        try {
-            conn = Tietokanta.getYhteys();
-            stmt = conn.prepareStatement("SELECT varaus.varaus_id, asiakas.etunimi, asiakas.sukunimi, asiakas.osoite, asiakas.postinro " +
-                    "FROM varaus " +
-                    "JOIN asiakas ON varaus.asiakas_id = asiakas.asiakas_id " +
-                    "WHERE varaus.varaus_id = ?");
-            stmt.setInt(1, varausId);
-            rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                Varaus varaus = new Varaus();
-                varaus.setVarausId(rs.getInt("varaus_id"));
-                varaus.setAsiakasId(rs.getInt("asiakas_id"));
-
-                Asiakas asiakas = new Asiakas();
-                asiakas.setEtunimi(rs.getString("etunimi"));
-                asiakas.setSukunimi(rs.getString("sukunimi"));
-                asiakas.setLahiosoite(rs.getString("osoite"));
-                asiakas.setPostinro(rs.getString("postinumero"));
-
-                varausAsiakas = new VarausAsiakas(varaus, asiakas);
-            }
-
-        } finally {
-            Tietokanta.sulje(rs, stmt, conn);
-        }
-
-        return varausAsiakas;
-    }
 
 /*
     public void luoLaskuPdf(Lasku lasku) {
@@ -239,5 +251,4 @@ public class LaskunHallinta {
             System.err.println("Virhe tallennettaessa laskua PDF-tiedostoksi: " + e.getMessage());
         }
     }
-    */
-}
+} */
