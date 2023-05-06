@@ -21,8 +21,7 @@ public class LaskuController {
     @FXML private Button buttonLuoUusi;
     @FXML private Button buttonPoista;
     @FXML private TextField tfTiedostonimi;
-    @FXML
-    private TextArea taLaskunTiedot;
+    @FXML private TextArea taLaskunTiedot;
 
     Tietokanta tietokanta = new Tietokanta();
 
@@ -34,10 +33,10 @@ public class LaskuController {
 
     @FXML
     private void btTallennaPDF(ActionEvent event) {
-        Varaus varaus = laskutaVarausLw.getSelectionModel().getSelectedItem();
-        int varauksenid = varaus.getVarausId();
+        Lasku lasku = laskuLw.getSelectionModel().getSelectedItem();
+
         try {
-            laskunHallinta.luoPDF(varauksenid);
+            laskunHallinta.luoPDF(lasku);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (FileNotFoundException e) {
@@ -76,7 +75,8 @@ public class LaskuController {
             try {
                 Lasku lasku = laskunhallinta.haeLasku(laskunid);
                 String laskunTiedot = "Varaus ID: " + lasku.getVarausId() + ".  Laskun ID: "
-                        + lasku.getLaskuId()+"\n" + " Laskun summa: " + lasku.getSumma();
+                        + lasku.getLaskuId()+"\n" + " Laskun summa: " + lasku.getSumma()+"\n"+
+                        "Vuokraus päiviä: " + laskunhallinta.laskePaivienMaara(valinta.getVarausId());
                 taLaskunTiedot.setText(laskunTiedot);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
