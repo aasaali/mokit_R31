@@ -1,9 +1,20 @@
 package com.example.mokit_r31;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Optional;
 
 public class PalveluController {
 
@@ -29,7 +40,7 @@ public class PalveluController {
     private TextField palveluKuvausTf;
 
     @FXML
-    private ListView<?> palveluLista;
+    private ListView<Palvelu> palveluLista;
 
     @FXML
     private TextField palveluNimiTf;
@@ -43,4 +54,167 @@ public class PalveluController {
     @FXML
     private Button tallennaPalveluBt;
 
-}
+    Tietokanta tietokanta = new Tietokanta();
+    private PalvelujenHallinta PalvelujenHallinta = new PalvelujenHallinta(tietokanta);
+
+
+    @FXML
+    private void initialize() {
+
+
+        //naytaPalveluBt tapahtumakäsittelijä
+        naytaPalveluBt.setOnAction(event -> naytaPalvelut());
+
+        luoPalveluBt.setOnAction(e -> {
+            // Tarkista, onko jokin palvelu valittu
+            if (palveluLista.getSelectionModel().getSelectedItem() != null) {
+                // Tyhjennä tekstikentät
+                palveluIDTf.setText("");
+                alueenPostinumeroTf.setText("");
+                palveluNimiTf.setText("");
+                palveluTyyppiTf.setText("");
+                palveluKuvausTf.setText("");
+                palveluHintaTf.setText("");
+                palveluArvonlisaveroTf.setText("");
+
+                // Poista valinta palvelulistalta
+                palveluLista.getSelectionModel().clearSelection();
+            }
+        });
+
+        poistaPalveluBt.setOnAction(event -> {
+            // Tarkista, onko jokin palvelu valittu
+            Palvelu valittuPalvelu = palveluLista.getSelectionModel().getSelectedItem();
+            if (valittuPalvelu != null) {
+                // Avaa varmistusikkuna
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Vahvista poisto");
+                alert.setHeaderText("Haluatko varmasti poistaa palvelun?");
+                alert.setContentText("Palvelun poisto on peruuttamaton toimenpide.");
+
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    // Poista palvelu listalta
+                    palveluLista.getItems().remove(valittuPalvelu);
+                    // Poista palvelu myös tietokannasta
+                    try {
+                        // Luo tietokantayhteys
+                        Connection yhteys = tietokanta.getYhteys();
+
+                        // Luo DELETE-kysely
+                        PreparedStatement kysely = yhteys.prepareStatement("DELETE FROM palvelut WHERE id = ?");
+                        kysely.setInt(1, valittuPalvelu.getId());
+
+                        // Suorita kysely
+                        kysely.executeUpdate();
+
+                        // Sulje yhteys
+                        yhteys.close();
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+            }}
+        });
+
+
+        // lisätään kuuntelija palveluLista:lle
+        palveluLista.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    // täytetään tekstikentät valitun palvelun tiedoilla
+                    if (newValue != null) {
+                        palveluIDTf.setText(Integer.toString(newValue.getId()));
+                        alueenPostinumeroTf.setText(Integer.toString(newValue.getAlueId()));
+                        palveluNimiTf.setText(newValue.getNimi());
+                        palveluTyyppiTf.setText(Integer.toString(newValue.getTyyppi()));
+                        palveluKuvausTf.setText(newValue.getKuvaus());
+                        palveluHintaTf.setText(Double.toString(newValue.getHinta()));
+                        palveluArvonlisaveroTf.setText(Double.toString(newValue.getAlv()));
+                    }
+                });
+
+
+        //tallennaPalveluBt tapahtumankäsittelijä
+        tallennaPalveluBt.setOnAction(e -> {
+            int id = Integer.parseInt(palveluIDTf.getText());
+            int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
+            String nimi = palveluNimiTf.getText();
+            int tyyppi = Integer.parseInt(palveluTyyppiTf.getText());
+            String kuvaus = palveluKuvausTf.getText();
+            double hinta = Double.parseDouble(palveluHintaTf.getText());
+            double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());
+
+            // Luo uusi Palvelu-olio
+            Palvelu uusiPalvelu = new Palvelu(id, alueId, nimi, tyyppi, kuvaus, hinta, alv);
+            palveluLista.getItems().add(uusiPalvelu);
+
+            try {
+                tallennaPalvelu(uusiPalvelu);
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
+
+
+    public void tallennaPalvelu(Palvelu palvelu) throws SQLException {
+        Connection yhteys = null;
+        try {
+            yhteys = tietokanta.getYhteys();
+            PreparedStatement lisayslause = yhteys.prepareStatement("INSERT INTO Palvelu (id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?, ?)");
+
+            yhteys.setAutoCommit(false);
+
+            lisayslause.setInt(1, palvelu.getId());
+            lisayslause.setInt(2, palvelu.getAlueId());
+            lisayslause.setString(3, palvelu.getNimi());
+            lisayslause.setInt(4, palvelu.getTyyppi());
+            lisayslause.setString(5, palvelu.getKuvaus());
+            lisayslause.setDouble(6, palvelu.getHinta());
+            lisayslause.setDouble(7, palvelu.getAlv());
+            lisayslause.executeUpdate();
+
+            yhteys.commit();
+        } catch (SQLException e) {
+            // jotain meni pieleen, peruuta transaktio
+            if (yhteys != null) {
+                yhteys.rollback();
+            }
+            throw e;
+        } finally {
+            if (yhteys != null) {
+                yhteys.close();
+            }
+        }
+    }
+
+
+
+
+
+    public void naytaPalvelut() {
+        ObservableList<Palvelu> palveluData = FXCollections.observableArrayList();
+        PalvelujenHallinta palveluHallinta = new PalvelujenHallinta(new Tietokanta());
+        palveluData.addAll(palveluHallinta.naytaPalvelu());
+        palveluLista.setItems(palveluData);
+        palveluLista.setCellFactory(param -> new ListCell<Palvelu>() {
+            @Override
+            protected void updateItem(Palvelu palvelu, boolean empty) {
+                super.updateItem(palvelu, empty);
+                if (empty || palvelu == null) {
+                    setText(null);
+                } else {
+                    setText(palvelu.getId() + " - " + palvelu.getNimi());
+                }
+            }
+        });
+
+
+    }
+
+
+    }
+
+
+
+
