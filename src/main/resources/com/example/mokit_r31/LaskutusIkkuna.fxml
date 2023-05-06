@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.LaskuController">
+   <children>
+      <AnchorPane layoutY="6.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ListView fx:id="laskutaVarausLw" layoutX="8.0" layoutY="35.0" prefHeight="310.0" prefWidth="166.0" />
+            <ListView fx:id="laskuLw" layoutX="189.0" layoutY="35.0" prefHeight="310.0" prefWidth="186.0" />
+            <AnchorPane layoutX="383.0" prefHeight="400.0" prefWidth="237.0">
+               <children>
+                  <TextField layoutX="27.0" layoutY="231.0" prefHeight="26.0" prefWidth="186.0" promptText="Sähköpostiosoite" />
+                  <Text layoutX="51.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lähetä lasku sähköpostilla" />
+                  <Button fx:id="btLahetaLasku" layoutX="27.0" layoutY="265.0" mnemonicParsing="false" onAction="#btLahetaLasku" prefHeight="26.0" prefWidth="186.0" text="Lähetä lasku" />
+                  <Button fx:id="btTallennaPDF" layoutX="27.0" layoutY="359.0" mnemonicParsing="false" onAction="#btTallennaPDF" prefHeight="26.0" prefWidth="186.0" text="Tallenna PDF" />
+                  <TextField fx:id="tfTiedostonimi" editable="false" layoutX="27.0" layoutY="324.0" prefHeight="26.0" prefWidth="186.0" promptText="Tiedostonimi" />
+                  <Text layoutX="40.0" layoutY="312.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tallenna lasku PDF-tiedostona" />
+                  <TextArea fx:id="tfLaskunTiedot" layoutX="20.0" layoutY="35.0" prefHeight="165.0" prefWidth="200.0" />
+                  <Text layoutX="29.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laskun tiedot" />
+               </children></AnchorPane>
+            <ToolBar layoutY="355.0" prefHeight="38.0" prefWidth="375.0">
+              <items>
+                  <Button fx:id="buttonPaivita" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btPaivitaLaskutus" prefHeight="26.0" prefWidth="121.0" text="Päivitä lista" />
+                  <Button fx:id="buttonLuoUusi" mnemonicParsing="false" onAction="#buttonLuoUusi" prefHeight="26.0" prefWidth="136.0" text="Luo uusi" />
+                <Button fx:id="buttonPoista" mnemonicParsing="false" prefHeight="26.0" prefWidth="100.0" text="Poista" />
+              </items>
+               <padding>
+                  <Insets left="5.0" top="1.0" />
+               </padding>
+            </ToolBar>
+            <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valitse varaus" wrappingWidth="106.39999999999998" />
+            <Text layoutX="198.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Laskut" wrappingWidth="47.99997558593748" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,16 +1,21 @@
 package com.example.mokit_r31;
 
-import java.io.FileOutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-/**
 import com.itextpdf.text.Document;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+
+import java.io.FileOutputStream;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /** Laskun tietoja:
 asiakkaan tiedot: nimi, osoite, puhelinnumero
@@ -18,29 +23,54 @@ Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
 laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
  */
 
-/**
 public class Lasku {
 
-    private String nimi;
-    private String osoite;
-    private String puhelinnumero;
-    private LocalDateTime aloituspvm;
-    private LocalDateTime lopetuspvm;
-    private String kohde;
-    private String lisapalvelut;
-    private double hinta;
     private double alv;
     private double summa;
-    private LocalDateTime luomispvm;
-    private int laskunnumero;
-    private LocalDateTime erapaiva;
+    private int laskuId;
+    private int varausId;
 
+    private Asiakas asiakas;
+
+    public Lasku(int varausId) {
+        this.varausId=varausId;
+    }
+
+
+    public Lasku(){}
+
+    public int getVarausId() {
+        return varausId;}
+    public void setVarausId(int varausId) {
+        this.varausId = varausId;}
+    public double getAlv() {
+        return alv;}
+    public void setAlv(double alv) {
+        this.alv = alv;}
+    public double getSumma() {
+        return summa;}
+    public void setSumma(double summa) {
+        this.summa = summa;}
+    public int getLaskuId() {
+        return laskuId;}
+    public void setLaskuId(int laskuId) {
+        this.laskuId = laskuId;}
+
+    public void laskeSummaJaAlv(double mokkiHinta, double palveluHinta, double palveluAlv) {
+        double summa = mokkiHinta + palveluHinta;
+        double alv = palveluAlv;
+        this.summa = summa;
+        this.alv = alv;
+    }
+
+
+/*
     public void luoLaskuPdf(String tiedostonimi) {
         // Luodaan uusi PDF-dokumentti
         Document document = new Document(PageSize.A4);
 
         // Sen hetkinen päivämäärä?
-        // luomispvm = java.time.LocalDate.now();
+        luomispvm = LocalDateTime.now();
 
         //erapaiva = luomispvm + 14
         //https://www.javatpoint.com/java-date-add-days
@@ -90,6 +120,5 @@ public class Lasku {
 
     // Metodit asettavat laskutuksen tiedot
     // ...
-
-}
 */
+}

@@ -3,12 +3,16 @@ package com.example.mokit_r31;
 import java.sql.*;
 
 public class Tietokanta {
-    private static final String TIETOKANTAN_NIMI = "jdbc:mysql://localhost:3306/vn";
+    private static final String TIETOKANNAN_NIMI = "jdbc:mysql://localhost:3306/vn";
     private static final String KAYTTAJA = "root";
-    private static final String SALASANA = "R31_mokki";
+    //private static final String SALASANA = "R31_mokki";
+
+    // TAIJAN VERSIO, koska en saa muutettua tietokannan kirjautumistietoja
+    private static final String SALASANA = "admin";
+    // kommentoi tämä rivi pois ja ota ylempi salasana käyttöön
 
     public static Connection getYhteys() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/vn", KAYTTAJA, SALASANA);
+        return DriverManager.getConnection(TIETOKANNAN_NIMI, KAYTTAJA, SALASANA);
     }
 
     public static void sulje(Connection yhteys) {
@@ -29,7 +33,6 @@ public class Tietokanta {
                 // Ohitetaan poikkeus
             }
         }
-
         sulje(yhteys);
     }
 
@@ -41,7 +44,31 @@ public class Tietokanta {
                 // Ohitetaan poikkeus
             }
         }
-
         sulje(yhteys);
     }
+/*
+    public Asiakas haeAsiakas(int varausId) throws SQLException {
+        Connection yhteys = null;
+        PreparedStatement kysely = null;
+        ResultSet tulokset = null;
+
+        try {
+            yhteys = Tietokanta.getYhteys();
+            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro " +
+                    "FROM Asiakas WHERE varaus_id = ?");
+            kysely.setInt(1, varausId);
+            tulokset = kysely.executeQuery();
+
+            if (tulokset.next()) {
+                return new Asiakas(varausId, tulokset.getString("postinro"),
+                        tulokset.getString("etunimi"), tulokset.getString("sukunimi"),
+                        tulokset.getString("lahiosoite"), tulokset.getString("email"),
+                        tulokset.getString("puhelinnro"));
+            } else {
+                return null;
+            }
+        } finally {
+            Tietokanta.sulje(tulokset, kysely, yhteys);
+        }
+    } */
 }

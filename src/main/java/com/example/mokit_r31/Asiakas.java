@@ -7,17 +7,31 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Asiakkaita hallinnoiva luokka
+ * kentät: asiakasId, postinro, etunimi, sukunimi, lähiosoite, email, puhelinnumero
+ * metodit:
+ */
 public class Asiakas {
 
     private int asiakasId; private String postinro; private String etunimi; private String sukunimi;
     private String lahiosoite; private String email; private String puhelinnro;
+    Tietokanta tietokanta = new Tietokanta();
 
     public Asiakas(int asiakasId, String postinro, String etunimi, String sukunimi, String lahiosoite,
                    String email, String puhelinnro) {
         this.asiakasId = asiakasId; this.postinro = postinro; this.etunimi = etunimi;
         this.sukunimi = sukunimi; this.lahiosoite = lahiosoite; this.email = email; this.puhelinnro = puhelinnro;
     }
+    public Asiakas(String postinro, String etunimi, String sukunimi, String lahiosoite,
+                   String email, String puhelinnro) {
+        this.postinro = postinro; this.etunimi = etunimi;
+        this.sukunimi = sukunimi; this.lahiosoite = lahiosoite; this.email = email; this.puhelinnro = puhelinnro;
+    }
     public Asiakas(){
+    }
+
+    public void setAsiakasId(int asiakasId) {
+        this.asiakasId = asiakasId;
     }
 
     public int getAsiakasId() {
@@ -70,108 +84,49 @@ public class Asiakas {
         this.puhelinnro = puhelinnro;
     }
 
-    public static List<Asiakas> haeKaikki() throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
-        ResultSet tulokset = null;
+    @Override
+    public String toString() {
+        return "Asiakkaan tiedot: " +
+                "asiakasId=" + asiakasId +
+                ", postinro='" + postinro + '\'' +
+                ", etunimi='" + etunimi + '\'' +
+                ", sukunimi='" + sukunimi + '\'' +
+                ", lahiosoite='" + lahiosoite + '\'' +
+                ", email='" + email + '\'' +
+                ", puhelinnro='" + puhelinnro + '\'';
+    }
+/*
+    public Asiakas haeVarausAsiakas(int varausId, int asiakasId) throws SQLException {
+        Connection conn = tietokanta.getYhteys();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Asiakas asiakas = null;
 
         try {
-            yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement(
-        "SELECT asiakas_id, postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro FROM Asiakas");
-            tulokset = kysely.executeQuery();
+            stmt = conn.prepareStatement("SELECT asiakas_id, postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro " +
+                    "FROM asiakas JOIN varaus ON asiakas.asiakas_id = varaus.asiakas_id " +
+                    "WHERE varaus.varaus_id = ? AND asiakas.asiakas_id = ?");
+            stmt.setInt(1, varausId);
+            stmt.setInt(2, asiakasId);
+            rs = stmt.executeQuery();
 
-            List<Asiakas> asiakkaat = new ArrayList<>();
-
-            while (tulokset.next()) {
-                asiakkaat.add(new Asiakas(tulokset.getInt("asiakas_id"),
-                        tulokset.getString("postinro"), tulokset.getString("etunimi"),
-                        tulokset.getString("sukunimi"), tulokset.getString("lahiosoite"),
-                        tulokset.getString("email"), tulokset.getString("puhelinnro")));
-            }
-
-            return asiakkaat;
-        } finally {
-            Tietokanta.sulje(tulokset, kysely, yhteys);
-        }
-    }
-
-    public void lisaa() throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
-        ResultSet avain = null;
-
-        try {
-            yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement(
-                    "INSERT INTO Asiakas (postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro) " +
-                            "VALUES (?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-            kysely.setString(1, postinro);
-            kysely.setString(2, etunimi);
-            kysely.setString(3, sukunimi);
-            kysely.setString(4, lahiosoite);
-            kysely.setString(5, email);
-            kysely.setString(6, puhelinnro);
-
-            int rivit = kysely.executeUpdate();
-
-            if (rivit == 0) {
-                throw new SQLException("Asiakkaan lisääminen tietokantaan epäonnistui.");
-            }
-
-            avain = kysely.getGeneratedKeys();
-            if (avain.next()) {
-                asiakasId = avain.getInt(1);
-            } else {
-                throw new SQLException("Asiakkaan lisääminen tietokantaan epäonnistui, asiakas_id:tä ei saatu.");
+            if (rs.next()) {
+                asiakas = new Asiakas();
+                asiakas.setAsiakasId(rs.getInt("asiakas_id"));
+                asiakas.setPostinro(rs.getString("postinro"));
+                asiakas.setEtunimi(rs.getString("etunimi"));
+                asiakas.setSukunimi(rs.getString("sukunimi"));
+                asiakas.setLahiosoite(rs.getString("lahiosoite"));
+                asiakas.setEmail(rs.getString("email"));
+                asiakas.setPuhelinnro(rs.getString("puhelinnro"));
             }
         } finally {
-            Tietokanta.sulje(avain, kysely, yhteys);
+            tietokanta.sulje(rs, stmt, conn);
         }
+
+        return asiakas;
     }
 
-    public void paivita() throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
-
-        try {
-            yhteys = Tietokanta.getYhteys();
-            //kysely = yhteys.prepareStatement("UPDATE Asiakas SET postinro = ?, etunimi = ?, sukunimi = ?, lahiosoite = ?, email = ?, puhelinnro = ? " +
-              //              "kysely.setString(1, postinro);
-            kysely.setString(2, etunimi);
-            kysely.setString(3, sukunimi);
-            kysely.setString(4, lahiosoite);
-            kysely.setString(5, email);
-            kysely.setString(6, puhelinnro);
-            kysely.setInt(7, asiakasId);
-
-            int rivit = kysely.executeUpdate();
-
-            if (rivit == 0) {
-                throw new SQLException("Asiakkaan päivittäminen tietokantaan epäonnistui.");
-            }
-        } finally {
-            Tietokanta.sulje(kysely, yhteys);
-        }
-    }
-
-    public void poista() throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
-
-        try {
-            yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("DELETE FROM Asiakas WHERE asiakas_id = ?");
-            kysely.setInt(1, asiakasId);
-
-            int rivit = kysely.executeUpdate();
-
-            if (rivit == 0) {
-                throw new SQLException("Asiakkaan poistaminen tietokannasta epäonnistui.");
-            }
-        } finally {
-            Tietokanta.sulje(kysely, yhteys);
-        }
-    }
+*/
 }
 

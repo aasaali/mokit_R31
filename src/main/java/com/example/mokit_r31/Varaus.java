@@ -76,14 +76,7 @@ public class Varaus {
 
     @Override
     public String toString() {
-        return "Varaus{" +
-                "varausId=" + varausId +
-                ", asiakasId=" + asiakasId +
-                ", mokkiId=" + mokkiId +
-                ", vahvistusPvm=" + vahvistusPvm +
-                ", varattuAlkupvm=" + varattuAlkupvm +
-                ", varattuLoppupvm=" + varattuLoppupvm +
-                '}';
+        return "VarausID: " + varausId;
     }
 }
 

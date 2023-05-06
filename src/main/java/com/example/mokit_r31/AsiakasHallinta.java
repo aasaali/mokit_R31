@@ -10,7 +10,7 @@ import static javafx.application.Application.launch;
 
 public class AsiakasHallinta {
 
-    private Tietokanta tietokanta;
+    private static Tietokanta tietokanta;
 
     public AsiakasHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;
@@ -41,12 +41,16 @@ public class AsiakasHallinta {
 
         try {
             yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro FROM Asiakas WHERE asiakas_id = ?");
+            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro " +
+                    "FROM Asiakas WHERE asiakas_id = ?");
             kysely.setInt(1, asiakasId);
             tulokset = kysely.executeQuery();
 
             if (tulokset.next()) {
-                return new Asiakas(asiakasId, tulokset.getString("postinro"), tulokset.getString("etunimi"), tulokset.getString("sukunimi"), tulokset.getString("lahiosoite"), tulokset.getString("email"), tulokset.getString("puhelinnro"));
+                return new Asiakas(asiakasId, tulokset.getString("postinro"),
+                        tulokset.getString("etunimi"), tulokset.getString("sukunimi"),
+                        tulokset.getString("lahiosoite"), tulokset.getString("email"),
+                        tulokset.getString("puhelinnro"));
             } else {
                 return null;
             }
@@ -73,7 +77,7 @@ public class AsiakasHallinta {
         }
     }
 
-    public void poistaAsiakas(int asiakasId) throws SQLException {
+    public static void poistaAsiakas(int asiakasId) throws SQLException {
         Connection yhteys = tietokanta.getYhteys();
         PreparedStatement poistolause = null;
         try {
