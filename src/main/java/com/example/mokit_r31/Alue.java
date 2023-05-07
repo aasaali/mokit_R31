@@ -4,7 +4,7 @@ public class Alue {
     private int alueId;
     private String nimi; // 40
 
-    public Alue(String nimi){
+    public Alue(String nimi, int alueId){
         this.alueId = alueId;
         this.nimi = nimi;
     }

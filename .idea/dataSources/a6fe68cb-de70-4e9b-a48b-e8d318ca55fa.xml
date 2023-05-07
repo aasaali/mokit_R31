@@ -2,24 +2,24 @@
 <dataSource name="vn@localhost">
   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
     <root id="1">
-      <DefaultCasing>lower/lower</DefaultCasing>
-      <ServerVersion>8.0.31</ServerVersion>
+      <DefaultCasing>mixed/mixed</DefaultCasing>
+      <DefaultEngine>InnoDB</DefaultEngine>
+      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
+      <ServerVersion>8.0.33</ServerVersion>
     </root>
-    <schema id="2" parent="1" name="information_schema">
+    <schema id="2" parent="1" name="mysql">
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </schema>
+    <schema id="3" parent="1" name="information_schema">
       <CollationName>utf8mb3_general_ci</CollationName>
     </schema>
-    <schema id="3" parent="1" name="laakityshaittariskit"/>
-    <schema id="4" parent="1" name="mysql">
+    <schema id="4" parent="1" name="performance_schema">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="5" parent="1" name="performance_schema">
+    <schema id="5" parent="1" name="sys">
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
-    <schema id="6" parent="1" name="sakila"/>
-    <schema id="7" parent="1" name="sys">
-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
-    </schema>
-    <schema id="8" parent="1" name="vn">
+    <schema id="6" parent="1" name="vn">
       <Current>1</Current>
       <CollationName>latin1_swedish_ci</CollationName>
     </schema>

@@ -3,7 +3,7 @@ package com.example.mokit_r31;
 public class Mokki {
     private int mokkiId;
     private int alueId;
-    private int postiNro; //5
+    private String postiNro; //5
     private String nimi; //45
     private String osoite; //45
     private double hinta; //8,2
@@ -11,7 +11,7 @@ public class Mokki {
     private int hlo;
     private String varustelu; //100
 
-public Mokki(int mokkiId,int alueId, int postiNro, String nimi, String osoite, double hinta, String kuvaus, int hlo, String varustelu){
+public Mokki(int mokkiId,int alueId, String postiNro, String nimi, String osoite, double hinta, String kuvaus, int hlo, String varustelu){
     this.mokkiId = mokkiId;
     this.alueId = alueId;
     this.postiNro = postiNro;
@@ -80,11 +80,26 @@ public Mokki(int mokkiId,int alueId, int postiNro, String nimi, String osoite, d
         this.alueId = alueId;
     }
 
-    public void setPostiNro(int postiNro) {
+    @Override
+    public String toString() {
+        return "Mokki{" +
+                "mokkiId=" + mokkiId +
+                ", alueId=" + alueId +
+                ", postiNro=" + postiNro +
+                ", nimi='" + nimi + '\'' +
+                ", osoite='" + osoite + '\'' +
+                ", hinta=" + hinta +
+                ", kuvaus='" + kuvaus + '\'' +
+                ", hlo=" + hlo +
+                ", varustelu='" + varustelu + '\'' +
+                '}';
+    }
+
+    public void setPostiNro(String postiNro) {
         this.postiNro = postiNro;
     }
 
-    public int getPostiNro() {
+    public String getPostiNro() {
         return postiNro;
     }
 
