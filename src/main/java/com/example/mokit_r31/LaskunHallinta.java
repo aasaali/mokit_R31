@@ -216,8 +216,6 @@ public class LaskunHallinta {
             // Kokeillaan käyttäen haeLasku-metodia
             LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
             Lasku luoPDFLasku = haeLasku(lasku.getLaskuId());
-            System.out.println("Tarkistus1");
-            System.out.println(luoPDFLasku);
             //System.out.println(rs.getString("lasku_id"));
 
 // Laskun päiväys ja päiväyksen avulla generoitu PDF-tiedoston nimi

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi.">
-      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-07-13-04-28.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskunHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskunHallinta.java" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok.">
+      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-07-13-10-31.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-07-13-13-30.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -352,7 +350,13 @@
       <option name="presentableId" value="LOCAL−00030" />
       <updated>1683408439189</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL−00031" summary="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok.">
+      <created>1683454485568</created>
+      <option name="number" value="LOCAL−00031" />
+      <option name="presentableId" value="LOCAL−00031" />
+      <updated>1683454485568</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -421,7 +425,8 @@
     <MESSAGE value="Laskutus-kokonaisuus" />
     <MESSAGE value="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis." />
     <MESSAGE value="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi." />
-    <option name="LAST_COMMIT_MESSAGE" value="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi." />
+    <MESSAGE value="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok." />
+    <option name="LAST_COMMIT_MESSAGE" value="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
