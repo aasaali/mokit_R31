@@ -195,6 +195,8 @@ public class LaskunHallinta {
         try {
             conn = tietokanta.getYhteys();
 
+            // TÄMÄ SKRIPTI EI OLE OIKEIN. Rs jää tyhjäksi.
+            /*
             // Suoritetaan SQL-kysely
             String sql = "SELECT varaus.varaus_id, asiakas.etunimi, asiakas.sukunimi, mokki.mokkinimi, palvelu.nimi, " +
                     "palvelu.hinta, palvelu.alv, lasku.lasku_id " +
@@ -207,16 +209,23 @@ public class LaskunHallinta {
                     "WHERE lasku.lasku_id = ?";
 
             haku = conn.prepareStatement(sql);
-            haku.setInt(1, lasku.getVarausId());
+            haku.setInt(1, lasku.getLaskuId());
             ResultSet rs = haku.executeQuery();
-            System.out.println(rs.getString("lasku_id"));
+            */
+
+            // Kokeillaan käyttäen haeLasku-metodia
+            LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
+            Lasku luoPDFLasku = haeLasku(lasku.getLaskuId());
+            System.out.println("Tarkistus1");
+            System.out.println(luoPDFLasku);
+            //System.out.println(rs.getString("lasku_id"));
 
 // Laskun päiväys ja päiväyksen avulla generoitu PDF-tiedoston nimi
 
             LocalDateTime luomispvm = LocalDateTime.now();
 
             LocalDateTime erapaiva = luomispvm.plus(14, ChronoUnit.DAYS);
-            System.out.println("Tarkistus");
+
 
             DateTimeFormatter pvmformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
@@ -232,6 +241,29 @@ public class LaskunHallinta {
             PdfWriter.getInstance(document, new FileOutputStream(tiedostonimi));
             document.open();
 
+            // Testataan haeLasku-metodin tulosten lisäämistä tiedostoon
+            Paragraph otsikko = new Paragraph("LASKU");
+            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
+            otsikko.setSpacingAfter(100);
+            document.add(otsikko);
+
+            Paragraph yritys = new Paragraph("Village Newbies OY\n" + "Mökkivuokraus, Kuopio\n" + "UEF OT R31");
+            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
+            yritys.setSpacingAfter(100);
+            document.add(yritys);
+
+            String laskuntiedot = luoPDFLasku.toString();
+            Paragraph laskulause = new Paragraph(laskuntiedot);
+            laskulause.setSpacingAfter(100);
+            document.add(laskulause);
+
+            Paragraph laskutus = new Paragraph("Maksutiedot: \n" +
+                    "Tilinumero: FI11 1111 2222 3333 44\n" +
+                    "BIC: VNOYHH\n" +
+                    "Laskun päiväys: " + luomisDate + ". Eräpäivä: " + erapaivaDate );
+            document.add(laskutus);
+
+/* rs on tyhjä, joten laskun tietoja ei saada generoitua
 // Lisätään laskun tiedot
             Paragraph otsikko = new Paragraph("LASKU");
             otsikko.setAlignment(Paragraph.ALIGN_CENTER);
@@ -244,6 +276,7 @@ public class LaskunHallinta {
             document.add(yritys);
 
             document.add(new Paragraph("Laskun ID: " + rs.getString("lasku_id")));
+            System.out.println("Tarkistus");
             document.add(new Paragraph("Varausnumero: " + lasku.getVarausId()));
             document.add(new Paragraph("Asiakas: " + rs.getString("etunimi") + " " +
                     rs.getString("sukunimi")));
@@ -253,14 +286,15 @@ public class LaskunHallinta {
             double summa = 0;
             double palvelutAlv = 0;
             if (rs.next()) {
-                while (rs.next()) {
+                do {
                     document.add(new Paragraph("Palvelu: " + rs.getString("nimi") + " - hinta: " +
                             rs.getDouble("hinta")));
                     summa += rs.getDouble("hinta");
                     palvelutAlv += rs.getDouble("alv");
-                }
+                } while (rs.next());
             } else {
-            System.out.println("ResultSet on tyhjä");}
+                System.out.println("ResultSet on tyhjä");
+            }
 
             double kokonaishinta = summa + palvelutAlv;
             document.add(new Paragraph("Veroton hinta: " + summa));
@@ -272,7 +306,7 @@ public class LaskunHallinta {
             otsikko.setAlignment(Paragraph.ALIGN_CENTER);
             otsikko.setSpacingAfter(20);
             document.add(laskutus);
-
+*/
             document.close();
 
             System.out.println("Lasku tallennettu tiedostoon " + tiedostonimi);

@@ -61,6 +61,14 @@ public class Lasku {
     public void setLaskuId(int laskuId) {
         this.laskuId = laskuId;}
 
+    @Override
+    public String toString() {
+        return "Lasku ID: " + laskuId + ", varaus ID:" + varausId + "\n" +
+                "Alv: " + alv + "\n" +
+                "Veroton hinta: " + summa + "\n" +
+                "Laskun summa: " + (summa+alv);
+    }
+
     public void laskeSummaJaAlv(double mokkiHinta, double palveluHinta, double palveluAlv) {
         double summa = mokkiHinta + palveluHinta;
         double alv = palveluAlv;

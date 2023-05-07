@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis.">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi.">
+      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-07-13-04-28.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lasku.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Lasku.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskunHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskunHallinta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +34,9 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Oj7obl4ZT3H0pR9hiNOMxfLnAr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -344,7 +346,13 @@
       <option name="presentableId" value="LOCAL−00029" />
       <updated>1683375701049</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL−00030" summary="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi.">
+      <created>1683408439189</created>
+      <option name="number" value="LOCAL−00030" />
+      <option name="presentableId" value="LOCAL−00030" />
+      <updated>1683408439189</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -412,7 +420,8 @@
     <MESSAGE value="Laskutuksen tekoa" />
     <MESSAGE value="Laskutus-kokonaisuus" />
     <MESSAGE value="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis." />
-    <option name="LAST_COMMIT_MESSAGE" value="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis." />
+    <MESSAGE value="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi." />
+    <option name="LAST_COMMIT_MESSAGE" value="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
