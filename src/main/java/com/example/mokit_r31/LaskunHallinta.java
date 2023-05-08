@@ -19,7 +19,8 @@ import java.util.List;
  * Sisältää Lasku- ja LaskuController-luokkien tarvitsemia metodeja.
  * Kentät: laskun luomisen päivämäärä, laskun eräpäivä, varauksen kesto (vrk), laskun numero.
  * Metodeja: laske varauksen kesto, hae lasku tietokannasta, luo uusi lasku ja tallenna tietokantaan,
- * hae kaikki laskut tietokannasta, poista lasku tietokannasta, tallenna laskusta PDF-tiedosto.
+ * hae kaikki laskut tietokannasta, poista lasku tietokannasta, merkitse lasku maksetuksi tietokantaan,
+ * merkitse lasku maksamattomaksi, tallenna laskusta PDF-tiedosto.
  */
 
 public class LaskunHallinta {
@@ -61,7 +62,8 @@ public class LaskunHallinta {
                     int varausId = rs.getInt("varaus_id");
                     double summa = rs.getDouble("summa");
                     double alv = rs.getDouble("alv");
-                    return new Lasku(alv, summa, laskuId, varausId);
+                    boolean maksettu = rs.getBoolean("maksettu");
+                    return new Lasku(alv, summa, laskuId, varausId, maksettu);
                 }
             }
         } catch (SQLException ex) {
@@ -135,6 +137,7 @@ public class LaskunHallinta {
                 lasku.setVarausId(tulosjoukko.getInt("varaus_id"));
                 lasku.setSumma(tulosjoukko.getDouble("summa"));
                 lasku.setAlv(tulosjoukko.getDouble("alv"));
+                lasku.setMaksettu(tulosjoukko.getBoolean("maksettu"));
                 laskut.add(lasku);
             }
         } finally {
@@ -172,6 +175,50 @@ public class LaskunHallinta {
             }
             if (yhteys != null) {
                 yhteys.close();}
+        }
+        }
+
+    public void merkitseMaksetuksi(Lasku lasku) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = Tietokanta.getYhteys();
+            String sql = "UPDATE lasku SET maksettu = ? WHERE lasku_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setBoolean(1, true);
+            stmt.setInt(2, lasku.getLaskuId());
+            stmt.executeUpdate();
+            lasku.setMaksettu(true);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public void merkitseEiMaksetuksi(Lasku lasku) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = Tietokanta.getYhteys();
+            String sql = "UPDATE lasku SET maksettu = ? WHERE lasku_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, lasku.getLaskuId());
+            stmt.executeUpdate();
+            lasku.setMaksettu(false);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
     }
 

@@ -3,50 +3,49 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.mokit_r31.MainController">
+<AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MainController">
    <children>
-      <TabPane layoutX="6.0" prefHeight="450.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <TabPane layoutX="6.0" prefHeight="450.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
           <Tab fx:id="tabAsiakkaat" text="Asiakkaat">
             <content>
-                <fx:include source="AsiakasIkkuna.fxml"/>
+                <fx:include source="AsiakasIkkuna.fxml" />
             </content>
           </Tab>
           <Tab fx:id="tabMokit" text="Mökit">
             <content>
-                <fx:include source="HallintaSivuMokit.fxml"/>
+                <fx:include source="HallintaSivuMokit.fxml" />
             </content>
           </Tab>
             <Tab fx:id="tabVaraukset" text="Varaukset">
                <content>
-                   <fx:include source="VarausIkkuna.fxml"/>
+                   <fx:include source="VarausIkkuna.fxml" />
                </content>
             </Tab>
             <Tab fx:id="tabPalvelut" text="Palvelut">
                <content>
-                   <fx:include source="uudempiPalvelu.fxml"/>
+                   <fx:include source="uudempiPalvelu.fxml" />
                </content>
             </Tab>
             <Tab fx:id="tabLaskutus" text="Laskutus">
                <content>
-                   <fx:include source="LaskutusIkkuna.fxml"/>
+                   <fx:include source="LaskutusIkkuna.fxml" />
                </content>
             </Tab>
             <Tab fx:id="tabRaportit" text="Raportit">
                <content>
-                   <fx:include source="RaporttiIkkuna.fxml"/>
+                   <fx:include source="RaporttiIkkuna.fxml" />
                </content>
             </Tab>
             <Tab fx:id="tabPalveluRaportti" text="Palveluiden raportit">
                 <content>
-                    <fx:include source="PalveluRaporttiIkkuna.fxml"/>
+                    <fx:include source="PalveluRaporttiIkkuna.fxml" />
                 </content>
             </Tab>
         </tabs>
       </TabPane>
+      <Text layoutX="399.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Village Newbies Oy | UEF OT R31 2023" wrappingWidth="210.93671035766602" />
    </children>
 </AnchorPane>

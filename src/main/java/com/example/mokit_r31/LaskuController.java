@@ -13,7 +13,7 @@ import java.util.Optional;
 /** Laskutusta käsittelevä controller.
  * Käsittelee laskuja ja varauksia listoina, jotka haetaan sql-tietokannasta.
  * Sisältää toiminnot: päivitä listat, luo uusi: tallentaa tietokantaan, poista tietokannasta,
- * luo ja tallenna PDF-tiedostoon.
+ * luo ja tallenna PDF-tiedostoon, merkitse tietokantaan maksetuksi tai ei maksetuksi.
  * Laskun lähetys sähköpostilla voidaan lisätä, kun yrityksellä on sähköpostipalvelin.
  */
 
@@ -31,6 +31,8 @@ public class LaskuController {
     @FXML private TextArea taLaskunTiedot;
     @FXML private TextField tfEmailosoite;
     @FXML private TextField tfTiedostonimi;
+    @FXML private CheckBox checkMaksettu;
+    @FXML private CheckBox checkEiMaksettu;
     Tietokanta tietokanta;
     LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
     @FXML
@@ -97,9 +99,11 @@ public class LaskuController {
             LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
             try {
                 Lasku lasku = laskunhallinta.haeLasku(laskunid);
+                boolean onkoMaksettu = lasku.isMaksettu();
                 String laskunTiedot = "Varaus ID: " + lasku.getVarausId() + ".  Laskun ID: "
                         + lasku.getLaskuId()+"\n" + " Laskun summa: " + (lasku.getSumma()+lasku.getAlv())+"\n"+
-                        "Vuokra-aika: " + laskunhallinta.laskePaivienMaara(valinta.getVarausId()) + " vrk";
+                        "Vuokra-aika: " + laskunhallinta.laskePaivienMaara(valinta.getVarausId()) + " vrk" + "\n"
+                        + "Lasku maksettu: " + (onkoMaksettu ? "kyllä" : "ei");
                 taLaskunTiedot.setText(laskunTiedot);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -128,6 +132,30 @@ public class LaskuController {
             alert.setTitle("Valitse asiakas");
             alert.setHeaderText("Valitse poistettava asiakas listasta.");
             alert.showAndWait();
+        }
+        PaivitaLaskutus();
+    }
+
+    @FXML private void merkitseMaksettu(ActionEvent event) throws SQLException {
+
+        Lasku valittuLasku = laskuLw.getSelectionModel().getSelectedItem();
+        LaskunHallinta lh = new LaskunHallinta(tietokanta);
+            if (valittuLasku != null) {
+                boolean onMaksettu = checkMaksettu.isSelected();
+                valittuLasku.setMaksettu(onMaksettu);
+                lh.merkitseMaksetuksi(valittuLasku);
+            }
+        PaivitaLaskutus();
+        }
+
+    @FXML private void merkitseEiMaksettu(ActionEvent event) throws SQLException {
+
+        Lasku valittuLasku = laskuLw.getSelectionModel().getSelectedItem();
+        LaskunHallinta lh = new LaskunHallinta(tietokanta);
+        if (valittuLasku != null) {
+            boolean eiMaksettu = checkEiMaksettu.isSelected();
+            valittuLasku.setMaksettu(eiMaksettu);
+            lh.merkitseEiMaksetuksi(valittuLasku);
         }
         PaivitaLaskutus();
     }
