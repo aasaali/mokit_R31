@@ -73,6 +73,10 @@ public class Asiakas {
         this.puhelinnro = puhelinnro;
     }
 
+    public void setAsiakasId(int asiakasId) {
+        this.asiakasId = asiakasId;
+    }
+
     @Override
     public String toString() {
         return "Asiakas ID: " + asiakasId + "\n" +

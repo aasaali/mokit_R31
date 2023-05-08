@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
@@ -21,13 +21,13 @@
             <Text layoutX="11.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Päättyy" />
             <Text layoutX="11.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asiakas" />
             <Text layoutX="11.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mökki" />
-            <TextField fx:id="asiakasTf" layoutX="116.0" layoutY="51.0" promptText="AsiakasID" />
-            <TextField fx:id="mokkiTf" layoutX="116.0" layoutY="103.0" promptText="MökkiID" />
             <Text layoutX="111.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luo uusi varaus" />
             <Button fx:id="tallennaVarausBt" layoutX="207.0" layoutY="271.0" mnemonicParsing="false" onAction="#tallennaVarausBt" text="Tallenna" />
+            <ComboBox fx:id="asiakasCb" layoutX="114.0" layoutY="51.0" prefWidth="150.0" promptText="Asiakas ID" />
+            <ComboBox fx:id="mokkiCb" layoutX="114.0" layoutY="104.0" prefWidth="150.0" promptText="Mökki ID" />
          </children>
       </AnchorPane>
       <TextArea fx:id="varausTa" layoutX="13.0" layoutY="207.0" prefHeight="126.0" prefWidth="268.0" promptText="Varauksen tiedot" />
-      <Button fx:id="btMuokkaa" layoutX="102.0" layoutY="344.0" mnemonicParsing="false" text="Muokkaa" onAction="#btMuokkaa" />
+      <Button fx:id="btMuokkaa" layoutX="102.0" layoutY="344.0" mnemonicParsing="false" onAction="#btMuokkaa" text="Muokkaa" />
    </children>
 </AnchorPane>

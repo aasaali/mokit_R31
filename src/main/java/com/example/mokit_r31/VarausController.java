@@ -37,27 +37,55 @@ public class VarausController {
     private Button btMuokkaa;
     @FXML
     private TextArea varausTa;
+    @FXML
+    private ComboBox<Asiakas> asiakasCb;
+    private Tietokanta tietokanta;
+    @FXML
+    private ComboBox<Mokki> mokkiCb;
 
+    private void lataaAsiakkaat() {
+        AsiakasHallinta hallinta = new AsiakasHallinta(tietokanta);
+        ObservableList<Asiakas> asiakkaat = FXCollections.observableArrayList(hallinta.haeKaikkiAsiakkaat());
+        asiakasCb.setItems(asiakkaat);
+    }
+
+    private void lataaMokit() {
+        MokkienHallinta hallinta = new MokkienHallinta(tietokanta);
+        ObservableList<Mokki> mokit = FXCollections.observableArrayList(hallinta.haeMokit(""));
+        mokkiCb.setItems(mokit);
+    }
 
     @FXML
     private void tallennaVarausBt() {
-        int asiakas = Integer.parseInt(asiakasTf.getText());
-        int mokki = Integer.parseInt(mokkiTf.getText());
-        LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
-        LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
-        Varaus varaus = new Varaus(asiakas, mokki, alkupaiva, loppupaiva);
-        try {
-            VaraustenHallinta hallinta = new VaraustenHallinta();
-            hallinta.lisaaVaraus(varaus);
-            varauksetLw.getItems().setAll(hallinta.getVaraukset());
+        Asiakas valittuAsiakas = asiakasCb.getSelectionModel().getSelectedItem();
+        Mokki valittuMokki = mokkiCb.getSelectionModel().getSelectedItem();
 
-        } catch (SQLException e) {
+        if (valittuAsiakas != null && valittuMokki != null) {
+            int asiakasId = valittuAsiakas.getAsiakasId();
+            int mokkiId = valittuMokki.getMokkiId();
+            LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
+            LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
+            Varaus varaus = new Varaus(asiakasId, mokkiId, alkupaiva, loppupaiva);
+
+            try {
+                VaraustenHallinta hallinta = new VaraustenHallinta();
+                hallinta.lisaaVaraus(varaus);
+                varauksetLw.getItems().setAll(hallinta.getVaraukset());
+
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Virhe");
+                alert.setHeaderText(null);
+                alert.setContentText("Varauksen tallentaminen epäonnistui. Tarkista syötteet ja yritä uudelleen.");
+                alert.showAndWait();
+                e.printStackTrace();
+            }
+        } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Virhe");
             alert.setHeaderText(null);
-            alert.setContentText("Varauksen tallentaminen epäonnistui. Tarkista syötteet ja yritä uudelleen.");
+            alert.setContentText("Valitse asiakas ja mökki ennen varauksen tallentamista.");
             alert.showAndWait();
-            e.printStackTrace();
         }
     }
 
@@ -125,6 +153,8 @@ public class VarausController {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             varauksetLw.getItems().setAll(hallinta.getVaraukset());
             varauksetLw.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleVarausSelection());
+            lataaAsiakkaat();
+            lataaMokit(); // Lisää tämä rivi
         } catch (SQLException e) {
             e.printStackTrace();
         }
