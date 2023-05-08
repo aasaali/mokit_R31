@@ -20,6 +20,7 @@ import java.util.Optional;
  * asiakkaan tietojen muokkaus tuplaklikkaamalla aukeavassa ikkunassa, jolloin muutokset tallennetaan tietokantaan,
  * sekä asiakkaan poistaminen tietokannasta.
  */
+@SuppressWarnings(value = "unused")
 public class AsiakasController {
 
     public Button btMuokkaa;
