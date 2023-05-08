@@ -36,7 +36,7 @@ public class PalvelutRaporttiController {
             String loppupaiva = loppupaivaDP.getValue().toString();
 
             // Haetaan raportti palveluista
-            PalvelutRaportti.haePalveluRaportti(alue, alkupaiva, loppupaiva);
+            PalvelutRaportti.haePalveluRaportti(alue, alkupaiva, loppupaiva, palvelutLw);
         });
     }
 
