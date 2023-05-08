@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok.">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Palveluiden raportointi tuölkalu valmis">
+      <change afterPath="$PROJECT_DIR$/Palveluraportti_Espoo_08.05.2023.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelutRaporttiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelutRaporttiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/PalveluRaporttiIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/PalveluRaporttiIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -355,7 +357,13 @@
       <option name="presentableId" value="LOCAL−00033" />
       <updated>1683540600945</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL−00034" summary="Palveluiden raportointi tuölkalu valmis">
+      <created>1683541811246</created>
+      <option name="number" value="LOCAL−00034" />
+      <option name="presentableId" value="LOCAL−00034" />
+      <updated>1683541811246</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,7 +433,8 @@
     <MESSAGE value="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis." />
     <MESSAGE value="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi." />
     <MESSAGE value="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok." />
-    <option name="LAST_COMMIT_MESSAGE" value="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok." />
+    <MESSAGE value="Palveluiden raportointi tuölkalu valmis" />
+    <option name="LAST_COMMIT_MESSAGE" value="Palveluiden raportointi tuölkalu valmis" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
