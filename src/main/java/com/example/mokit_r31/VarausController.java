@@ -8,7 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseEvent;
+import java.time.format.DateTimeFormatter;
 
 
 import java.io.IOException;
@@ -136,11 +136,17 @@ public class VarausController {
     private void handleVarausSelection() {
         Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
         if (varaus != null) {
+            //Muotoillaan päivämäärät muotoon pp.kk.vvvv
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+            String alkupaivaMuotoiltu = varaus.getVarattuAlkupvm().format(formatter);
+            String loppupaivaMuotoiltu = varaus.getVarattuLoppupvm().format(formatter);
+
             String varausTiedot = "Varaus ID: " + varaus.getVarausId() + "\n" +
                     "Asiakas ID: " + varaus.getAsiakasId() + "\n" +
                     "Mökki ID: " + varaus.getMokkiId() + "\n" +
-                    "Alkupäivä: " + varaus.getVarattuAlkupvm() + "\n" +
-                    "Loppupäivä: " + varaus.getVarattuLoppupvm();
+                    "Alkupäivä: " + alkupaivaMuotoiltu + "\n" + // Käytä muotoiltua päivämäärää
+                    "Loppupäivä: " + loppupaivaMuotoiltu; // Käytä muotoiltua päivämäärää
             varausTa.setText(varausTiedot);
         } else {
             varausTa.setText("");

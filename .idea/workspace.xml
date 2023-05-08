@@ -4,12 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Korjaus">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Asiakas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AsiakasHallinta.java" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varaustoimintoja">
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -277,7 +273,13 @@
       <option name="presentableId" value="LOCAL−00020" />
       <updated>1683560460808</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL−00021" summary="Varaustoimintoja">
+      <created>1683561959299</created>
+      <option name="number" value="LOCAL−00021" />
+      <option name="presentableId" value="LOCAL−00021" />
+      <updated>1683561959299</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -340,7 +342,8 @@
     <MESSAGE value="Varausikkunan korjaus samanlaiseksi" />
     <MESSAGE value="Palveluiden lisääminen varauksille" />
     <MESSAGE value="Korjaus" />
-    <option name="LAST_COMMIT_MESSAGE" value="Korjaus" />
+    <MESSAGE value="Varaustoimintoja" />
+    <option name="LAST_COMMIT_MESSAGE" value="Varaustoimintoja" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
