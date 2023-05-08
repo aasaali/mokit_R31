@@ -26,10 +26,16 @@ public class MuokkaaVaraustaController {
     private DatePicker dpLoppupvm;
     @FXML
     private Button tallennaButton;
-
+    @FXML
+    private ListView varauksenPalvelutLv;
     private Varaus varaus;
     @FXML
     private ListView palvelutLv;
+    @FXML
+    private Button btPoistaPalvelu;
+    @FXML
+    private Button btLisaaPalvelu;
+
     Tietokanta tietokanta = new Tietokanta();
 
     private List<Palvelu> kaikkiPalvelut = new ArrayList<>();
@@ -44,6 +50,7 @@ public class MuokkaaVaraustaController {
         dpAlkupvm.setValue(varaus.getVarattuAlkupvm().toLocalDate());
         dpLoppupvm.setValue(varaus.getVarattuLoppupvm().toLocalDate());
         lataaPalvelut(varaus.getMokkiId());
+        lisaaVarauksenPalvelut();
     }
 
 
@@ -104,6 +111,48 @@ public class MuokkaaVaraustaController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    public void lisaaVarauksenPalvelut() {
+        // Haetaan varauksen palvelut tietokannasta
+        try {
+            List<Palvelu> varauksenPalvelut = VaraustenHallinta.getVarauksenPalvelut(varaus.getVarausId());
+            // Lisätään palvelut listviewiin
+            varauksenPalvelutLv.getItems().setAll(varauksenPalvelut);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void poistaValittuPalvelu() {
+        ObservableList<Palvelu> valitutPalvelut = varauksenPalvelutLv.getSelectionModel().getSelectedItems();
+        for (Palvelu palvelu : valitutPalvelut) {
+            try {
+                VaraustenHallinta.poistaPalveluVaraukselta(varaus.getVarausId(), palvelu.getId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        // Päivitetään varauksen palvelut listviewiin
+        lisaaVarauksenPalvelut();
+    }
+
+    @FXML
+    public void lisaaValittuPalvelu() {
+        ObservableList<Palvelu> valitutPalvelut = palvelutLv.getSelectionModel().getSelectedItems();
+        for (Palvelu palvelu : valitutPalvelut) {
+            int palveluId = palvelu.getId();
+            int lkm = 1; // oletuksena yksi kappale valittua palvelua
+            try {
+                VaraustenHallinta.lisaaPalveluVaraukselle(varaus.getVarausId(), palveluId, lkm);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        // Päivitetään varauksen palvelut listviewiin
+        lisaaVarauksenPalvelut();
+    }
     @FXML
     public void initialize() {
         tallennaButton.setOnAction(e -> {
@@ -112,6 +161,4 @@ public class MuokkaaVaraustaController {
         palvelutLv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
     }
-
-
 }

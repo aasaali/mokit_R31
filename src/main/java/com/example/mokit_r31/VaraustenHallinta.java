@@ -250,4 +250,19 @@ public class VaraustenHallinta extends Application {
         return palvelut;
     }
 
+    public static void poistaPalveluVaraukselta(int varausId, int palveluId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = Tietokanta.getYhteys();
+            stmt = conn.prepareStatement("DELETE FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ?");
+            stmt.setInt(1, varausId);
+            stmt.setInt(2, palveluId);
+            stmt.executeUpdate();
+        } finally {
+            Tietokanta.sulje(stmt, conn);
+        }
+    }
+
+
 }

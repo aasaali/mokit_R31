@@ -132,7 +132,7 @@ public class VarausController {
                 Parent parent = fxmlLoader.load();
                 MuokkaaVaraustaController controller = fxmlLoader.getController();
                 controller.setVaraus(varaus);
-                Scene scene = new Scene(parent, 600, 400);
+                Scene scene = new Scene(parent, 800, 400);
                 Stage stage = new Stage();
                 stage.setScene(scene);
                 stage.show();
