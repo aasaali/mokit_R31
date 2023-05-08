@@ -11,9 +11,12 @@
 <AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MuokkaaVaraustaController">
    <children>
       <Text layoutX="27.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muokkaa varausta" />
-      <TextField fx:id="tfMokkiId" layoutX="85.0" layoutY="141.0" promptText="MökkiID" />
-      <TextField fx:id="tfAsiakasId" layoutX="85.0" layoutY="97.0" promptText="AsiakasID" />
       <TextField fx:id="tfVarausId" editable="false" layoutX="85.0" layoutY="57.0" promptText="VarausID" />
+      <TextField fx:id="tfAsiakasId" layoutX="85.0" layoutY="97.0" promptText="AsiakasID" />
+      <TextField fx:id="tfMokkiId" layoutX="85.0" layoutY="141.0" promptText="MökkiID" />
+      <DatePicker fx:id="dpAlkupvm" layoutX="85.0" layoutY="187.0" promptText="Alkupäivämäärä" />
+      <DatePicker fx:id="dpLoppupvm" layoutX="85.0" layoutY="233.0" promptText="Loppupäivämäärä" />
+      <ListView fx:id="palvelutLv" layoutX="286.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
       <Button fx:id="tallennaButton" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" onAction="#tallennaButton" text="Tallenna">
          <font>
             <Font size="14.0" />
@@ -24,14 +27,11 @@
             <Font size="13.0" />
          </font>
       </Text>
-      <DatePicker fx:id="dpAlkupvm" layoutX="85.0" layoutY="187.0" promptText="Alkupäivämäärä" />
-      <DatePicker fx:id="dpLoppupvm" layoutX="85.0" layoutY="233.0" promptText="Loppupäivämäärä" />
       <Text layoutX="18.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VarausId" />
       <Text layoutX="19.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AsiaksId" />
       <Text layoutX="20.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MökkiId" />
       <Text layoutX="18.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alkupvm" />
       <Text layoutX="20.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loppupvm" />
-      <ListView fx:id="palvelutLv" layoutX="286.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
       <Text layoutX="286.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lisää palveluja" />
    </children>
 </AnchorPane>
