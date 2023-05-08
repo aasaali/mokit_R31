@@ -41,6 +41,11 @@
                    <fx:include source="RaporttiIkkuna.fxml"/>
                </content>
             </Tab>
+            <Tab fx:id="tabPalveluRaportti" text="Palveluiden raportit">
+                <content>
+                    <fx:include source="PalveluRaporttiIkkuna.fxml"/>
+                </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>
