@@ -7,6 +7,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** Mökkivarausjärjestelmä by R 31
+ * UEF TKT OHJELMISTOTUOTANTO 2023
+ * Authors: Aatu Saali, Amanda Rizvanov, Juuli Ahonen, Taija Miettinen
+ */
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
