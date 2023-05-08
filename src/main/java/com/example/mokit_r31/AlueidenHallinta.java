@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 public class AlueidenHallinta {
     private Tietokanta tietokanta;
     public AlueidenHallinta(Tietokanta tietokanta) {
@@ -16,13 +19,12 @@ public class AlueidenHallinta {
                 System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
                 // Luodaan SQL-lause, jolla alueen tiedot lisätään tietokantaan
-                String sql = "INSERT INTO alue (alue_id, nimi) SELECT ?, ? FROM DUAL WHERE NOT EXISTS (SELECT * FROM alue WHERE nimi = ?)";
-                PreparedStatement stmt = conn.prepareStatement(sql);
+                String sql = "INSERT INTO alue (nimi) SELECT ? FROM DUAL WHERE NOT EXISTS (SELECT * FROM alue WHERE nimi = ?)";
+                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
                 // Asetetaan SQL-lauseelle arvot
                 stmt.setInt(1, newAlue.getAlueId());
                 stmt.setString(2, newAlue.getNimi());
-                stmt.setString(3, newAlue.getNimi());
 
                 // Suoritetaan SQL-lause
                 stmt.executeUpdate();
@@ -39,12 +41,14 @@ public class AlueidenHallinta {
 
 
 // Alueen tietojen hakeminen tietokannasta SQL SELECT>
-    public static void haeAlueenTiedot(String hakuNimi) throws SQLException{
+    public static List<Alue> haeAlueenTiedot(String hakuNimi){
         // Tietokannan yhteysosoite
         String url = "jdbc:mysql://localhost:3306/vn";
         // Käyttäjän tunnus ja salasana
         String user = "root";
         String password = "Heleppohomma23?3";
+
+        List<Alue> alueet = new ArrayList<>();
 
         try {
             Connection conn = DriverManager.getConnection(url, user, password);
@@ -52,41 +56,42 @@ public class AlueidenHallinta {
                 System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
                 // Luodaan SQL-lause, jolla alueen tiedot lisätään tietokantaan
-                String sql = "SELECT * FROM alue WHERE nimi LIKE ?";
+                String sql = "SELECT alue_id, nimi FROM alue WHERE nimi LIKE ?";
                 PreparedStatement stmt = conn.prepareStatement(sql);
 
                 // Asetetaan SQL-lauseelle arvot
                 stmt.setString(1, "%" + hakuNimi + "%");
                 ResultSet resultSet = stmt.executeQuery();
 
+                // Muodostetaan listä Alue-olioita hakutuloksista
                 while (resultSet.next()) {
-                    System.out.println(resultSet.getInt("alue_id") + "\t" + resultSet.getString("nimi"));
+                    int alueId = resultSet.getInt("alue_id");
+                    String nimi = resultSet.getString("nimi");
+                    Alue alue = new Alue(nimi, alueId);
+                    alueet.add(alue);
                 }
 
 
                 // Suljetaan tietokantayhteys ja vapautetaan resurssit
+                resultSet.close();
                 stmt.close();
                 conn.close();
-
             }
+
         } catch (SQLException e) {
             System.out.println("Yhteys tietokantaan epäonnistui!");
             e.printStackTrace();
         }
-
+    return alueet;
     }
 
 // Alueen tietojen muokkaaminen tietokannassa SQL UPDATE
 
-    public static void paivitaAlueenTiedot(int alueId, String uusiNimi) {
-        // Tietokannan yhteysosoite
-        String url = "jdbc:mysql://localhost:3306/vn";
-        // Käyttäjän tunnus ja salasana
-        String user = "root";
-        String password = "Heleppohomma23?3";
+    public void paivitaAlueenTiedot(Alue alue) {
+
 
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
+            Connection conn = tietokanta.getYhteys();
             {
                 System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
@@ -95,8 +100,8 @@ public class AlueidenHallinta {
                 PreparedStatement stmt = conn.prepareStatement(sql);
 
                 // Asetetaan SQL-lauseelle arvot
-                stmt.setString(1, uusiNimi);
-                stmt.setInt(2, alueId);
+                stmt.setInt(2, alue.getAlueId());
+                stmt.setString(1, alue.getNimi());
 
                 // Suoritetaan SQL-lause
                 int rowsAffected = stmt.executeUpdate();
@@ -153,11 +158,7 @@ public static void poistaAlueenTiedot(int alueId) {
 }
 
     public static void main(String[] args) throws SQLException {
-    Alue alue1 = new Alue("Kauppi");
-    haeAlueenTiedot("Kuopio");
-    paivitaAlueenTiedot(1, "Petonen");
-    haeAlueenTiedot("Petonen");
-    poistaAlueenTiedot(1);
+
 }
 }
 

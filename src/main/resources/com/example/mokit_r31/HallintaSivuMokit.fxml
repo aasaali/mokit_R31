@@ -12,10 +12,10 @@
       fx:controller="com.example.mokit_r31.MokitController">
    <children>
       <Button fx:id="BtLisaaMokki" layoutX="12.0" layoutY="101.0" mnemonicParsing="false" text="Lisää Mökki" />
-      <Button fx:id="BtLisaaAlue" layoutX="12.0" layoutY="290.0" mnemonicParsing="false" text="Lisää Alue" />
+      <Button fx:id="BtLisaaAlue" layoutX="12.0" layoutY="290.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="81.0" text="Lisää Alue" />
       <Button fx:id="BtHaeMokki" layoutX="12.0" layoutY="65.0" mnemonicParsing="false" text="Hae Mökkiä" />
       <Button fx:id="BtHaeAlue" layoutX="12.0" layoutY="252.0" mnemonicParsing="false" text="Hae Aluetta" />
-      <ListView fx:id="LwMokitJaAlueet" layoutX="226.0" layoutY="15.0" prefHeight="198.0" prefWidth="360.0" />
+      <ListView fx:id="LwMokit" layoutX="226.0" layoutY="15.0" prefHeight="198.0" prefWidth="360.0" />
       <TextField fx:id="TfMokki" layoutX="13.0" layoutY="39.0" promptText="Nimi, hinta, varustelu" />
       <TextField fx:id="TfAlue" layoutX="14.0" layoutY="226.0" promptText="Alueen nimi" />
       <Label layoutX="13.0" layoutY="14.0" prefHeight="17.0" prefWidth="202.0" text="Mökkien ja alueiden hallinta">
@@ -23,6 +23,8 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ListView fx:id="LwMokitJaAlueet1" layoutX="226.0" layoutY="223.0" prefHeight="164.0" prefWidth="360.0" />
+      <ListView fx:id="LwAlueet" layoutX="226.0" layoutY="223.0" prefHeight="164.0" prefWidth="360.0" />
+      <Button fx:id="bTPoistaMokki" layoutX="95.0" layoutY="101.0" mnemonicParsing="false" text="Poista Mökki" />
+      <Button fx:id="btPoistaAlue" layoutX="95.0" layoutY="290.0" mnemonicParsing="false" text="Poista Alue" />
    </children>
 </Pane>

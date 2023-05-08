@@ -41,7 +41,7 @@ public class MokitLisaaController {
             String varustelu = TfMokinVarustelu.getText();
             int hlo = Integer.parseInt(TfHlo.getText());
             int mokkiId = Integer.parseInt(TfMokinId.getText());
-            int postinumero = Integer.parseInt(TfPostiNro.getText());
+            String postinumero = TfPostiNro.getText();
             double hinta = Double.parseDouble(TfHinta.getText());
             int alueId = Integer.parseInt(TfAlueId.getText());
 

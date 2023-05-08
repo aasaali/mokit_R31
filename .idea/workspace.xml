@@ -4,11 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Palveluiden raportointi tuölkalu valmis">
-      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-08-13-59-09.pdf" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Mokkien ja aluiden lisääminen">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaMokkiaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MuokkaaAlueController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaAlue.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaMokkia.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Alue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Alue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AlueetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AlueetController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AlueidenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/AlueidenHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokitController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokitController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokitLisaaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokitLisaaController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Mokki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Mokki.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/HallintaSivuMokit.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/HallintaSivuMokit.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/LisaaMokki.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/LisaaMokki.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,16 +38,13 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="laskutus" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="2Oj7obl4ZT3H0pR9hiNOMxfLnAr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -46,40 +54,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Downloaded.Files.Path.Enabled": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/taija/IdeaProjects/mokit_R31/src/main/resources/com/example/mokit_r31",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.43103448",
-    "settings.editor.selected.configurable": "preferences.JavaFX",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Varaukset&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/IdeaProjects/mokit_R31/mysql-connector-j-8.0.33.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.1075269&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.43103448&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\taija\IdeaProjects\mokit_R31\src\main\resources\com\example\mokit_r31" />
-      <recent name="C:\Users\amand\IdeaProjects\mokit_R31UUSI\src\main\java\com\example\mokit_r31" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31" />
@@ -90,7 +97,7 @@
       <recent name="com.example.mokit_r31" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainApplication">
+  <component name="RunManager">
     <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.MainApplication" />
       <module name="mokit_R31" />
@@ -132,9 +139,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MainApplication" />
         <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
+        <item itemvalue="Application.MainApplication" />
         <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
       </list>
@@ -158,6 +165,7 @@
       <workItem from="1682659681883" duration="728000" />
       <workItem from="1682663072872" duration="3555000" />
       <workItem from="1683177075338" duration="3898000" />
+      <workItem from="1683460536005" duration="11332000" />
     </task>
     <task id="LOCAL−00001" summary="Lisätty koodi">
       <created>1682068236965</created>
@@ -249,127 +257,19 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1683200720682</updated>
     </task>
-    <task id="LOCAL−00016" summary="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.">
-      <created>1683201410799</created>
+    <task id="LOCAL−00016" summary="Mokkien ja aluiden ikkunat">
+      <created>1683273124093</created>
       <option name="number" value="LOCAL−00016" />
       <option name="presentableId" value="LOCAL−00016" />
-      <updated>1683201410799</updated>
+      <updated>1683273124093</updated>
     </task>
-    <task id="LOCAL−00017" summary="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.">
-      <created>1683227903757</created>
+    <task id="LOCAL−00017" summary="Mokkien ja aluiden lisääminen">
+      <created>1683293850749</created>
       <option name="number" value="LOCAL−00017" />
       <option name="presentableId" value="LOCAL−00017" />
-      <updated>1683227903757</updated>
+      <updated>1683293850750</updated>
     </task>
-    <task id="LOCAL−00018" summary="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.">
-      <created>1683232962114</created>
-      <option name="number" value="LOCAL−00018" />
-      <option name="presentableId" value="LOCAL−00018" />
-      <updated>1683232962114</updated>
-    </task>
-    <task id="LOCAL−00019" summary="muokkauksia">
-      <created>1683271906715</created>
-      <option name="number" value="LOCAL−00019" />
-      <option name="presentableId" value="LOCAL−00019" />
-      <updated>1683271906715</updated>
-    </task>
-    <task id="LOCAL−00020" summary="muokkauksia">
-      <created>1683271914953</created>
-      <option name="number" value="LOCAL−00020" />
-      <option name="presentableId" value="LOCAL−00020" />
-      <updated>1683271914953</updated>
-    </task>
-    <task id="LOCAL−00021" summary="MuokkaaAsiakastaControllerin debugia">
-      <created>1683273454860</created>
-      <option name="number" value="LOCAL−00021" />
-      <option name="presentableId" value="LOCAL−00021" />
-      <updated>1683273454860</updated>
-    </task>
-    <task id="LOCAL−00022" summary="MuokkaaAsiakastaControllerin debugausta">
-      <created>1683274505812</created>
-      <option name="number" value="LOCAL−00022" />
-      <option name="presentableId" value="LOCAL−00022" />
-      <updated>1683274505812</updated>
-    </task>
-    <task id="LOCAL−00023" summary="MuokkaaAsiakastaControllerin debugausta">
-      <created>1683275736990</created>
-      <option name="number" value="LOCAL−00023" />
-      <option name="presentableId" value="LOCAL−00023" />
-      <updated>1683275736990</updated>
-    </task>
-    <task id="LOCAL−00024" summary="MuokkaaAsiakastaControllerin debugausta">
-      <created>1683276910945</created>
-      <option name="number" value="LOCAL−00024" />
-      <option name="presentableId" value="LOCAL−00024" />
-      <updated>1683276910945</updated>
-    </task>
-    <task id="LOCAL−00025" summary="Laskutusikkunaan grafiikkaa">
-      <created>1683284912076</created>
-      <option name="number" value="LOCAL−00025" />
-      <option name="presentableId" value="LOCAL−00025" />
-      <updated>1683284912076</updated>
-    </task>
-    <task id="LOCAL−00026" summary="Laskutuksen tekoa">
-      <created>1683289356567</created>
-      <option name="number" value="LOCAL−00026" />
-      <option name="presentableId" value="LOCAL−00026" />
-      <updated>1683289356567</updated>
-    </task>
-    <task id="LOCAL−00027" summary="Laskutuksen tekoa">
-      <created>1683290317343</created>
-      <option name="number" value="LOCAL−00027" />
-      <option name="presentableId" value="LOCAL−00027" />
-      <updated>1683290317343</updated>
-    </task>
-    <task id="LOCAL−00028" summary="Laskutus-kokonaisuus">
-      <created>1683320846463</created>
-      <option name="number" value="LOCAL−00028" />
-      <option name="presentableId" value="LOCAL−00028" />
-      <updated>1683320846463</updated>
-    </task>
-    <task id="LOCAL−00029" summary="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis.">
-      <created>1683375701049</created>
-      <option name="number" value="LOCAL−00029" />
-      <option name="presentableId" value="LOCAL−00029" />
-      <updated>1683375701049</updated>
-    </task>
-    <task id="LOCAL−00030" summary="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi.">
-      <created>1683408439189</created>
-      <option name="number" value="LOCAL−00030" />
-      <option name="presentableId" value="LOCAL−00030" />
-      <updated>1683408439189</updated>
-    </task>
-    <task id="LOCAL−00031" summary="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok.">
-      <created>1683454485568</created>
-      <option name="number" value="LOCAL−00031" />
-      <option name="presentableId" value="LOCAL−00031" />
-      <updated>1683454485568</updated>
-    </task>
-    <task id="LOCAL−00032" summary="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok.">
-      <created>1683540365567</created>
-      <option name="number" value="LOCAL−00032" />
-      <option name="presentableId" value="LOCAL−00032" />
-      <updated>1683540365567</updated>
-    </task>
-    <task id="LOCAL−00033" summary="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok.">
-      <created>1683540600945</created>
-      <option name="number" value="LOCAL−00033" />
-      <option name="presentableId" value="LOCAL−00033" />
-      <updated>1683540600945</updated>
-    </task>
-    <task id="LOCAL−00034" summary="Palveluiden raportointi tuölkalu valmis">
-      <created>1683541811246</created>
-      <option name="number" value="LOCAL−00034" />
-      <option name="presentableId" value="LOCAL−00034" />
-      <updated>1683541811246</updated>
-    </task>
-    <task id="LOCAL−00035" summary="Palveluiden raportointi tuölkalu valmis">
-      <created>1683543385356</created>
-      <option name="number" value="LOCAL−00035" />
-      <option name="presentableId" value="LOCAL−00035" />
-      <updated>1683543385356</updated>
-    </task>
-    <option name="localTasksCounter" value="36" />
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -401,7 +301,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="varaukset" />
+                        <option value="origin/main" />
                       </list>
                     </value>
                   </entry>
@@ -427,20 +327,9 @@
     <MESSAGE value="Branchin alku" />
     <MESSAGE value="päivityksiä" />
     <MESSAGE value="MuokkaaAsiakasta-toiminto ym." />
-    <MESSAGE value="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
-    <MESSAGE value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
-    <MESSAGE value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
-    <MESSAGE value="muokkauksia" />
-    <MESSAGE value="MuokkaaAsiakastaControllerin debugia" />
-    <MESSAGE value="MuokkaaAsiakastaControllerin debugausta" />
-    <MESSAGE value="Laskutusikkunaan grafiikkaa" />
-    <MESSAGE value="Laskutuksen tekoa" />
-    <MESSAGE value="Laskutus-kokonaisuus" />
-    <MESSAGE value="Laskutus-kokonaisuus: laskun luominen onnistuu, ei valmis." />
-    <MESSAGE value="Laskutus-kokonaisuus: uusi lasku, poista, listat ok. Pdf ei toimi." />
-    <MESSAGE value="Laskutus-kokonaisuus: pdf-tiedoston tallennus onnistuu. Kokonaisuus ok." />
-    <MESSAGE value="Palveluiden raportointi tuölkalu valmis" />
-    <option name="LAST_COMMIT_MESSAGE" value="Palveluiden raportointi tuölkalu valmis" />
+    <MESSAGE value="Mokkien ja aluiden ikkunat" />
+    <MESSAGE value="Mokkien ja aluiden lisääminen" />
+    <option name="LAST_COMMIT_MESSAGE" value="Mokkien ja aluiden lisääminen" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

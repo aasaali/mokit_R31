@@ -26,12 +26,15 @@ public class AlueetController {
         @FXML
         public void BtTallenna (ActionEvent event){
             String nimi = TxAlueNimi.getText();
+            int alueId = Integer.parseInt(TxAlueId.getText());
 
-            Alue uusiAlue = new Alue(nimi);
+            Alue uusiAlue = new Alue(nimi, alueId);
             AlueidenHallinta hallinta = new AlueidenHallinta(tietokanta);
             hallinta.lisaaAlueenTiedot(uusiAlue);
             BtTallenna.setText("Alueen tiedot tallennettu!");
             System.out.println("tallennusOnnistui");
 
         }
+
+
 }
