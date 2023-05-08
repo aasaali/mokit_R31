@@ -32,10 +32,15 @@ public class Lasku {
 
     private Asiakas asiakas;
 
-    public Lasku(int varausId) {
-        this.varausId=varausId;
+    public Lasku(double alv, double summa, int laskuId, int varausId) {
+        this.alv = alv;
+        this.summa = summa;
+        this.laskuId = laskuId;
+        this.varausId = varausId;
     }
 
+    public Lasku(int varausId) {
+        this.varausId=varausId;}
 
     public Lasku(){}
 
@@ -62,63 +67,4 @@ public class Lasku {
         this.summa = summa;
         this.alv = alv;
     }
-
-
-/*
-    public void luoLaskuPdf(String tiedostonimi) {
-        // Luodaan uusi PDF-dokumentti
-        Document document = new Document(PageSize.A4);
-
-        // Sen hetkinen päivämäärä?
-        luomispvm = LocalDateTime.now();
-
-        //erapaiva = luomispvm + 14
-        //https://www.javatpoint.com/java-date-add-days
-
-        try {
-            // Alustetaan PDF-tiedoston tallennus
-            PdfWriter.getInstance(document, new FileOutputStream(tiedostonimi));
-
-            // Avataan dokumentti kirjoitusta varten
-            document.open();
-
-            // Luodaan otsikko ja muotoillaan sitä
-            Paragraph otsikko = new Paragraph("LASKU");
-            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
-            otsikko.setSpacingAfter(20);
-            document.add(otsikko);
-
-            // Lisätään asiakkaan tiedot laskuun
-            Paragraph asiakkaanTiedot = new Paragraph("Asiakkaan tiedot:\n" + nimi + "\n" + osoite + "\n" + puhelinnumero);
-            asiakkaanTiedot.setSpacingAfter(20);
-            document.add(asiakkaanTiedot);
-
-            // Lisätään varauksen tiedot laskuun
-            DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            Paragraph varauksenTiedot = new Paragraph("Varauksen tiedot:\n" + "Aloituspvm: " + dateFormat.format(aloituspvm) + "\n" +
-                    "Lopetuspvm: " + dateFormat.format(lopetuspvm) + "\n" + "Kohde: " + kohde + "\n" +
-                    "Lisäpalvelut: " + lisapalvelut + "\n" + "Hintaerittely: " + hinta);
-            varauksenTiedot.setSpacingAfter(20);
-            document.add(varauksenTiedot);
-
-            // Lisätään laskutus tiedot laskuun
-            Paragraph laskutusTiedot = new Paragraph("Laskutus:\n" + "Summa: " + summa + "\n" + "ALV: " + alv + "\n" +
-                    "Laskun luomisen pvm: " + dateFormat.format(luomispvm) + "\n" + "Laskun numero: " + laskunnumero + "\n" +
-                    "Eräpäivä: " + dateFormat.format(erapaiva));
-            laskutusTiedot.setSpacingAfter(20);
-            document.add(laskutusTiedot);
-
-            // Suljetaan dokumentti
-            document.close();
-
-// Lisää tähän kutsu ilmoitus-ikkunalle
-            System.out.println("Lasku tallennettu tiedostoon " + tiedostonimi);
-        } catch (Exception e) {
-            System.err.println("Virhe tallennettaessa laskua PDF-tiedostoksi: " + e.getMessage());
-        }
-    }
-
-    // Metodit asettavat laskutuksen tiedot
-    // ...
-*/
 }
