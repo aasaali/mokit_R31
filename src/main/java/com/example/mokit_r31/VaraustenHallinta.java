@@ -13,9 +13,7 @@ import java.util.List;
 
 public class VaraustenHallinta extends Application {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/vn";
-    private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "R31_mokki";
+    private Tietokanta tietokanta;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -126,7 +124,145 @@ public class VaraustenHallinta extends Application {
         }
     }
 
-    public static void main(String[] args) {
-        launch();
+
+    public int getMokinAlueId(int mokkiId) throws SQLException {
+        int alueId = -1;
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = tietokanta.getYhteys();
+            stmt = conn.prepareStatement("SELECT alue_id FROM mokki WHERE mokki_id = ?");
+            stmt.setInt(1, mokkiId);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                alueId = rs.getInt("alue_id");
+            }
+        } finally {
+            tietokanta.sulje(rs, stmt, conn);
+        }
+
+        return alueId;
     }
+
+    // Metodi, joka hakee tietokannasta kyseisen mökin alueen palvelut
+    public List<Palvelu> getMokinPalvelut(int mokkiId) throws SQLException {
+        List<Palvelu> palvelut = new ArrayList<>();
+
+        int alueId = getMokinAlueId(mokkiId);
+        if (alueId == -1) {
+            return palvelut; // Palauttaa tyhjän listan, jos alueen ID:tä ei löydy
+        }
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = tietokanta.getYhteys();
+            stmt = conn.prepareStatement("SELECT * FROM palvelu WHERE alue_id = ?");
+            stmt.setInt(1, alueId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Palvelu palvelu = new Palvelu();
+                palvelu.setId(rs.getInt("palvelu_id"));
+                palvelu.setNimi(rs.getString("nimi"));
+                palvelut.add(palvelu);
+            }
+        } finally {
+            tietokanta.sulje(rs, stmt, conn);
+        }
+
+        return palvelut;
+    }
+
+    public static void lisaaPalveluVaraukselle(int varausId, int palveluId, int lkm) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Tietokanta.getYhteys();
+            String sql = "SELECT lkm FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, varausId);
+            stmt.setInt(2, palveluId);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) { // Palvelu on jo varauksessa, päivitetään lkm
+                int nykyinenLkm = rs.getInt("lkm");
+                sql = "UPDATE varauksen_palvelut SET lkm = ? WHERE varaus_id = ? AND palvelu_id = ?";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, nykyinenLkm + lkm);
+                stmt.setInt(2, varausId);
+                stmt.setInt(3, palveluId);
+                stmt.executeUpdate();
+            } else { // Palvelua ei ole vielä varauksessa, lisätään uusi rivi
+                sql = "INSERT INTO varauksen_palvelut(varaus_id, palvelu_id, lkm) VALUES (?, ?, ?)";
+                stmt = conn.prepareStatement(sql);
+                stmt.setInt(1, varausId);
+                stmt.setInt(2, palveluId);
+                stmt.setInt(3, lkm);
+                stmt.executeUpdate();
+            }
+        } finally {
+            Tietokanta.sulje(rs, stmt, conn);
+        }
+    }
+
+    public static List<Palvelu> getVarauksenPalvelut(int varausId) throws SQLException {
+        List<Palvelu> palvelut = new ArrayList<>();
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            conn = Tietokanta.getYhteys();
+            stmt = conn.prepareStatement("SELECT palvelu.*, varauksen_palvelut.lkm " +
+                    "FROM palvelu " +
+                    "JOIN varauksen_palvelut ON palvelu.palvelu_id = varauksen_palvelut.palvelu_id " +
+                    "WHERE varauksen_palvelut.varaus_id = ?");
+            stmt.setInt(1, varausId);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Palvelu palvelu = new Palvelu();
+                palvelu.setId(rs.getInt("palvelu_id"));
+                palvelu.setNimi(rs.getString("nimi"));
+                palvelu.setKuvaus(rs.getString("kuvaus"));
+                palvelu.setHinta(rs.getDouble("hinta"));
+                palvelu.setAlueId(rs.getInt("alue_id"));
+
+                int lkm = rs.getInt("lkm");
+                for (int i = 0; i < lkm; i++) {
+                    palvelut.add(palvelu);
+                }
+            }
+        } finally {
+            Tietokanta.sulje(rs, stmt, conn);
+        }
+
+        return palvelut;
+    }
+
+    public static void poistaPalveluVaraukselta(int varausId, int palveluId) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        try {
+            conn = Tietokanta.getYhteys();
+            stmt = conn.prepareStatement("DELETE FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ?");
+            stmt.setInt(1, varausId);
+            stmt.setInt(2, palveluId);
+            stmt.executeUpdate();
+        } finally {
+            Tietokanta.sulje(stmt, conn);
+        }
+    }
+
+
 }
