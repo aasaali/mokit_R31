@@ -85,6 +85,8 @@ public class VaraustenHallinta extends Application {
             stmt.setTimestamp(5, Timestamp.valueOf(varaus.getVarattuAlkupvm()));
             stmt.setTimestamp(6, Timestamp.valueOf(varaus.getVarattuLoppupvm()));
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         } finally {
             Tietokanta.sulje(stmt, conn);
         }
