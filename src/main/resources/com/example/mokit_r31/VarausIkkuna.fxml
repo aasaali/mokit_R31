@@ -3,15 +3,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.VarausController">
    <children>
-      <ListView fx:id="varauksetLw" prefHeight="313.0" prefWidth="294.0" />
-      <Button fx:id="btHae" layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#btHae" text="Hae" />
-      <Button fx:id="btPoista" layoutX="62.0" layoutY="344.0" mnemonicParsing="false" onAction="#btPoista" text="Poista" />
+      <ListView fx:id="varauksetLw" layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="268.0" />
+      <Button fx:id="btHae" layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#btHae" text="Päivitä lista" />
+      <Button fx:id="btPoista" layoutX="177.0" layoutY="344.0" mnemonicParsing="false" onAction="#btPoista" text="Poista" />
       <AnchorPane layoutX="294.0" prefHeight="400.0" prefWidth="306.0">
          <children>
             <DatePicker fx:id="alkupaivaDP" layoutX="114.0" layoutY="156.0" />
@@ -23,8 +24,10 @@
             <TextField fx:id="asiakasTf" layoutX="116.0" layoutY="51.0" promptText="AsiakasID" />
             <TextField fx:id="mokkiTf" layoutX="116.0" layoutY="103.0" promptText="MökkiID" />
             <Text layoutX="111.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luo uusi varaus" />
-            <Button fx:id="tallennaVarausBt" layoutX="52.0" layoutY="268.0" mnemonicParsing="false" onAction="#tallennaVarausBt" text="Luo uusi varaus - tallenna tiedot" />
+            <Button fx:id="tallennaVarausBt" layoutX="207.0" layoutY="271.0" mnemonicParsing="false" onAction="#tallennaVarausBt" text="Tallenna" />
          </children>
       </AnchorPane>
+      <TextArea fx:id="varausTa" layoutX="13.0" layoutY="207.0" prefHeight="126.0" prefWidth="268.0" promptText="Varauksen tiedot" />
+      <Button fx:id="btMuokkaa" layoutX="102.0" layoutY="344.0" mnemonicParsing="false" text="Muokkaa" onAction="#btMuokkaa" />
    </children>
 </AnchorPane>

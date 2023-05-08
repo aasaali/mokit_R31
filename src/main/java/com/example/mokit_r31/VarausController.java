@@ -33,6 +33,10 @@ public class VarausController {
     private Button btHae;
     @FXML
     private Button btPoista;
+    @FXML
+    private Button btMuokkaa;
+    @FXML
+    private TextArea varausTa;
 
 
     @FXML
@@ -41,14 +45,13 @@ public class VarausController {
         int mokki = Integer.parseInt(mokkiTf.getText());
         LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
         LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
-        Varaus varaus = new Varaus(asiakas,mokki,alkupaiva,loppupaiva);
+        Varaus varaus = new Varaus(asiakas, mokki, alkupaiva, loppupaiva);
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             hallinta.lisaaVaraus(varaus);
             varauksetLw.getItems().setAll(hallinta.getVaraukset());
 
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Virhe");
             alert.setHeaderText(null);
@@ -82,36 +85,46 @@ public class VarausController {
         }
     }
 
-
     @FXML
-    private void handleVarausListDoubleClick(MouseEvent event) {
-        if (event.getClickCount() == 2) {
-            // Haetaan valittu varaus
-            Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
-
-            // Jos varaus on valittu, avataan sen tiedot uuteen ikkunaan
-            if (varaus != null) {
-                try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MuokkaaVaraustaIkkuna.fxml"));
-                    Parent parent = fxmlLoader.load();
-                    MuokkaaVaraustaController controller = fxmlLoader.getController();
-                    controller.setVaraus(varaus);
-                    Scene scene = new Scene(parent, 600, 400);
-                    Stage stage = new Stage();
-                    stage.setScene(scene);
-                    stage.show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+    private void btMuokkaa(ActionEvent event) {
+        Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
+        if (varaus != null) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("MuokkaaVaraustaIkkuna.fxml"));
+                Parent parent = fxmlLoader.load();
+                MuokkaaVaraustaController controller = fxmlLoader.getController();
+                controller.setVaraus(varaus);
+                Scene scene = new Scene(parent, 600, 400);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
+
+    @FXML
+    private void handleVarausSelection() {
+        Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
+        if (varaus != null) {
+            String varausTiedot = "Varaus ID: " + varaus.getVarausId() + "\n" +
+                    "Asiakas ID: " + varaus.getAsiakasId() + "\n" +
+                    "Mökki ID: " + varaus.getMokkiId() + "\n" +
+                    "Alkupäivä: " + varaus.getVarattuAlkupvm() + "\n" +
+                    "Loppupäivä: " + varaus.getVarattuLoppupvm();
+            varausTa.setText(varausTiedot);
+        } else {
+            varausTa.setText("");
+        }
+    }
+
 
     public void initialize() {
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             varauksetLw.getItems().setAll(hallinta.getVaraukset());
-            varauksetLw.setOnMouseClicked(event -> handleVarausListDoubleClick(event));
+            varauksetLw.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleVarausSelection());
         } catch (SQLException e) {
             e.printStackTrace();
         }
