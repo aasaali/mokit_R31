@@ -2,8 +2,9 @@ package com.example.mokit_r31;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-@SuppressWarnings("unused")
+
 public class MainController {
+
     @FXML
     private Tab tabAsiakkaat;
     @FXML
@@ -16,4 +17,7 @@ public class MainController {
     private Tab tabLaskutus;
     @FXML
     private Tab tabRaportit;
+    @FXML
+    private Tab tabPalveluRaportti;
+
 }

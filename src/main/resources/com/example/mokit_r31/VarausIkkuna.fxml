@@ -20,8 +20,8 @@
             <Text layoutX="11.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Päättyy" />
             <Text layoutX="11.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Asiakas" />
             <Text layoutX="11.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mökki" />
-            <TextField fx:id="asiakasTf" layoutX="114.0" layoutY="50.0" promptText="AsiakasID" />
-            <TextField fx:id="mokkiTf" layoutX="114.0" layoutY="103.0" promptText="MökkiID" />
+            <TextField fx:id="asiakasTf" layoutX="116.0" layoutY="51.0" promptText="AsiakasID" />
+            <TextField fx:id="mokkiTf" layoutX="116.0" layoutY="103.0" promptText="MökkiID" />
             <Text layoutX="111.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Luo uusi varaus" />
             <Button fx:id="tallennaVarausBt" layoutX="52.0" layoutY="268.0" mnemonicParsing="false" onAction="#tallennaVarausBt" text="Luo uusi varaus - tallenna tiedot" />
          </children>

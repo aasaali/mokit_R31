@@ -49,6 +49,11 @@ public class VarausController {
 
         }
         catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Virhe");
+            alert.setHeaderText(null);
+            alert.setContentText("Varauksen tallentaminen epäonnistui. Tarkista syötteet ja yritä uudelleen.");
+            alert.showAndWait();
             e.printStackTrace();
         }
     }
