@@ -143,22 +143,7 @@ public class VaraustenHallinta extends Application {
         }
     }
 
-    public void lisaaPalveluVaraukselle(int varausId, int palveluId, int lkm) throws SQLException {
-        Connection conn = null;
-        PreparedStatement stmt = null;
 
-        try {
-            conn = Tietokanta.getYhteys();
-            String sql = "INSERT INTO varauksen_palvelut(varaus_id, palvelu_id, lkm) VALUES (?, ?, ?)";
-            stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, varausId);
-            stmt.setInt(2, palveluId);
-            stmt.setInt(3, lkm);
-            stmt.executeUpdate();
-        } finally {
-            Tietokanta.sulje(stmt, conn);
-        }
-    }
 
     public static void main(String[] args) {
         launch();
