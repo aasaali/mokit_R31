@@ -17,6 +17,7 @@ public class MainController {
     private Tab tabLaskutus;
     @FXML
     private Tab tabRaportit;
-
+    @FXML
+    private Tab tabPalveluRaportti;
 
 }
