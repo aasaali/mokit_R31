@@ -3,6 +3,7 @@ module com.example.mokit_r31 {
     requires javafx.fxml;
     requires java.sql;
     requires itextpdf;
+    requires javafx.web;
 
 
     opens com.example.mokit_r31 to javafx.fxml;

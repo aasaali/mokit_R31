@@ -1,6 +1,5 @@
 package com.example.mokit_r31;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,21 +28,17 @@ public class MuokkaaAsiakastaController {
     private Button tallennaButton;
 
     private Asiakas asiakas;
-    Tietokanta tietokanta = new Tietokanta();
+    Tietokanta tietokanta;
     AsiakasHallinta asiakasHallinta = new AsiakasHallinta(tietokanta);
     public void setAsiakas(Asiakas asiakas) {
         this.asiakas = asiakas;
         naytaAsiakkaanTiedot();
     }
-    public void alustaAsiakashallinta(AsiakasHallinta asiakasHallinta){
-        this.asiakasHallinta=asiakasHallinta;
-    }
+
     @FXML
     private void initialize() {
 
-        tallennaButton.setOnAction(e -> {
-            tallennaButton();
-        });
+        tallennaButton.setOnAction(e -> tallennaButton());
     }
     @FXML
     private void tallennaButton() {
@@ -74,10 +69,6 @@ public class MuokkaaAsiakastaController {
         asiakas.setLahiosoite(lahiosoiteTextField.getText());
         asiakas.setEmail(emailTextField.getText());
         asiakas.setPuhelinnro(puhelinnroTextField.getText());
-    }
-
-    public void setAsiakasHallinta(AsiakasHallinta asiakasHallinta) {
-        this.asiakasHallinta = asiakasHallinta;
     }
     @FXML
     private void naytaAsiakkaanTiedot() {

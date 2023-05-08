@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 
 public class MuokkaaVaraustaController {
 
-
     @FXML
     private TextField tfVarausId;
     @FXML

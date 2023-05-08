@@ -2,6 +2,10 @@ package com.example.mokit_r31;
 
 import java.sql.*;
 
+/** Tietokantayhteyttä hallinnoiva luokka.
+ * Muodostaa yhteyden MySQL-tietokantaan.
+ * Sulkee yhteyden.
+ */
 public class Tietokanta {
     private static final String TIETOKANNAN_NIMI = "jdbc:mysql://localhost:3306/vn";
     private static final String KAYTTAJA = "root";
@@ -21,8 +25,7 @@ public class Tietokanta {
                 yhteys.close();
             } catch (SQLException ex) {
                 // Ohitetaan poikkeus
-            }
-        }
+            } }
     }
 
     public static void sulje(Statement kysely, Connection yhteys) {
@@ -46,29 +49,4 @@ public class Tietokanta {
         }
         sulje(yhteys);
     }
-/*
-    public Asiakas haeAsiakas(int varausId) throws SQLException {
-        Connection yhteys = null;
-        PreparedStatement kysely = null;
-        ResultSet tulokset = null;
-
-        try {
-            yhteys = Tietokanta.getYhteys();
-            kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro " +
-                    "FROM Asiakas WHERE varaus_id = ?");
-            kysely.setInt(1, varausId);
-            tulokset = kysely.executeQuery();
-
-            if (tulokset.next()) {
-                return new Asiakas(varausId, tulokset.getString("postinro"),
-                        tulokset.getString("etunimi"), tulokset.getString("sukunimi"),
-                        tulokset.getString("lahiosoite"), tulokset.getString("email"),
-                        tulokset.getString("puhelinnro"));
-            } else {
-                return null;
-            }
-        } finally {
-            Tietokanta.sulje(tulokset, kysely, yhteys);
-        }
-    } */
 }
