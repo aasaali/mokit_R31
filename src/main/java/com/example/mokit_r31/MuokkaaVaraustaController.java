@@ -1,16 +1,16 @@
 package com.example.mokit_r31;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MuokkaaVaraustaController {
 
@@ -28,8 +28,11 @@ public class MuokkaaVaraustaController {
     private Button tallennaButton;
 
     private Varaus varaus;
-
+    @FXML
+    private ListView palvelutLv;
     Tietokanta tietokanta = new Tietokanta();
+
+    private List<Palvelu> kaikkiPalvelut = new ArrayList<>();
 
 
     public void setVaraus(Varaus varaus) {
@@ -40,6 +43,7 @@ public class MuokkaaVaraustaController {
         tfMokkiId.setText(String.valueOf(varaus.getMokkiId()));
         dpAlkupvm.setValue(varaus.getVarattuAlkupvm().toLocalDate());
         dpLoppupvm.setValue(varaus.getVarattuLoppupvm().toLocalDate());
+        lataaPalvelut(varaus.getMokkiId());
     }
 
 
@@ -54,6 +58,18 @@ public class MuokkaaVaraustaController {
 
         // Asetetaan varauksen id ennen tietokantaan tallentamista
         uusiVaraus.setVarausId(varausId);
+
+        // Lisätään varauksen palvelut
+        ObservableList<Palvelu> valitutPalvelut = palvelutLv.getSelectionModel().getSelectedItems();
+        for (Palvelu palvelu : valitutPalvelut) {
+            int palveluId = palvelu.getId();
+            int lkm = 1; // oletuksena yksi kappale valittua palvelua
+            try {
+                VaraustenHallinta.lisaaPalveluVaraukselle(varausId, palveluId, lkm);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
@@ -78,10 +94,24 @@ public class MuokkaaVaraustaController {
         stage.close();
     }
 
-    private void initialize() {
 
+    private void lataaPalvelut(int mokkiId) {
+        try {
+            VaraustenHallinta hallinta = new VaraustenHallinta();
+            kaikkiPalvelut = hallinta.getMokinPalvelut(mokkiId);
+            palvelutLv.getItems().setAll(kaikkiPalvelut);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void initialize() {
         tallennaButton.setOnAction(e -> {
             tallennaButton();
         });
+        palvelutLv.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
     }
+
+
 }

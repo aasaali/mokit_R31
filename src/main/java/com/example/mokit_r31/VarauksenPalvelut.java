@@ -16,6 +16,7 @@ public class VarauksenPalvelut {
         this.lkm = lkm;
     }
 
+
     // Getterit ja setterit
     public int getVarausId() {
         return varausId;

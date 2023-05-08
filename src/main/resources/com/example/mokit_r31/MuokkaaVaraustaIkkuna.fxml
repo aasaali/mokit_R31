@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -13,7 +14,7 @@
       <TextField fx:id="tfMokkiId" layoutX="85.0" layoutY="141.0" promptText="MökkiID" />
       <TextField fx:id="tfAsiakasId" layoutX="85.0" layoutY="97.0" promptText="AsiakasID" />
       <TextField fx:id="tfVarausId" editable="false" layoutX="85.0" layoutY="57.0" promptText="VarausID" />
-      <Button fx:id="tallennaButton" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" text="Tallenna" onAction="#tallennaButton">
+      <Button fx:id="tallennaButton" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" onAction="#tallennaButton" text="Tallenna">
          <font>
             <Font size="14.0" />
          </font>
@@ -30,5 +31,7 @@
       <Text layoutX="20.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MökkiId" />
       <Text layoutX="18.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alkupvm" />
       <Text layoutX="20.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loppupvm" />
+      <ListView fx:id="palvelutLv" layoutX="286.0" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" />
+      <Text layoutX="286.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lisää palveluja" />
    </children>
 </AnchorPane>

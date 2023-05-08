@@ -14,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class VarausController {
     @FXML
@@ -40,8 +43,12 @@ public class VarausController {
     @FXML
     private ComboBox<Asiakas> asiakasCb;
     private Tietokanta tietokanta;
+
     @FXML
     private ComboBox<Mokki> mokkiCb;
+    @FXML
+    private ListView<Palvelu> palvelutLv;
+
 
     private void lataaAsiakkaat() {
         AsiakasHallinta hallinta = new AsiakasHallinta(tietokanta);
@@ -53,7 +60,10 @@ public class VarausController {
         MokkienHallinta hallinta = new MokkienHallinta(tietokanta);
         ObservableList<Mokki> mokit = FXCollections.observableArrayList(hallinta.haeMokit(""));
         mokkiCb.setItems(mokit);
-    }
+
+
+        }
+
 
     @FXML
     private void tallennaVarausBt() {
@@ -132,35 +142,56 @@ public class VarausController {
         }
     }
 
-    @FXML
+
     private void handleVarausSelection() {
         Varaus varaus = varauksetLw.getSelectionModel().getSelectedItem();
         if (varaus != null) {
-            //Muotoillaan päivämäärät muotoon pp.kk.vvvv
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            try {
+                List<Palvelu> varauksenPalvelut = VaraustenHallinta.getVarauksenPalvelut(varaus.getVarausId());
+                Map<String, Integer> palveluidenLukumaarat = new HashMap<>();
+                for (Palvelu palvelu : varauksenPalvelut) {
+                    String palvelunNimi = palvelu.getNimi();
+                    palveluidenLukumaarat.put(palvelunNimi, palveluidenLukumaarat.getOrDefault(palvelunNimi, 0) + 1);
+                }
 
-            String alkupaivaMuotoiltu = varaus.getVarattuAlkupvm().format(formatter);
-            String loppupaivaMuotoiltu = varaus.getVarattuLoppupvm().format(formatter);
+                StringBuilder palvelutString = new StringBuilder();
+                for (Map.Entry<String, Integer> entry : palveluidenLukumaarat.entrySet()) {
+                    palvelutString.append(entry.getKey()).append(" (").append(entry.getValue()).append(" kpl)").append(", ");
+                }
+                if (palvelutString.length() > 0) {
+                    palvelutString.setLength(palvelutString.length() - 2); // poistaa viimeisen pilkun ja välilyönnin
+                } else {
+                    palvelutString.append("-");
+                }
 
-            String varausTiedot = "Varaus ID: " + varaus.getVarausId() + "\n" +
-                    "Asiakas ID: " + varaus.getAsiakasId() + "\n" +
-                    "Mökki ID: " + varaus.getMokkiId() + "\n" +
-                    "Alkupäivä: " + alkupaivaMuotoiltu + "\n" + // Käytä muotoiltua päivämäärää
-                    "Loppupäivä: " + loppupaivaMuotoiltu; // Käytä muotoiltua päivämäärää
-            varausTa.setText(varausTiedot);
+                // Muotoillaan päivämäärät muotoon pp.kk.vvvv
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                String alkupaivaMuotoiltu = varaus.getVarattuAlkupvm().format(formatter);
+                String loppupaivaMuotoiltu = varaus.getVarattuLoppupvm().format(formatter);
+
+                String varausTiedot = "Varaus ID: " + varaus.getVarausId() + "\n" +
+                        "Asiakas ID: " + varaus.getAsiakasId() + "\n" +
+                        "Mökki ID: " + varaus.getMokkiId() + "\n" +
+                        "Alkupäivä: " + alkupaivaMuotoiltu + "\n" +
+                        "Loppupäivä: " + loppupaivaMuotoiltu + "\n" +
+                        "Varauksen palvelut: " + palvelutString.toString(); // Lisätään palvelut tekstin loppuun
+                varausTa.setText(varausTiedot);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
             varausTa.setText("");
         }
     }
 
-
-    public void initialize() {
+    @FXML
+    private void initialize() {
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             varauksetLw.getItems().setAll(hallinta.getVaraukset());
             varauksetLw.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> handleVarausSelection());
             lataaAsiakkaat();
-            lataaMokit(); // Lisää tämä rivi
+            lataaMokit();
         } catch (SQLException e) {
             e.printStackTrace();
         }
