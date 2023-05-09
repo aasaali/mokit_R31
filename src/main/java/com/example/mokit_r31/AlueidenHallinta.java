@@ -1,4 +1,6 @@
 package com.example.mokit_r31;
+import javafx.scene.control.Alert;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,34 +15,56 @@ public class AlueidenHallinta {
     private Tietokanta tietokanta;
     public AlueidenHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;}
+
 // Alueen tietojen lisääminen tietokantaan SQL INSERT, jos aluetta ei ole lisätty samoilla tiedoilla
-    public void lisaaAlueenTiedot(Alue newAlue) {
+public void lisaaAlueenTiedot(Alue newAlue) {
+    try {
+        Connection conn = tietokanta.getYhteys();
+        System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
-        try {
-            Connection conn = tietokanta.getYhteys();
-            {
-                System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
+        // Tarkistetaan, onko alue jo olemassa
+        String checkSql = "SELECT COUNT(*) AS count FROM alue WHERE nimi = ?";
+        PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+        checkStmt.setString(1, newAlue.getNimi());
+        ResultSet checkResult = checkStmt.executeQuery();
+        checkResult.next();
+        int count = checkResult.getInt("count");
 
-                // Luodaan SQL-lause, jolla alueen tiedot lisätään tietokantaan
-                String sql = "INSERT INTO alue (nimi) SELECT ? FROM DUAL WHERE NOT EXISTS (SELECT * FROM alue WHERE nimi = ?)";
-                PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        if (count > 0) {
+            // Alue on jo olemassa, näytetään virheilmoitus
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Alue " + newAlue.getNimi() + " on jo olemassa");
+            alert.showAndWait();
+        } else {
+            // Luodaan SQL-lause, jolla alueen tiedot lisätään tietokantaan
+            String sql = "INSERT INTO alue (nimi) VALUES (?)";
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-                // Asetetaan SQL-lauseelle arvot
-                stmt.setInt(1, newAlue.getAlueId());
-                stmt.setString(2, newAlue.getNimi());
+            // Asetetaan SQL-lauseelle arvot
+            stmt.setString(1, newAlue.getNimi());
 
-                // Suoritetaan SQL-lause
-                stmt.executeUpdate();
-                // Suljetaan tietokantayhteys ja vapautetaan resurssit
-                stmt.close();
-                conn.close();
+            // Suoritetaan SQL-lause
+            stmt.executeUpdate();
+            ResultSet generatedKeys = stmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int alueId = generatedKeys.getInt(1);
+                newAlue.setAlueId(alueId);
+                System.out.println("Uusi alue tallennettu tietokantaan, id = " + alueId);
+            } else {
+                System.out.println("Uuden alueen tallennus tietokantaan epäonnistui!");
             }
-        } catch (SQLException e) {
-            System.out.println("Yhteys tietokantaan epäonnistui!");
-            e.printStackTrace();
-        }
 
+            // Suljetaan tietokantayhteys ja vapautetaan resurssit
+            stmt.close();
+        }
+        conn.close();
+    } catch (SQLException e) {
+        System.out.println("Uuden alueen tallennus tietokantaan epäonnistui!");
+        e.printStackTrace();
     }
+}
+
 
 
 // Alueen tietojen hakeminen tietokannasta SQL SELECT>

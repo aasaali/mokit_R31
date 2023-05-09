@@ -81,6 +81,7 @@ public class Asiakas {
     public String toString() {
         return "Asiakas ID: " + asiakasId + "\n" +
                 "Nimi: " + etunimi + " " + sukunimi + "\n" +
+                "Osoite: " + lahiosoite + ", " + postinro + "\n" +
                 "Email: " + email + "\n" +
                 "Puhelinnro: " + puhelinnro;
     }

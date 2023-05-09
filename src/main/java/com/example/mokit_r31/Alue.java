@@ -13,6 +13,9 @@ public class Alue {
     }
     public Alue(){}
 
+    public Alue(String nimi) { this.nimi=nimi;
+    }
+
     public int getAlueId() {
         return alueId;
     }

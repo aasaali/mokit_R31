@@ -13,6 +13,80 @@ public class AsiakasHallinta {
     public AsiakasHallinta(Tietokanta tietokanta) {this.tietokanta = tietokanta;
     }
 
+    public List<String> haePostinumerot() {
+        List<String> postinumerot = new ArrayList<>();
+
+        try {
+            Connection conn = tietokanta.getYhteys();
+            String sql = "SELECT postinro FROM posti";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String postinro = rs.getString("postinro");
+                postinumerot.add(postinro);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return postinumerot;
+    }
+
+    public List<Asiakas> haeAsiakkaat(String hakusana) {
+        List<Asiakas> asiakkaat = new ArrayList<>();
+
+        try {
+            Connection conn = tietokanta.getYhteys();
+            {
+                System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
+
+                // Luodaan SQL-lause, jolla haetaan asiakkaat tietokannasta
+                String sql = "SELECT * FROM asiakas WHERE postinro LIKE ? OR etunimi LIKE ? OR sukunimi LIKE ? OR lahiosoite LIKE ? OR email LIKE ? OR puhelinnro LIKE ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+                // Asetetaan SQL-lauseelle arvot
+                String hakusanaLike = "%" + hakusana + "%";
+                stmt.setString(1, hakusanaLike);
+                stmt.setString(2, hakusanaLike);
+                stmt.setString(3, hakusanaLike);
+                stmt.setString(4, hakusanaLike);
+                stmt.setString(5, hakusanaLike);
+                stmt.setString(6, hakusanaLike);
+
+                // Suoritetaan SQL-lause ja käsitellään tulokset
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    Asiakas asiakas = new Asiakas(
+                            rs.getInt("asiakas_id"),
+                            rs.getString("postinro"),
+                            rs.getString("etunimi"),
+                            rs.getString("sukunimi"),
+                            rs.getString("lahiosoite"),
+                            rs.getString("email"),
+                            rs.getString("puhelinnro")
+                    );
+                    asiakkaat.add(asiakas);
+                }
+
+                // Suljetaan tietokantayhteys ja vapautetaan resurssit
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Asiakkaiden haku epäonnistui!");
+            e.printStackTrace();
+        }
+
+        return asiakkaat;
+    }
+
+
     public void lisaaAsiakas(Asiakas asiakas) throws SQLException {
         Connection yhteys = Tietokanta.getYhteys();
         PreparedStatement lisayslause = null;

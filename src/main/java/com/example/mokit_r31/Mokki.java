@@ -92,19 +92,12 @@ public Mokki(){}
         this.alueId = alueId;
     }
 
-    @Override
     public String toString() {
-        return "Mokki{" +
-                "mokkiId=" + mokkiId +
-                ", alueId=" + alueId +
-                ", postiNro=" + postiNro +
-                ", nimi='" + nimi + '\'' +
-                ", osoite='" + osoite + '\'' +
-                ", hinta=" + hinta +
-                ", kuvaus='" + kuvaus + '\'' +
-                ", hlo=" + hlo +
-                ", varustelu='" + varustelu + '\'' +
-                '}';
+        return nimi + "\n" +
+                "Mökki ID: " + mokkiId +
+                ", alue ID: " + alueId + "\n" +
+                "Postinumero: " + postiNro +
+                ", hinta: " + hinta;
     }
 
     public void setPostiNro(String postiNro) {

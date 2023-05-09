@@ -40,7 +40,6 @@ public class MokitController {
     }
 
     public void initialize(){
-        paivitaListat();
 
         // Alustetaan ListView Mökkihaulle
             LwMokit.setCellFactory(lv -> new ListCell<Mokki>() {
@@ -75,7 +74,6 @@ public class MokitController {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.show();
-                    paivitaListat();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MainController">
@@ -34,7 +35,7 @@
                    <fx:include source="LaskutusIkkuna.fxml" />
                </content>
             </Tab>
-            <Tab fx:id="tabRaportit" text="Raportit">
+            <Tab fx:id="tabRaportit" text="Majoitusraportit">
                <content>
                    <fx:include source="RaporttiIkkuna.fxml" />
                </content>
@@ -46,6 +47,9 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Text layoutX="399.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Village Newbies Oy | UEF OT R31 2023" wrappingWidth="210.93671035766602" />
+      <Text layoutX="435.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Village Newbies Oy | UEF OT R31 2023" wrappingWidth="174.93671035766602">
+         <font>
+            <Font size="10.0" />
+         </font></Text>
    </children>
 </AnchorPane>

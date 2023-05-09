@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 /** Asiakas- ja AsiakasHallinta -luokkia hallinnoiva controller.
@@ -29,12 +30,15 @@ public class AsiakasController {
     @FXML private Button buttonTallenna;
     @FXML private Button buttonPoista;
     @FXML private TextArea taAsiakkaanTiedot;
-    @FXML private TextField tfPostinumero;
+    @FXML private ComboBox<String> cbPostinumero;
     @FXML private TextField tfEtunimi;
     @FXML private TextField tfSukunimi;
     @FXML private TextField tfLahiosoite;
     @FXML private TextField tfEmail;
     @FXML private TextField tfPuhnro;
+    @FXML private TextField tfHakusana;
+    @FXML private Button btHaeAsiakasta;
+    @FXML private ListView<Asiakas> lwHaeAsiakasta;
     Tietokanta tietokanta;
     AsiakasHallinta asiakasHallinta = new AsiakasHallinta(tietokanta);
     @FXML
@@ -55,6 +59,22 @@ public class AsiakasController {
                 taAsiakkaanTiedot.setText(asiakasTiedot);
         } else {taAsiakkaanTiedot.setText("");}
     }
+
+    public void etsiAsiakkaat(String hakusana) {
+        if (!hakusana.matches("^[a-zA-Z0-9]+$")) {
+            // Jos hakusana sisältää erikoismerkkejä, näytetään käyttäjälle ilmoitus
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Virhe");
+            alert.setContentText("Hakusanassa on erikoismerkkejä. Voit käyttää vain kirjaimia ja numeroita.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Jos hakusana on oikeanlainen, haetaan asiakkaat tietokannasta
+        List<Asiakas> asiakkaat = asiakasHallinta.haeAsiakkaat(hakusana);
+        lwHaeAsiakasta.getItems().setAll(asiakkaat);
+    }
+
 
     @FXML private void muokkaaAsiakasta(ActionEvent event) {
         Asiakas asiakas = asiakasLista.getSelectionModel().getSelectedItem();
@@ -81,11 +101,21 @@ public class AsiakasController {
         asiakasLista.getItems().setAll(ashallinta.haeKaikkiAsiakkaat());
     }
 
+    private void cbPostinumerot() {
+        // Hae postinumerot
+        List<String> postinumerot = asiakasHallinta.haePostinumerot();
+
+// Lisää postinumerot comboboxiin
+        cbPostinumero.getItems().addAll(postinumerot);
+
+    }
+
     @FXML
     private void initialize() {
         // Hae kaikki asiakkaat tietokannasta ja aseta listview:iin
         AsiakasHallinta ashallinta = new AsiakasHallinta(tietokanta);
         asiakasLista.getItems().setAll(ashallinta.haeKaikkiAsiakkaat());
+        cbPostinumerot();
 
         asiakasLista.setOnMouseClicked(event -> {
             try {
@@ -95,10 +125,15 @@ public class AsiakasController {
             }
         });
 
+        btHaeAsiakasta.setOnAction(e -> {
+            String hakusana = tfHakusana.getText();
+            etsiAsiakkaat(hakusana);
+        });
+
         buttonHae.setOnAction(e -> haeTietokannasta());
 
         buttonTallenna.setOnAction(e -> {
-            String postinro = tfPostinumero.getText();
+            String postinro = cbPostinumero.getSelectionModel().getSelectedItem();
             String etunimi = tfEtunimi.getText();
             String sukunimi = tfSukunimi.getText();
             String lahiosoite = tfLahiosoite.getText();
@@ -116,7 +151,6 @@ public class AsiakasController {
                 alert.setHeaderText("Tallennus epäonnistui. Tarkista syöttämäsi tiedot.");
                 alert.showAndWait();
             }
-            tfPostinumero.clear();
             tfEtunimi.clear();
             tfSukunimi.clear();
             tfLahiosoite.clear();
