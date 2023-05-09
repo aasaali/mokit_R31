@@ -40,12 +40,11 @@ public class MokitLisaaController {
             String osoite = TfKatuosoite.getText();
             String varustelu = TfMokinVarustelu.getText();
             int hlo = Integer.parseInt(TfHlo.getText());
-            int mokkiId = Integer.parseInt(TfMokinId.getText());
             String postinumero = TfPostiNro.getText();
             double hinta = Double.parseDouble(TfHinta.getText());
             int alueId = Integer.parseInt(TfAlueId.getText());
 
-            Mokki uusiMokki = new Mokki(mokkiId, alueId, postinumero, nimi, osoite, hinta, kuvaus, hlo, varustelu);
+            Mokki uusiMokki = new Mokki(alueId, postinumero, nimi, osoite, hinta, kuvaus, hlo, varustelu);
             try {
                 MokkienHallinta hallinta = new MokkienHallinta(tietokanta);
                 hallinta.lisaaMokki(uusiMokki);

@@ -10,43 +10,36 @@ public class MokkienHallinta {
 
 // Mökin tietojen lisääminen tietokantaan SQL INSERT
 public void lisaaMokki(Mokki newMokki) throws SQLException {
-    // Tietokannan yhteysosoite
-
     try {
         Connection conn = tietokanta.getYhteys();
-        {
-            System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
+        System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
-            // Luodaan SQL-lause, jolla mökin tiedot lisätään tietokantaan
-            String sql = "INSERT INTO mokki (mokki_id, alue_id, postinro, mokkinimi, katuosoite, hinta, kuvaus, henkilomaara, varustelu)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        String sql = "INSERT INTO mokki (alue_id, postinro, mokkinimi, katuosoite, hinta, kuvaus, henkilomaara, varustelu) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement stmt = conn.prepareStatement(sql);
 
-            // Asetetaan SQL-lauseelle arvot
-            stmt.setInt(1, newMokki.getMokkiId());
-            stmt.setInt(2, newMokki.getAlueId());
-            stmt.setString(3, newMokki.getPostiNro());
-            stmt.setString(4, newMokki.getNimi());
-            stmt.setString(5, newMokki.getOsoite());
-            stmt.setDouble(6, newMokki.getHinta());
-            stmt.setString(7, newMokki.getKuvaus());
-            stmt.setInt(8, newMokki.getHlo());
-            stmt.setString(9, newMokki.getVarustelu());
+        stmt.setInt(1, newMokki.getAlueId());
+        stmt.setString(2, newMokki.getPostiNro());
+        stmt.setString(3, newMokki.getNimi());
+        stmt.setString(4, newMokki.getOsoite());
+        stmt.setDouble(5, newMokki.getHinta());
+        stmt.setString(6, newMokki.getKuvaus());
+        stmt.setInt(7, newMokki.getHlo());
+        stmt.setString(8, newMokki.getVarustelu());
 
+        stmt.executeUpdate();
 
-            // Suoritetaan SQL-lause
-            stmt.executeUpdate();
-            // Suljetaan tietokantayhteys ja vapautetaan resurssit
-            stmt.close();
-            conn.close();
-        }
+        stmt.close();
+        conn.close();
+        System.out.println("Uuden mökin tallennus tietokantaan onnistui.");
     } catch (SQLException e) {
-        System.out.println("Yhteys tietokantaan epäonnistui!");
+        System.out.println("Uuden mökin tallennus epäonnistui!");
         e.printStackTrace();
     }
-
 }
 
-// Mökin tietojen hakeminen tietokannasta SQL SELECT>
+
+// Mökin tietojen hakeminen tietokannasta SQL SELECT>, käyttäen hakusanaa
 public List<Mokki> haeMokit(String hakusana) {
 
     List<Mokki> mokit = new ArrayList<>();
@@ -97,6 +90,35 @@ public List<Mokki> haeMokit(String hakusana) {
 
     return mokit;
 }
+// Kaikkien mökkien hakeminen tietokannasta ilman hakusanaa
+    public List<Mokki> haeKaikkiMokit() throws SQLException {
+        List<Mokki> mokit = new ArrayList<>();
+        Connection yhteys = null;
+        PreparedStatement haku = null;
+        ResultSet tulosjoukko = null;
+        try {
+            yhteys = Tietokanta.getYhteys();
+            String sql = "SELECT * FROM mokki";
+            haku = yhteys.prepareStatement(sql);
+            tulosjoukko = haku.executeQuery();
+            while (tulosjoukko.next()) {
+                Mokki mokki = new Mokki();
+                mokki.setMokkiId(tulosjoukko.getInt("mokki_id"));
+                mokki.setAlueId(tulosjoukko.getInt("alue_id"));
+                mokki.setPostiNro(tulosjoukko.getString("postinro"));
+                mokki.setNimi(tulosjoukko.getString("mokkinimi"));
+                mokki.setOsoite(tulosjoukko.getString("katuosoite"));
+                mokki.setNimi(tulosjoukko.getString("hinta"));
+                mokki.setKuvaus(tulosjoukko.getString("kuvaus"));
+                mokki.setHlo(tulosjoukko.getInt("henkilomaara"));
+                mokki.setVarustelu(tulosjoukko.getString("varustelu"));
+                mokit.add(mokki);
+            }
+        } finally {
+            Tietokanta.sulje(tulosjoukko, haku, yhteys);
+        }
+        return mokit;
+    }
 
 // Mökin tietojen muokkaaminen tietokannassa SQL UPDATE
     public void muokkaaMokkia(Mokki mokki) {
@@ -167,10 +189,4 @@ public static void poistaMokki(int mokkiId) {
         e.printStackTrace();
     }
 }
-
-
-    public static void main(String[] args) throws SQLException {
-    Mokki testiMokki = new Mokki(345, 123, "70100", "Elämysmökki", "kotikatu", 500,"upea mökki keskellä kaupunkia", 5, "sauna" );
-    poistaMokki(2);
-    }
 }

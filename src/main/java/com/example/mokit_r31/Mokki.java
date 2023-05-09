@@ -22,6 +22,18 @@ public Mokki(int mokkiId,int alueId, String postiNro, String nimi, String osoite
     this.hlo = hlo;
     this.varustelu = varustelu;
 }
+public Mokki(){}
+
+    public Mokki(int alueId, String postiNro, String nimi, String osoite, double hinta, String kuvaus, int hlo, String varustelu){
+        this.alueId = alueId;
+        this.postiNro = postiNro;
+        this.nimi = nimi;
+        this.osoite = osoite;
+        this.hinta = hinta;
+        this.kuvaus = kuvaus;
+        this.hlo = hlo;
+        this.varustelu = varustelu;
+    }
 
     public int getMokkiId() {
         return mokkiId;

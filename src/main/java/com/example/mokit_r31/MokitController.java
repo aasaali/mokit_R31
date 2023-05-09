@@ -17,32 +17,32 @@ import java.util.Optional;
 
 public class MokitController {
 
-        @FXML
-        private TextField TfMokki;
-        @FXML
-        private Button BtHaeMokki;
-        @FXML
-        private TextField TfAlue;
-        @FXML
-        private Button BtHaeAlue;
-        @FXML
-        private Button BtLisaaMokki;
-        @FXML
-        private Button BtLisaaAlue;
-        @FXML
-        private Button bTPoistaMokki;
-        @FXML
-        private Button btPoistaAlue;
-        @FXML
-        private ListView<Mokki> LwMokit;
-        @FXML
-        private ListView<Alue> LwAlueet;
+    @FXML private TextField TfMokki;
+    @FXML private Button BtHaeMokki;
+    @FXML private TextField TfAlue;
+    @FXML private Button BtHaeAlue;
+    @FXML private Button BtLisaaMokki;
+    @FXML private Button BtLisaaAlue;
+    @FXML private Button bTPoistaMokki;
+    @FXML private Button btPoistaAlue;
+    @FXML private ListView<Mokki> LwMokit;
+    @FXML private ListView<Alue> LwAlueet;
     Tietokanta tietokanta = new Tietokanta();
     private MokkienHallinta mokkienHallinta = new MokkienHallinta(tietokanta);
     private AlueidenHallinta alueidenHallinta = new AlueidenHallinta(tietokanta);
 
-        public void initialize(){
-            // Alustetaan ListView Mökkihaulle
+    private void paivitaListat() {
+        AlueidenHallinta alueidenhallinta = new AlueidenHallinta(tietokanta);
+        try {
+            LwAlueet.getItems().setAll(alueidenhallinta.haeKaikkiAlueet());
+            LwMokit.getItems().setAll(mokkienHallinta.haeKaikkiMokit());
+        } catch(SQLException e) { throw new RuntimeException(e);}
+    }
+
+    public void initialize(){
+        paivitaListat();
+
+        // Alustetaan ListView Mökkihaulle
             LwMokit.setCellFactory(lv -> new ListCell<Mokki>() {
                 @Override
                 protected void updateItem(Mokki mokki, boolean empty) {
@@ -68,7 +68,6 @@ public class MokitController {
                 }
             });
 
-
             BtLisaaMokki.setOnAction(event ->{
                 try {
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LisaaMokki.fxml"));
@@ -76,6 +75,7 @@ public class MokitController {
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root));
                     stage.show();
+                    paivitaListat();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -115,7 +115,6 @@ public class MokitController {
                     }
                 }
             });
-
         });
 
             LwMokit.setOnMouseClicked(event -> {
@@ -139,11 +138,13 @@ public class MokitController {
 
             BtHaeAlue.setOnAction(event ->{
                 String hakusana = TfAlue.getText();
-                // Kutsutaan haeMokit-metodia ja tallennetaan sen palauttamat tiedot listaan
-                ObservableList<Alue> hakutulokset = FXCollections.observableArrayList(AlueidenHallinta.haeAlueenTiedot(hakusana));
-
-                // Asetetaan ListViewin Data näkyviin
-                LwAlueet.setItems(hakutulokset);
+                // Kutsutaan haeAlueet-metodia ja tallennetaan sen palauttamat tiedot listview:iin
+                AlueidenHallinta alueidenhallinta = new AlueidenHallinta(tietokanta);
+                try {
+                    LwAlueet.getItems().setAll(alueidenhallinta.haeKaikkiAlueet());
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
 
                 // asetetaan ListView:n soluille oma solutehdas
                 LwAlueet.setCellFactory(param -> new ListCell<Alue>() {
@@ -218,11 +219,7 @@ public class MokitController {
                     alert.showAndWait();
                 }
             });
-
-
         }
-
-
 
 }
 

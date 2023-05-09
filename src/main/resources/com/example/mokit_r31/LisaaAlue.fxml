@@ -6,17 +6,15 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.mokit_r31.AlueetController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="161.0" prefWidth="262.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.AlueetController">
    <children>
       <Label layoutX="125.0" layoutY="-65.0" prefHeight="17.0" prefWidth="202.0">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="BtTallenna" layoutX="125.0" layoutY="113.0" mnemonicParsing="false" text="Tallenna" textFill="#357c3a" onAction="#BtTallenna" />
-      <TextField fx:id="TxAlueId" layoutX="94.0" layoutY="30.0" prefHeight="26.0" prefWidth="93.0" />
-      <Label fx:id="BtAlueId" layoutX="20.0" layoutY="30.0" text="Alue Id" />
+      <Button fx:id="BtTallenna" layoutX="125.0" layoutY="113.0" mnemonicParsing="false" onAction="#BtTallenna" text="Tallenna" textFill="#357c3a" />
+      <Label fx:id="BtAlueId" layoutX="21.0" layoutY="35.0" text="Tietokanta asettaa alue ID:n" />
       <TextField fx:id="TxAlueNimi" layoutX="94.0" layoutY="69.0" prefHeight="26.0" prefWidth="93.0" />
       <Label fx:id="BtAlueNimi" layoutX="20.0" layoutY="69.0" text="Alueen nimi" />
    </children>

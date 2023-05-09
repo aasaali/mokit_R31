@@ -44,6 +44,7 @@ public class MuokkaaAlueController {
             // Sulje ikkuna, jos tallennus onnistui
             Stage stage = (Stage) BtTallenna.getScene().getWindow();
             stage.close();
+
         }
 
         private void lisaaAlueenTiedot() {

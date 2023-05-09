@@ -6,6 +6,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/** Alue-luokkaa hallinnoiva luokka.
+ *
+ */
 public class AlueidenHallinta {
     private Tietokanta tietokanta;
     public AlueidenHallinta(Tietokanta tietokanta) {
@@ -41,17 +44,13 @@ public class AlueidenHallinta {
 
 
 // Alueen tietojen hakeminen tietokannasta SQL SELECT>
-    public static List<Alue> haeAlueenTiedot(String hakuNimi){
+    public List<Alue> haeAlueenTiedot(String hakuNimi){
         // Tietokannan yhteysosoite
-        String url = "jdbc:mysql://localhost:3306/vn";
-        // Käyttäjän tunnus ja salasana
-        String user = "root";
-        String password = "Heleppohomma23?3";
 
         List<Alue> alueet = new ArrayList<>();
 
         try {
-            Connection conn = DriverManager.getConnection(url, user, password);
+            Connection conn = tietokanta.getYhteys();
             {
                 System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
@@ -67,7 +66,7 @@ public class AlueidenHallinta {
                 while (resultSet.next()) {
                     int alueId = resultSet.getInt("alue_id");
                     String nimi = resultSet.getString("nimi");
-                    Alue alue = new Alue(nimi, alueId);
+                    Alue alue = new Alue(alueId, nimi);
                     alueet.add(alue);
                 }
 
@@ -126,13 +125,10 @@ public class AlueidenHallinta {
 // Alueen tietojen poistaminen tietokannasta SQL DELETE
 public static void poistaAlueenTiedot(int alueId) {
     // Tietokannan yhteysosoite
-    String url = "jdbc:mysql://localhost:3306/vn";
-    // Käyttäjän tunnus ja salasana
-    String user = "root";
-    String password = "Heleppohomma23?3";
+    Tietokanta tietokanta = new Tietokanta();
 
     try {
-        Connection conn = DriverManager.getConnection(url, user, password);
+        Connection conn = tietokanta.getYhteys();
         {
             System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
@@ -155,10 +151,28 @@ public static void poistaAlueenTiedot(int alueId) {
         System.out.println("Yhteys tietokantaan epäonnistui!");
         e.printStackTrace();
     }
-}
+    }
 
-    public static void main(String[] args) throws SQLException {
-
-}
+    public List<Alue> haeKaikkiAlueet() throws SQLException {
+        List<Alue> alueet = new ArrayList<>();
+        Connection yhteys = null;
+        PreparedStatement haku = null;
+        ResultSet tulosjoukko = null;
+        try {
+            yhteys = Tietokanta.getYhteys();
+            String sql = "SELECT * FROM alue";
+            haku = yhteys.prepareStatement(sql);
+            tulosjoukko = haku.executeQuery();
+            while (tulosjoukko.next()) {
+                Alue alue = new Alue();
+                alue.setAlueId(tulosjoukko.getInt("alue_id"));
+                alue.setNimi(tulosjoukko.getString("nimi"));
+                alueet.add(alue);
+            }
+        } finally {
+            Tietokanta.sulje(tulosjoukko, haku, yhteys);
+        }
+        return alueet;
+    }
 }
 
