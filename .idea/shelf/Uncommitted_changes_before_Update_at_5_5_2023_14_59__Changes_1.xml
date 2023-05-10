@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1" date="1683287969134" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 5.5.2023 14.59 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="mysql-connector-j-8.0.33.jar" />
+    <option name="AFTER_PATH" value="lib/mysql-connector-j-8.0.33.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1/mysql-connector-j-8.0.33.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/protobuf-java-3.19.4.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1/protobuf-java-3.19.4.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/protobuf-java-3.21.9.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1/protobuf-java-3.21.9.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/mysql-connector-java-8.0.30.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1/mysql-connector-java-8.0.30.jar" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" />
+    <option name="AFTER_PATH" value="lib/itextpdf-5.5.13.3.jar" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_5_5_2023_14_59_[Changes]1/itextpdf-5.5.13.3.jar" />
+  </binary>
+</changelist>

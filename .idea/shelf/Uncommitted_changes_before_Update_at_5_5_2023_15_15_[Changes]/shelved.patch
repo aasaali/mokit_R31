@@ -1,0 +1,721 @@
+Index: src/main/java/com/example/mokit_r31/PalveluController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.mokit_r31;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Button;\r\nimport javafx.scene.control.ListView;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.io.IOException;\r\nimport java.sql.*;\r\n\r\n\r\n\r\n\r\npublic class PalveluController extends PalvelujenHallinta {\r\n\r\n    private static final String DB_URL = \"jdbc:mysql://localhost:3306/vn\";\r\n    private static final String DB_USER = \"root\";\r\n    private static final String DB_PASSWORD = \"x!\";\r\n    private static Connection conn;\r\n\r\n\r\n\r\n    PalvelujenHallinta hallinta = new PalvelujenHallinta();\r\n\r\n    @FXML\r\n    private TextField alueenPostinumeroTf;\r\n\r\n    @FXML\r\n    private Button luoPalveluBt;\r\n\r\n    @FXML\r\n    private Button naytaPalveluBt;\r\n\r\n\r\n    @FXML\r\n    private TextField palveluArvonlisaveroTf;\r\n\r\n    @FXML\r\n    private TextField palveluHintaTf;\r\n\r\n    @FXML\r\n    private TextField palveluIDTf;\r\n\r\n    @FXML\r\n    private TextField palveluKuvausTf;\r\n\r\n    @FXML\r\n    private ListView<?> palveluLista;\r\n\r\n    @FXML\r\n    private TextField palveluTyyppiTf;\r\n\r\n    @FXML\r\n    private TextField palveluNimiTf;\r\n\r\n    @FXML\r\n    private Button poistaPalveluBt;\r\n\r\n    @FXML\r\n    private Button tallennaPalveluBt;\r\n\r\n\r\n\r\n    @FXML\r\n    private void initialize() {\r\n        try {\r\n            FXMLLoader loader = new FXMLLoader(getClass().getResource(\"uudempiPalvelu.fxml\"));\r\n            loader.setController(this);\r\n            Parent root = loader.load();\r\n            Scene scene = new Scene(root);\r\n            Stage stage = new Stage();\r\n            stage.setScene(scene);\r\n            stage.show();\r\n        } catch (IOException e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n\r\n        // luoPalveluBt tapahtumankäsittelijä\r\n        luoPalveluBt.setOnAction(e -> {\r\n            int id = Integer.parseInt(palveluIDTf.getText());\r\n            int alueId = Integer.parseInt(alueenPostinumeroTf.getText());\r\n            String nimi = palveluNimiTf.getText();\r\n            int tyyppi = Integer.parseInt(palveluTyyppiTf.getText());\r\n            String kuvaus = palveluKuvausTf.getText();\r\n            double hinta = Double.parseDouble(palveluHintaTf.getText());\r\n            double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());\r\n\r\n            // Luo uusi Palvelu-olio\r\n            Palvelu uusiPalvelu = new Palvelu(id, alueId, nimi, tyyppi, kuvaus, hinta, alv);\r\n\r\n            // Tarkista, että uusiPalvelu-olio on luotu\r\n            if (uusiPalvelu != null) {\r\n                // Tallenna uusiPalvelu-olion tiedot tietokantaan\r\n                //lisaaPalvelu(uusiPalvelu.getAlueId(), uusiPalvelu.getNimi(), uusiPalvelu.getTyyppi(), uusiPalvelu.getKuvaus(), uusiPalvelu.getHinta());\r\n                System.out.println(\"Palvelu lisätty tietokantaan.\");\r\n            } else {\r\n                System.out.println(\"Uutta palvelua ei ole vielä luotu.\");\r\n            }\r\n        });\r\n\r\n\r\n\r\n\r\n\r\n        naytaPalveluBt.setOnAction(e -> {\r\n            // Kutsu metodia \"naytaPalvelut\" tässä\r\n            //hallinta.naytaPalvelut();\r\n        });\r\n\r\n        poistaPalveluBt.setOnAction(e -> {\r\n            // Kutsu metodia \"poistaPalvelu\" tässä\r\n            // hallinta.poistaPalvelu(1);\r\n        });\r\n\r\n        //tallennaPalveluBt.setOnAction(e -> {\r\n        // {\r\n        //    int alueId = Integer.parseInt(alueenPostinumeroTf.getText());\r\n        String nimi = palveluNimiTf.getText();\r\n        int tyyppi = Integer.parseInt(palveluIDTf.getText());\r\n        String kuvaus = palveluKuvausTf.getText();\r\n        double hinta = Double.parseDouble(palveluHintaTf.getText());\r\n        double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());}}\r\n\r\n//  Palvelu palvelu = new Palvelu(alueId, nimi, tyyppi, kuvaus, hinta, alv);\r\n//   try {\r\n//   PalvelujenHallinta hallinta = new PalvelujenHallinta();\r\n//    hallinta.lisaaPalvelu(palvelu);\r\n//  tallennaPalveluBt.setText(\"Vahvistettu\");\r\n//     } catch (SQLException e) };\r\n//  }}}\r\n\r\n// Kutsu metodia \"muokkaaPalvelua\" tässä\r\n// hallinta.muokkaaPalvelua(1, 2, \"palvelun nimi\", 3, \"kuvaus\", 3.5);\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/PalveluController.java b/src/main/java/com/example/mokit_r31/PalveluController.java
+--- a/src/main/java/com/example/mokit_r31/PalveluController.java	(revision 3e242f676e24429d6be213ef11dae3b75f95db3c)
++++ b/src/main/java/com/example/mokit_r31/PalveluController.java	(date 1683288741357)
+@@ -1,29 +1,11 @@
+ package com.example.mokit_r31;
++
+ import javafx.fxml.FXML;
+-import javafx.fxml.FXMLLoader;
+-import javafx.scene.Parent;
+-import javafx.scene.Scene;
+ import javafx.scene.control.Button;
+ import javafx.scene.control.ListView;
+ import javafx.scene.control.TextField;
+-import javafx.stage.Stage;
+-
+-import java.io.IOException;
+-import java.sql.*;
+-
+-
+-
+-
+-public class PalveluController extends PalvelujenHallinta {
+-
+-    private static final String DB_URL = "jdbc:mysql://localhost:3306/vn";
+-    private static final String DB_USER = "root";
+-    private static final String DB_PASSWORD = "x!";
+-    private static Connection conn;
+-
+ 
+-
+-    PalvelujenHallinta hallinta = new PalvelujenHallinta();
++public class PalveluController {
+ 
+     @FXML
+     private TextField alueenPostinumeroTf;
+@@ -34,7 +16,6 @@
+     @FXML
+     private Button naytaPalveluBt;
+ 
+-
+     @FXML
+     private TextField palveluArvonlisaveroTf;
+ 
+@@ -50,90 +31,16 @@
+     @FXML
+     private ListView<?> palveluLista;
+ 
++    @FXML
++    private TextField palveluNimiTf;
++
+     @FXML
+     private TextField palveluTyyppiTf;
+ 
+-    @FXML
+-    private TextField palveluNimiTf;
+-
+     @FXML
+     private Button poistaPalveluBt;
+ 
+     @FXML
+     private Button tallennaPalveluBt;
+ 
+-
+-
+-    @FXML
+-    private void initialize() {
+-        try {
+-            FXMLLoader loader = new FXMLLoader(getClass().getResource("uudempiPalvelu.fxml"));
+-            loader.setController(this);
+-            Parent root = loader.load();
+-            Scene scene = new Scene(root);
+-            Stage stage = new Stage();
+-            stage.setScene(scene);
+-            stage.show();
+-        } catch (IOException e) {
+-            e.printStackTrace();
+-        }
+-
+-
+-        // luoPalveluBt tapahtumankäsittelijä
+-        luoPalveluBt.setOnAction(e -> {
+-            int id = Integer.parseInt(palveluIDTf.getText());
+-            int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
+-            String nimi = palveluNimiTf.getText();
+-            int tyyppi = Integer.parseInt(palveluTyyppiTf.getText());
+-            String kuvaus = palveluKuvausTf.getText();
+-            double hinta = Double.parseDouble(palveluHintaTf.getText());
+-            double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());
+-
+-            // Luo uusi Palvelu-olio
+-            Palvelu uusiPalvelu = new Palvelu(id, alueId, nimi, tyyppi, kuvaus, hinta, alv);
+-
+-            // Tarkista, että uusiPalvelu-olio on luotu
+-            if (uusiPalvelu != null) {
+-                // Tallenna uusiPalvelu-olion tiedot tietokantaan
+-                //lisaaPalvelu(uusiPalvelu.getAlueId(), uusiPalvelu.getNimi(), uusiPalvelu.getTyyppi(), uusiPalvelu.getKuvaus(), uusiPalvelu.getHinta());
+-                System.out.println("Palvelu lisätty tietokantaan.");
+-            } else {
+-                System.out.println("Uutta palvelua ei ole vielä luotu.");
+-            }
+-        });
+-
+-
+-
+-
+-
+-        naytaPalveluBt.setOnAction(e -> {
+-            // Kutsu metodia "naytaPalvelut" tässä
+-            //hallinta.naytaPalvelut();
+-        });
+-
+-        poistaPalveluBt.setOnAction(e -> {
+-            // Kutsu metodia "poistaPalvelu" tässä
+-            // hallinta.poistaPalvelu(1);
+-        });
+-
+-        //tallennaPalveluBt.setOnAction(e -> {
+-        // {
+-        //    int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
+-        String nimi = palveluNimiTf.getText();
+-        int tyyppi = Integer.parseInt(palveluIDTf.getText());
+-        String kuvaus = palveluKuvausTf.getText();
+-        double hinta = Double.parseDouble(palveluHintaTf.getText());
+-        double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());}}
+-
+-//  Palvelu palvelu = new Palvelu(alueId, nimi, tyyppi, kuvaus, hinta, alv);
+-//   try {
+-//   PalvelujenHallinta hallinta = new PalvelujenHallinta();
+-//    hallinta.lisaaPalvelu(palvelu);
+-//  tallennaPalveluBt.setText("Vahvistettu");
+-//     } catch (SQLException e) };
+-//  }}}
+-
+-// Kutsu metodia "muokkaaPalvelua" tässä
+-// hallinta.muokkaaPalvelua(1, 2, "palvelun nimi", 3, "kuvaus", 3.5);
+-
+-
++}
+Index: src/main/resources/com/example/mokit_r31/MainIkkuna.fxml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n\r\n<?import javafx.scene.control.Tab?>\r\n<?import javafx.scene.control.TabPane?>\r\n<?import javafx.scene.layout.AnchorPane?>\r\n\r\n\r\n<AnchorPane prefHeight=\"420.0\" prefWidth=\"600.0\" xmlns=\"http://javafx.com/javafx/19\" xmlns:fx=\"http://javafx.com/fxml/1\"\r\n            fx:controller=\"com.example.mokit_r31.MainController\">\r\n   <children>\r\n      <TabPane layoutX=\"6.0\" prefHeight=\"450.0\" prefWidth=\"600.0\" tabClosingPolicy=\"UNAVAILABLE\" AnchorPane.bottomAnchor=\"0.0\"\r\n               AnchorPane.leftAnchor=\"0.0\" AnchorPane.rightAnchor=\"0.0\" AnchorPane.topAnchor=\"0.0\">\r\n        <tabs>\r\n          <Tab fx:id=\"tabAsiakkaat\" text=\"Asiakkaat\">\r\n            <content>\r\n                <fx:include source=\"AsiakasIkkuna.fxml\"/>\r\n            </content>\r\n          </Tab>\r\n          <Tab fx:id=\"tabMokit\" text=\"Mökit\">\r\n            <content>\r\n                <fx:include source=\"HallintaSivuMokit.fxml\"/>\r\n            </content>\r\n          </Tab>\r\n            <Tab fx:id=\"tabVaraukset\" text=\"Varaukset\">\r\n               <content>\r\n                   <fx:include source=\"VarausIkkuna.fxml\"/>\r\n               </content>\r\n            </Tab>\r\n            <Tab fx:id=\"tabPalvelut\" text=\"Palvelut\">\r\n               <content>\r\n                  <AnchorPane minHeight=\"0.0\" minWidth=\"0.0\" prefHeight=\"346.0\" prefWidth=\"579.0\" />\r\n               </content>\r\n            </Tab>\r\n            <Tab fx:id=\"tabLaskutus\" text=\"Laskutus\">\r\n               <content>\r\n                   <fx:include source=\"LaskutusIkkuna.fxml\"/>\r\n               </content>\r\n            </Tab>\r\n            <Tab fx:id=\"tabRaportit\" text=\"Raportit\">\r\n               <content>\r\n                  <AnchorPane minHeight=\"0.0\" minWidth=\"0.0\" prefHeight=\"180.0\" prefWidth=\"200.0\" />\r\n               </content>\r\n            </Tab>\r\n        </tabs>\r\n      </TabPane>\r\n   </children>\r\n</AnchorPane>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml b/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml
+--- a/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml	(revision 3e242f676e24429d6be213ef11dae3b75f95db3c)
++++ b/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml	(date 1683287965145)
+@@ -28,7 +28,7 @@
+             </Tab>
+             <Tab fx:id="tabPalvelut" text="Palvelut">
+                <content>
+-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="346.0" prefWidth="579.0" />
++                   <fx:include source="uudempiPalvelu.fxml"/>
+                </content>
+             </Tab>
+             <Tab fx:id="tabLaskutus" text="Laskutus">
+Index: .idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<dataSource name=\"vn@localhost\">\r\n  <database-model serializer=\"dbm\" dbms=\"MYSQL\" family-id=\"MYSQL\" format-version=\"4.48\">\r\n    <root id=\"1\">\r\n      <DefaultCasing>mixed/mixed</DefaultCasing>\r\n      <DefaultEngine>InnoDB</DefaultEngine>\r\n      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>\r\n      <ServerVersion>8.0.33</ServerVersion>\r\n    </root>\r\n    <schema id=\"2\" parent=\"1\" name=\"mysql\">\r\n      <CollationName>utf8mb4_0900_ai_ci</CollationName>\r\n    </schema>\r\n    <schema id=\"3\" parent=\"1\" name=\"information_schema\">\r\n      <CollationName>utf8mb3_general_ci</CollationName>\r\n    </schema>\r\n    <schema id=\"4\" parent=\"1\" name=\"performance_schema\">\r\n      <CollationName>utf8mb4_0900_ai_ci</CollationName>\r\n    </schema>\r\n    <schema id=\"5\" parent=\"1\" name=\"sys\">\r\n      <CollationName>utf8mb4_0900_ai_ci</CollationName>\r\n    </schema>\r\n    <schema id=\"6\" parent=\"1\" name=\"vn\">\r\n      <Current>1</Current>\r\n      <CollationName>latin1_swedish_ci</CollationName>\r\n    </schema>\r\n  </database-model>\r\n</dataSource>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml b/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml
+--- a/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml	(revision 3e242f676e24429d6be213ef11dae3b75f95db3c)
++++ b/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml	(date 1683287961169)
+@@ -2,24 +2,24 @@
+ <dataSource name="vn@localhost">
+   <database-model serializer="dbm" dbms="MYSQL" family-id="MYSQL" format-version="4.48">
+     <root id="1">
+-      <DefaultCasing>mixed/mixed</DefaultCasing>
+-      <DefaultEngine>InnoDB</DefaultEngine>
+-      <DefaultTmpEngine>InnoDB</DefaultTmpEngine>
+-      <ServerVersion>8.0.33</ServerVersion>
++      <DefaultCasing>lower/lower</DefaultCasing>
++      <ServerVersion>8.0.31</ServerVersion>
+     </root>
+-    <schema id="2" parent="1" name="mysql">
+-      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+-    </schema>
+-    <schema id="3" parent="1" name="information_schema">
++    <schema id="2" parent="1" name="information_schema">
+       <CollationName>utf8mb3_general_ci</CollationName>
+     </schema>
+-    <schema id="4" parent="1" name="performance_schema">
++    <schema id="3" parent="1" name="laakityshaittariskit"/>
++    <schema id="4" parent="1" name="mysql">
++      <CollationName>utf8mb4_0900_ai_ci</CollationName>
++    </schema>
++    <schema id="5" parent="1" name="performance_schema">
+       <CollationName>utf8mb4_0900_ai_ci</CollationName>
+     </schema>
+-    <schema id="5" parent="1" name="sys">
++    <schema id="6" parent="1" name="sakila"/>
++    <schema id="7" parent="1" name="sys">
+       <CollationName>utf8mb4_0900_ai_ci</CollationName>
+     </schema>
+-    <schema id="6" parent="1" name="vn">
++    <schema id="8" parent="1" name="vn">
+       <Current>1</Current>
+       <CollationName>latin1_swedish_ci</CollationName>
+     </schema>
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DataSourceManagerImpl\" format=\"xml\" multifile-model=\"true\">\r\n    <data-source source=\"LOCAL\" name=\"@localhost\" uuid=\"84add08f-a74d-4664-84a0-387cf314bdfa\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n    <data-source source=\"LOCAL\" name=\"@localhost\" uuid=\"0e6fd1d0-de6f-4549-94ac-7eaf04dabb00\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n    <data-source source=\"LOCAL\" name=\"@localhost [4]\" uuid=\"9a00152f-afe5-4c58-9e95-4e8724fc0b75\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n    <data-source source=\"LOCAL\" name=\"vn@localhost\" uuid=\"a6fe68cb-de70-4e9b-a48b-e8d318ca55fa\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306/vn</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n    <data-source source=\"LOCAL\" name=\"@localhost [3]\" uuid=\"fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n    <data-source source=\"LOCAL\" name=\"@localhost [2]\" uuid=\"9748761e-5bba-4fc0-b42c-f003b6515a98\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n    <data-source source=\"LOCAL\" name=\"@localhost [5]\" uuid=\"c8650c45-01f7-4576-9eb5-7c1899dbd549\">\r\n      <driver-ref>mysql.8</driver-ref>\r\n      <synchronize>true</synchronize>\r\n      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>\r\n      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>\r\n      <working-dir>$ProjectFileDir$</working-dir>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+--- a/.idea/dataSources.xml	(revision 3e242f676e24429d6be213ef11dae3b75f95db3c)
++++ b/.idea/dataSources.xml	(date 1683287961178)
+@@ -50,5 +50,12 @@
+       <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+       <working-dir>$ProjectFileDir$</working-dir>
+     </data-source>
++    <data-source source="LOCAL" name="vn@localhost [2]" uuid="0ab349d2-8d93-4128-ac28-5002e80b6e27">
++      <driver-ref>mysql.8</driver-ref>
++      <synchronize>true</synchronize>
++      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
++      <jdbc-url>jdbc:mysql://localhost:3306/vn</jdbc-url>
++      <working-dir>$ProjectFileDir$</working-dir>
++    </data-source>
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"Varausten toiminnot\">\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaFXApplication\" />\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"laskutus\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2Oj7obl4ZT3H0pR9hiNOMxfLnAr\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">{\r\n  &quot;keyToString&quot;: {\r\n    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,\r\n    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;true&quot;,\r\n    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,\r\n    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,\r\n    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,\r\n    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,\r\n    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,\r\n    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,\r\n    &quot;git-widget-placeholder&quot;: &quot;Varaukset&quot;,\r\n    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/IdeaProjects/mokit_R31/mysql-connector-j-8.0.33.jar&quot;,\r\n    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,\r\n    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,\r\n    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,\r\n    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,\r\n    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,\r\n    &quot;project.structure.side.proportion&quot;: &quot;0.43103448&quot;,\r\n    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,\r\n    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;\r\n  },\r\n  &quot;keyToStringList&quot;: {\r\n    &quot;DatabaseDriversLRU&quot;: [\r\n      &quot;mysql&quot;\r\n    ]\r\n  }\r\n}</component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"C:\\Users\\amand\\IdeaProjects\\mokit_R31UUSI\\src\\main\\java\\com\\example\\mokit_r31\" />\r\n      <recent name=\"C:\\Users\\taija\\IdeaProjects\\mokit_R31\\src\\main\\resources\\com\\example\\mokit_r31\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"$PROJECT_DIR$/src/main/resources/com/example/mokit_r31\" />\r\n      <recent name=\"$PROJECT_DIR$/src/main/resources\" />\r\n      <recent name=\"$PROJECT_DIR$/src\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.example.mokit_r31\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\" selected=\"Application.VaraustenHallinta\">\r\n    <configuration name=\"MainApplication\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.MainApplication\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"PalvelujenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.PalvelujenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"VaraustenHallinta\" type=\"Application\" factoryName=\"Application\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.example.mokit_r31.VaraustenHallinta\" />\r\n      <module name=\"mokit_R31\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"com.example.mokit_r31.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.VaraustenHallinta\" />\r\n        <item itemvalue=\"Application.MainApplication\" />\r\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\r\n        <item itemvalue=\"Application.VaraustenHallinta\" />\r\n        <item itemvalue=\"Application.PalvelujenHallinta\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"75207251-4714-4b5f-b293-cdf5e802e91d\" name=\"Changes\" comment=\"\" />\r\n      <created>1682062312738</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1682062312738</updated>\r\n      <workItem from=\"1682062314356\" duration=\"347000\" />\r\n      <workItem from=\"1682064188241\" duration=\"366000\" />\r\n      <workItem from=\"1682074140032\" duration=\"12733000\" />\r\n      <workItem from=\"1682399692901\" duration=\"723000\" />\r\n      <workItem from=\"1682569504378\" duration=\"110000\" />\r\n      <workItem from=\"1682569620247\" duration=\"4443000\" />\r\n      <workItem from=\"1682580268164\" duration=\"4250000\" />\r\n      <workItem from=\"1682659681883\" duration=\"728000\" />\r\n      <workItem from=\"1682663072872\" duration=\"3555000\" />\r\n      <workItem from=\"1683177075338\" duration=\"3898000\" />\r\n    </task>\r\n    <task id=\"LOCAL−00001\" summary=\"Lisätty koodi\">\r\n      <created>1682068236965</created>\r\n      <option name=\"number\" value=\"LOCAL−00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00001\" />\r\n      <updated>1682068236965</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00002\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\r\n      <created>1682101509232</created>\r\n      <option name=\"number\" value=\"LOCAL−00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00002\" />\r\n      <updated>1682101509232</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00003\" summary=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\">\r\n      <created>1682101605186</created>\r\n      <option name=\"number\" value=\"LOCAL−00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00003\" />\r\n      <updated>1682101605186</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00004\" summary=\"Luokat asiakkaille ja asiakashallinnan metodeille\">\r\n      <created>1682103875882</created>\r\n      <option name=\"number\" value=\"LOCAL−00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00004\" />\r\n      <updated>1682103875882</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00005\" summary=\"Lisätty metodit varausten hallinnalle.\">\r\n      <created>1682571271223</created>\r\n      <option name=\"number\" value=\"LOCAL−00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00005\" />\r\n      <updated>1682571271223</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00006\" summary=\"Varausikkunan tekoa\">\r\n      <created>1682583901221</created>\r\n      <option name=\"number\" value=\"LOCAL−00006\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00006\" />\r\n      <updated>1682583901221</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00007\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682660336204</created>\r\n      <option name=\"number\" value=\"LOCAL−00007\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00007\" />\r\n      <updated>1682660336205</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00008\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682660366698</created>\r\n      <option name=\"number\" value=\"LOCAL−00008\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00008\" />\r\n      <updated>1682660366698</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00009\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682664197632</created>\r\n      <option name=\"number\" value=\"LOCAL−00009\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00009\" />\r\n      <updated>1682664197632</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00010\" summary=\"fxml - varauksille ja alustava controller\">\r\n      <created>1682665677788</created>\r\n      <option name=\"number\" value=\"LOCAL−00010\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00010\" />\r\n      <updated>1682665677788</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00011\" summary=\"laskutusta kehitetään\">\r\n      <created>1682670210073</created>\r\n      <option name=\"number\" value=\"LOCAL−00011\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00011\" />\r\n      <updated>1682670210073</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00012\" summary=\"Branchin alku\">\r\n      <created>1683012330639</created>\r\n      <option name=\"number\" value=\"LOCAL−00012\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00012\" />\r\n      <updated>1683012330639</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00013\" summary=\"päivityksiä\">\r\n      <created>1683196601734</created>\r\n      <option name=\"number\" value=\"LOCAL−00013\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00013\" />\r\n      <updated>1683196601734</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00014\" summary=\"MuokkaaAsiakasta-toiminto ym.\">\r\n      <created>1683200704698</created>\r\n      <option name=\"number\" value=\"LOCAL−00014\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00014\" />\r\n      <updated>1683200704698</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00015\" summary=\"MuokkaaAsiakasta-toiminto ym.\">\r\n      <created>1683200720682</created>\r\n      <option name=\"number\" value=\"LOCAL−00015\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00015\" />\r\n      <updated>1683200720682</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00016\" summary=\"MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.\">\r\n      <created>1683201410799</created>\r\n      <option name=\"number\" value=\"LOCAL−00016\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00016\" />\r\n      <updated>1683201410799</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00017\" summary=\"Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.\">\r\n      <created>1683227903757</created>\r\n      <option name=\"number\" value=\"LOCAL−00017\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00017\" />\r\n      <updated>1683227903757</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00018\" summary=\"AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.\">\r\n      <created>1683232962114</created>\r\n      <option name=\"number\" value=\"LOCAL−00018\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00018\" />\r\n      <updated>1683232962114</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00019\" summary=\"muokkauksia\">\r\n      <created>1683271906715</created>\r\n      <option name=\"number\" value=\"LOCAL−00019\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00019\" />\r\n      <updated>1683271906715</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00020\" summary=\"muokkauksia\">\r\n      <created>1683271914953</created>\r\n      <option name=\"number\" value=\"LOCAL−00020\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00020\" />\r\n      <updated>1683271914953</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00021\" summary=\"MuokkaaAsiakastaControllerin debugia\">\r\n      <created>1683273454860</created>\r\n      <option name=\"number\" value=\"LOCAL−00021\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00021\" />\r\n      <updated>1683273454860</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00022\" summary=\"MuokkaaAsiakastaControllerin debugausta\">\r\n      <created>1683274505812</created>\r\n      <option name=\"number\" value=\"LOCAL−00022\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00022\" />\r\n      <updated>1683274505812</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00023\" summary=\"MuokkaaAsiakastaControllerin debugausta\">\r\n      <created>1683275736990</created>\r\n      <option name=\"number\" value=\"LOCAL−00023\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00023\" />\r\n      <updated>1683275736990</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00024\" summary=\"MuokkaaAsiakastaControllerin debugausta\">\r\n      <created>1683276910945</created>\r\n      <option name=\"number\" value=\"LOCAL−00024\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00024\" />\r\n      <updated>1683276910945</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00025\" summary=\"asdokjhasdökahsld\">\r\n      <created>1683285560237</created>\r\n      <option name=\"number\" value=\"LOCAL−00025\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00025\" />\r\n      <updated>1683285560237</updated>\r\n    </task>\r\n    <task id=\"LOCAL−00026\" summary=\"Varausten toiminnot\">\r\n      <created>1683287059310</created>\r\n      <option name=\"number\" value=\"LOCAL−00026\" />\r\n      <option name=\"presentableId\" value=\"LOCAL−00026\" />\r\n      <updated>1683287059310</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"27\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State>\r\n              <option name=\"FILTERS\">\r\n                <map>\r\n                  <entry key=\"branch\">\r\n                    <value>\r\n                      <list>\r\n                        <option value=\"varaukset\" />\r\n                      </list>\r\n                    </value>\r\n                  </entry>\r\n                </map>\r\n              </option>\r\n            </State>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_FILTERS\">\r\n      <map>\r\n        <entry key=\"Branch\">\r\n          <value>\r\n            <list>\r\n              <RecentGroup>\r\n                <option name=\"FILTER_VALUES\">\r\n                  <option value=\"varaukset\" />\r\n                </option>\r\n              </RecentGroup>\r\n            </list>\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"Lisätty koodi\" />\r\n    <MESSAGE value=\" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on.\" />\r\n    <MESSAGE value=\"Luokat asiakkaille ja asiakashallinnan metodeille\" />\r\n    <MESSAGE value=\"Lisätty metodit varausten hallinnalle.\" />\r\n    <MESSAGE value=\"Varausikkunan tekoa\" />\r\n    <MESSAGE value=\"fxml - varauksille ja alustava controller\" />\r\n    <MESSAGE value=\"testi\" />\r\n    <MESSAGE value=\"testi2\" />\r\n    <MESSAGE value=\"laskutusta kehitetään\" />\r\n    <MESSAGE value=\"Branchin alku\" />\r\n    <MESSAGE value=\"päivityksiä\" />\r\n    <MESSAGE value=\"MuokkaaAsiakasta-toiminto ym.\" />\r\n    <MESSAGE value=\"MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.\" />\r\n    <MESSAGE value=\"Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi.\" />\r\n    <MESSAGE value=\"AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym.\" />\r\n    <MESSAGE value=\"muokkauksia\" />\r\n    <MESSAGE value=\"MuokkaaAsiakastaControllerin debugia\" />\r\n    <MESSAGE value=\"MuokkaaAsiakastaControllerin debugausta\" />\r\n    <MESSAGE value=\"asdokjhasdökahsld\" />\r\n    <MESSAGE value=\"Varausten toiminnot\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Varausten toiminnot\" />\r\n  </component>\r\n  <component name=\"XDebuggerManager\">\r\n    <breakpoint-manager>\r\n      <breakpoints>\r\n        <line-breakpoint enabled=\"true\" type=\"java-line\">\r\n          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>\r\n          <line>79</line>\r\n          <option name=\"timeStamp\" value=\"3\" />\r\n        </line-breakpoint>\r\n      </breakpoints>\r\n    </breakpoint-manager>\r\n  </component>\r\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\r\n    <expand />\r\n    <select />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/mokit_R31$MainApplication.ic\" NAME=\"MainApplication Coverage Results\" MODIFIED=\"1683233626245\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\">\r\n      <FILTER>com.example.mokit_r31.*</FILTER>\r\n    </SUITE>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 3e242f676e24429d6be213ef11dae3b75f95db3c)
++++ b/.idea/workspace.xml	(date 1683288817480)
+@@ -4,8 +4,18 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varausten toiminnot">
+-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
++    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="uusi yritys saada github toimimaan">
++      <change afterPath="$PROJECT_DIR$/lib/itextpdf-5.5.13.3.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/mysql-connector-java-8.0.30.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/protobuf-java-3.19.4.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/lib/protobuf-java-3.21.9.jar" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Palvelu3Controller.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/a6fe68cb-de70-4e9b-a48b-e8d318ca55fa.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -15,16 +25,19 @@
+   <component name="FileTemplateManagerImpl">
+     <option name="RECENT_TEMPLATES">
+       <list>
+-        <option value="JavaFXApplication" />
+         <option value="FxmlFile" />
+         <option value="Class" />
++        <option value="JavaFXApplication" />
+       </list>
+     </option>
++  </component>
++  <component name="Git.Merge.Settings">
++    <option name="BRANCH" value="origin/Varaukset" />
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="laskutus" />
++        <entry key="$PROJECT_DIR$" value="Varaukset" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -52,13 +65,13 @@
+     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+     &quot;git-widget-placeholder&quot;: &quot;Varaukset&quot;,
+-    &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/IdeaProjects/mokit_R31/mysql-connector-j-8.0.33.jar&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/amand/IdeaProjects/mokit_R31UUSI&quot;,
+     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+     &quot;project.structure.side.proportion&quot;: &quot;0.43103448&quot;,
+     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+@@ -72,6 +85,7 @@
+ }</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
++      <recent name="C:\Users\amand\IdeaProjects\mokit_R31UUSI\src\main\resources\com\example\mokit_r31" />
+       <recent name="C:\Users\amand\IdeaProjects\mokit_R31UUSI\src\main\java\com\example\mokit_r31" />
+       <recent name="C:\Users\taija\IdeaProjects\mokit_R31\src\main\resources\com\example\mokit_r31" />
+     </key>
+@@ -84,7 +98,20 @@
+       <recent name="com.example.mokit_r31" />
+     </key>
+   </component>
+-  <component name="RunManager" selected="Application.VaraustenHallinta">
++  <component name="RunManager" selected="Application.MainApplication">
++    <configuration name="AlueidenHallinta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.AlueidenHallinta" />
++      <module name="mokit_R31" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.example.mokit_r31.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="MainApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.MainApplication" />
+       <module name="mokit_R31" />
+@@ -98,6 +125,19 @@
+         <option name="Make" enabled="true" />
+       </method>
+     </configuration>
++    <configuration name="PalveluController" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.PalveluController" />
++      <module name="mokit_R31" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.example.mokit_r31.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="PalvelujenHallinta" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+       <option name="MAIN_CLASS_NAME" value="com.example.mokit_r31.PalvelujenHallinta" />
+       <module name="mokit_R31" />
+@@ -126,11 +166,11 @@
+     </configuration>
+     <recent_temporary>
+       <list>
+-        <item itemvalue="Application.VaraustenHallinta" />
+         <item itemvalue="Application.MainApplication" />
++        <item itemvalue="Application.PalveluController" />
+         <item itemvalue="Application.PalvelujenHallinta" />
+         <item itemvalue="Application.VaraustenHallinta" />
+-        <item itemvalue="Application.PalvelujenHallinta" />
++        <item itemvalue="Application.AlueidenHallinta" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -152,6 +192,8 @@
+       <workItem from="1682659681883" duration="728000" />
+       <workItem from="1682663072872" duration="3555000" />
+       <workItem from="1683177075338" duration="3898000" />
++      <workItem from="1683280216491" duration="1875000" />
++      <workItem from="1683285251004" duration="3554000" />
+     </task>
+     <task id="LOCAL−00001" summary="Lisätty koodi">
+       <created>1682068236965</created>
+@@ -261,61 +303,58 @@
+       <option name="presentableId" value="LOCAL−00018" />
+       <updated>1683232962114</updated>
+     </task>
+-    <task id="LOCAL−00019" summary="muokkauksia">
+-      <created>1683271906715</created>
++    <task id="LOCAL−00019" summary="Varaus">
++      <created>1683271879070</created>
+       <option name="number" value="LOCAL−00019" />
+       <option name="presentableId" value="LOCAL−00019" />
+-      <updated>1683271906715</updated>
++      <updated>1683271879070</updated>
+     </task>
+-    <task id="LOCAL−00020" summary="muokkauksia">
+-      <created>1683271914953</created>
++    <task id="LOCAL−00020" summary="Varauskorjaus">
++      <created>1683273988669</created>
+       <option name="number" value="LOCAL−00020" />
+       <option name="presentableId" value="LOCAL−00020" />
+-      <updated>1683271914953</updated>
++      <updated>1683273988669</updated>
+     </task>
+-    <task id="LOCAL−00021" summary="MuokkaaAsiakastaControllerin debugia">
+-      <created>1683273454860</created>
++    <task id="LOCAL−00021" summary="Varauskorjaus">
++      <created>1683278043921</created>
+       <option name="number" value="LOCAL−00021" />
+       <option name="presentableId" value="LOCAL−00021" />
+-      <updated>1683273454860</updated>
++      <updated>1683278043921</updated>
+     </task>
+-    <task id="LOCAL−00022" summary="MuokkaaAsiakastaControllerin debugausta">
+-      <created>1683274505812</created>
++    <task id="LOCAL−00022" summary="uusi yritys saada github toimimaan">
++      <created>1683280610808</created>
+       <option name="number" value="LOCAL−00022" />
+       <option name="presentableId" value="LOCAL−00022" />
+-      <updated>1683274505812</updated>
++      <updated>1683280610808</updated>
+     </task>
+-    <task id="LOCAL−00023" summary="MuokkaaAsiakastaControllerin debugausta">
+-      <created>1683275736990</created>
++    <task id="LOCAL−00023" summary="uusi yritys saada github toimimaan">
++      <created>1683280816070</created>
+       <option name="number" value="LOCAL−00023" />
+       <option name="presentableId" value="LOCAL−00023" />
+-      <updated>1683275736990</updated>
++      <updated>1683280816070</updated>
+     </task>
+-    <task id="LOCAL−00024" summary="MuokkaaAsiakastaControllerin debugausta">
+-      <created>1683276910945</created>
+-      <option name="number" value="LOCAL−00024" />
+-      <option name="presentableId" value="LOCAL−00024" />
+-      <updated>1683276910945</updated>
+-    </task>
+-    <task id="LOCAL−00025" summary="asdokjhasdökahsld">
+-      <created>1683285560237</created>
+-      <option name="number" value="LOCAL−00025" />
+-      <option name="presentableId" value="LOCAL−00025" />
+-      <updated>1683285560237</updated>
+-    </task>
+-    <task id="LOCAL−00026" summary="Varausten toiminnot">
+-      <created>1683287059310</created>
+-      <option name="number" value="LOCAL−00026" />
+-      <option name="presentableId" value="LOCAL−00026" />
+-      <updated>1683287059310</updated>
+-    </task>
+-    <option name="localTasksCounter" value="27" />
++    <option name="localTasksCounter" value="24" />
+     <servers />
+   </component>
+   <component name="TypeScriptGeneratedFilesManager">
+     <option name="version" value="3" />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
++    <option name="RECENT_FILTERS">
++      <map>
++        <entry key="Branch">
++          <value>
++            <list>
++              <RecentGroup>
++                <option name="FILTER_VALUES">
++                  <option value="varaukset" />
++                </option>
++              </RecentGroup>
++            </list>
++          </value>
++        </entry>
++      </map>
++    </option>
+     <option name="TAB_STATES">
+       <map>
+         <entry key="MAIN">
+@@ -333,21 +372,6 @@
+                 </map>
+               </option>
+             </State>
+-          </value>
+-        </entry>
+-      </map>
+-    </option>
+-    <option name="RECENT_FILTERS">
+-      <map>
+-        <entry key="Branch">
+-          <value>
+-            <list>
+-              <RecentGroup>
+-                <option name="FILTER_VALUES">
+-                  <option value="varaukset" />
+-                </option>
+-              </RecentGroup>
+-            </list>
+           </value>
+         </entry>
+       </map>
+@@ -370,12 +394,10 @@
+     <MESSAGE value="MuokkaaAsiakasta-toiminto ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
+     <MESSAGE value="Asiakas-luokan ym. Muokkaaminen tuplaklikkaamalla ei vielä toimi." />
+     <MESSAGE value="AsiakasController-toiminnot, MuokkaaAsiakasta-toiminnallisuus ym." />
+-    <MESSAGE value="muokkauksia" />
+-    <MESSAGE value="MuokkaaAsiakastaControllerin debugia" />
+-    <MESSAGE value="MuokkaaAsiakastaControllerin debugausta" />
+-    <MESSAGE value="asdokjhasdökahsld" />
+-    <MESSAGE value="Varausten toiminnot" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Varausten toiminnot" />
++    <MESSAGE value="Varaus" />
++    <MESSAGE value="Varauskorjaus" />
++    <MESSAGE value="uusi yritys saada github toimimaan" />
++    <option name="LAST_COMMIT_MESSAGE" value="uusi yritys saada github toimimaan" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+@@ -384,6 +406,11 @@
+           <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
+           <line>79</line>
+           <option name="timeStamp" value="3" />
++        </line-breakpoint>
++        <line-breakpoint enabled="true" type="java-line">
++          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainApplication.java</url>
++          <line>9</line>
++          <option name="timeStamp" value="5" />
+         </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>
+Index: src/main/java/com/example/mokit_r31/Palvelu3Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/mokit_r31/Palvelu3Controller.java b/src/main/java/com/example/mokit_r31/Palvelu3Controller.java
+new file mode 100644
+--- /dev/null	(date 1683288817433)
++++ b/src/main/java/com/example/mokit_r31/Palvelu3Controller.java	(date 1683288817433)
+@@ -0,0 +1,140 @@
++package com.example.mokit_r31;
++import javafx.fxml.FXML;
++import javafx.fxml.FXMLLoader;
++import javafx.scene.Parent;
++import javafx.scene.Scene;
++import javafx.scene.control.Button;
++import javafx.scene.control.ListView;
++import javafx.scene.control.TextField;
++import javafx.stage.Stage;
++
++import java.io.IOException;
++
++
++public class Palvelu3Controller extends PalvelujenHallinta{
++
++    private static Tietokanta tietokanta;
++
++    public PalveluController(Tietokanta tietokanta) {
++        this.tietokanta = tietokanta;
++    }
++
++
++
++    PalvelujenHallinta hallinta = new PalvelujenHallinta();
++
++    @FXML
++    private TextField alueenPostinumeroTf;
++
++    @FXML
++    private Button luoPalveluBt;
++
++    @FXML
++    private Button naytaPalveluBt;
++
++
++    @FXML
++    private TextField palveluArvonlisaveroTf;
++
++    @FXML
++    private TextField palveluHintaTf;
++
++    @FXML
++    private TextField palveluIDTf;
++
++    @FXML
++    private TextField palveluKuvausTf;
++
++    @FXML
++    private ListView<?> palveluLista;
++
++    @FXML
++    private TextField palveluTyyppiTf;
++
++    @FXML
++    private TextField palveluNimiTf;
++
++    @FXML
++    private Button poistaPalveluBt;
++
++    @FXML
++    private Button tallennaPalveluBt;
++
++
++
++
++
++    @FXML
++    private void initialize() {
++        try {
++
++            FXMLLoader loader = new FXMLLoader(getClass().getResource("uudempiPalvelu.fxml"));
++            loader.setController(this);
++            Parent root = loader.load();
++            Scene scene = new Scene(root);
++            Stage stage = new Stage();
++            stage.setScene(scene);
++            stage.show();
++        } catch (IOException e) {
++            e.printStackTrace();
++        }
++
++
++        // luoPalveluBt tapahtumankäsittelijä
++        luoPalveluBt.setOnAction(e -> {
++            int id = Integer.parseInt(palveluIDTf.getText());
++            int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
++            String nimi = palveluNimiTf.getText();
++            int tyyppi = Integer.parseInt(palveluTyyppiTf.getText());
++            String kuvaus = palveluKuvausTf.getText();
++            double hinta = Double.parseDouble(palveluHintaTf.getText());
++            double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());
++
++            // Luo uusi Palvelu-olio
++            Palvelu uusiPalvelu = new Palvelu(id, alueId, nimi, tyyppi, kuvaus, hinta, alv);
++
++            // Tarkista, että uusiPalvelu-olio on luotu
++            if (uusiPalvelu != null) {
++                // Tallenna uusiPalvelu-olion tiedot tietokantaan
++                //lisaaPalvelu(uusiPalvelu.getAlueId(), uusiPalvelu.getNimi(), uusiPalvelu.getTyyppi(), uusiPalvelu.getKuvaus(), uusiPalvelu.getHinta());
++                System.out.println("Palvelu lisätty tietokantaan.");
++            } else {
++                System.out.println("Uutta palvelua ei ole vielä luotu.");
++            }
++        });
++
++
++
++
++
++        naytaPalveluBt.setOnAction(e -> {
++            // Kutsu metodia "naytaPalvelut" tässä
++            //hallinta.naytaPalvelut();
++        });
++
++        poistaPalveluBt.setOnAction(e -> {
++            // Kutsu metodia "poistaPalvelu" tässä
++            // hallinta.poistaPalvelu(1);
++        });
++
++        //tallennaPalveluBt.setOnAction(e -> {
++        // {
++        //    int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
++        String nimi = palveluNimiTf.getText();
++        int tyyppi = Integer.parseInt(palveluIDTf.getText());
++        String kuvaus = palveluKuvausTf.getText();
++        double hinta = Double.parseDouble(palveluHintaTf.getText());
++        double alv = Double.parseDouble(palveluArvonlisaveroTf.getText());}}
++
++//  Palvelu palvelu = new Palvelu(alueId, nimi, tyyppi, kuvaus, hinta, alv);
++//   try {
++//   PalvelujenHallinta hallinta = new PalvelujenHallinta();
++//    hallinta.lisaaPalvelu(palvelu);
++//  tallennaPalveluBt.setText("Vahvistettu");
++//     } catch (SQLException e) };
++//  }}}
++
++// Kutsu metodia "muokkaaPalvelua" tässä
++// hallinta.muokkaaPalvelua(1, 2, "palvelun nimi", 3, "kuvaus", 3.5);
++
++
+Index: .idea/dataSources.local.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"dataSourceStorageLocal\" created-in=\"IU-231.8109.175\">\r\n    <data-source name=\"@localhost\" uuid=\"84add08f-a74d-4664-84a0-387cf314bdfa\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost\" uuid=\"0e6fd1d0-de6f-4549-94ac-7eaf04dabb00\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [4]\" uuid=\"9a00152f-afe5-4c58-9e95-4e8724fc0b75\">\r\n      <database-info product=\"MySQL\" version=\"8.0.31\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.31\" exact-driver-version=\"8.0\">\r\n        <extra-name-characters>#@</extra-name-characters>\r\n        <identifier-quote-string>`</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\r\n      <user-name>root</user-name>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"schema\" qname=\"@\" />\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n    <data-source name=\"vn@localhost\" uuid=\"a6fe68cb-de70-4e9b-a48b-e8d318ca55fa\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [3]\" uuid=\"fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [2]\" uuid=\"9748761e-5bba-4fc0-b42c-f003b6515a98\">\r\n      <database-info product=\"\" version=\"\" jdbc-version=\"\" driver-name=\"\" driver-version=\"\" dbms=\"MYSQL\" exact-version=\"0\" />\r\n      <schema-mapping />\r\n    </data-source>\r\n    <data-source name=\"@localhost [5]\" uuid=\"c8650c45-01f7-4576-9eb5-7c1899dbd549\">\r\n      <database-info product=\"MySQL\" version=\"8.0.31\" jdbc-version=\"4.2\" driver-name=\"MySQL Connector/J\" driver-version=\"mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)\" dbms=\"MYSQL\" exact-version=\"8.0.31\" exact-driver-version=\"8.0\">\r\n        <extra-name-characters>#@</extra-name-characters>\r\n        <identifier-quote-string>`</identifier-quote-string>\r\n      </database-info>\r\n      <case-sensitivity plain-identifiers=\"mixed\" quoted-identifiers=\"mixed\" />\r\n      <user-name>root</user-name>\r\n      <schema-mapping>\r\n        <introspection-scope>\r\n          <node kind=\"schema\" qname=\"@\" />\r\n        </introspection-scope>\r\n      </schema-mapping>\r\n    </data-source>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.local.xml b/.idea/dataSources.local.xml
+--- a/.idea/dataSources.local.xml	(revision 3e242f676e24429d6be213ef11dae3b75f95db3c)
++++ b/.idea/dataSources.local.xml	(date 1683287965153)
+@@ -23,8 +23,17 @@
+       </schema-mapping>
+     </data-source>
+     <data-source name="vn@localhost" uuid="a6fe68cb-de70-4e9b-a48b-e8d318ca55fa">
+-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+-      <schema-mapping />
++      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
++        <extra-name-characters>#@</extra-name-characters>
++        <identifier-quote-string>`</identifier-quote-string>
++      </database-info>
++      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
++      <user-name>root</user-name>
++      <schema-mapping>
++        <introspection-scope>
++          <node kind="schema" qname="@" />
++        </introspection-scope>
++      </schema-mapping>
+     </data-source>
+     <data-source name="@localhost [3]" uuid="fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62">
+       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+@@ -40,6 +49,20 @@
+         <identifier-quote-string>`</identifier-quote-string>
+       </database-info>
+       <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
++      <user-name>root</user-name>
++      <schema-mapping>
++        <introspection-scope>
++          <node kind="schema" qname="@" />
++        </introspection-scope>
++      </schema-mapping>
++    </data-source>
++    <data-source name="vn@localhost [2]" uuid="0ab349d2-8d93-4128-ac28-5002e80b6e27">
++      <database-info product="MySQL" version="8.0.31" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.31" exact-driver-version="8.0">
++        <extra-name-characters>#@</extra-name-characters>
++        <identifier-quote-string>`</identifier-quote-string>
++      </database-info>
++      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
++      <secret-storage>master_key</secret-storage>
+       <user-name>root</user-name>
+       <schema-mapping>
+         <introspection-scope>

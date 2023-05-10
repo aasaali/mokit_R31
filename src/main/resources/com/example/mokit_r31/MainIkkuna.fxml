@@ -3,40 +3,50 @@
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+
 
 <AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.mokit_r31.MainController">
-    <TabPane fx:id="mainTabPane" layoutX="6.0" prefHeight="450.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
-             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-             AnchorPane.topAnchor="0.0">
-        <Tab fx:id="tabAsiakkaat" text="Asiakkaat">
-            <fx:include source="AsiakasIkkuna.fxml"/>
-        </Tab>
-        <Tab fx:id="tabMokit" text="Mökit">
-            <fx:include source="HallintaSivuMokit.fxml"/>
-        </Tab>
-        <Tab fx:id="tabVaraukset" text="Varaukset">
-            <fx:include source="VarausIkkuna.fxml"/>
-        </Tab>
-        <Tab fx:id="tabPalvelut" text="Palvelut">
-            <fx:include source="uudempiPalvelu.fxml"/>
-        </Tab>
-        <Tab fx:id="tabLaskutus" text="Laskutus">
-            <fx:include source="LaskutusIkkuna.fxml"/>
-        </Tab>
-        <Tab fx:id="tabRaportit" text="Majoitusraportit">
-            <fx:include source="RaporttiIkkuna.fxml"/>
-        </Tab>
-        <Tab fx:id="tabPalveluRaportti" text="Palveluiden raportit">
-            <fx:include source="PalveluRaporttiIkkuna.fxml"/>
-        </Tab>
-    </TabPane>
-    <Text layoutX="435.0" layoutY="473.0" strokeType="OUTSIDE" strokeWidth="0.0"
-          text="Village Newbies Oy | UEF OT R31 2023" wrappingWidth="174.93671035766602">
-        <font>
-          <Font size="10.0"/>
-        </font>
-    </Text>
+   <children>
+      <TabPane layoutX="6.0" prefHeight="450.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <tabs>
+          <Tab fx:id="tabAsiakkaat" text="Asiakkaat">
+            <content>
+                <fx:include source="AsiakasIkkuna.fxml"/>
+            </content>
+          </Tab>
+          <Tab fx:id="tabMokit" text="Mökit">
+            <content>
+                <fx:include source="HallintaSivuMokit.fxml"/>
+            </content>
+          </Tab>
+            <Tab fx:id="tabVaraukset" text="Varaukset">
+               <content>
+                   <fx:include source="VarausIkkuna.fxml"/>
+               </content>
+            </Tab>
+            <Tab fx:id="tabPalvelut" text="Palvelut">
+               <content>
+                   <fx:include source="uudempiPalvelu.fxml"/>
+               </content>
+            </Tab>
+            <Tab fx:id="tabLaskutus" text="Laskutus">
+               <content>
+                   <fx:include source="LaskutusIkkuna.fxml"/>
+               </content>
+            </Tab>
+            <Tab fx:id="tabMajoitusRaportit" text="Majoitusten raportit">
+               <content>
+                   <fx:include source="MajoituksetRaporttiIkkuna.fxml"/>
+               </content>
+            </Tab>
+            <Tab fx:id="tabPalveluRaportti" text="Palveluiden raportit">
+                <content>
+                    <fx:include source="PalveluRaporttiIkkuna.fxml"/>
+                </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
 </AnchorPane>
