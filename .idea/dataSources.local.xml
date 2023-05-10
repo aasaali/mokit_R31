@@ -13,10 +13,6 @@
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <schema-mapping />
     </data-source>
-    <data-source name="vn@localhost" uuid="a6fe68cb-de70-4e9b-a48b-e8d318ca55fa">
-      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
-      <schema-mapping />
-    </data-source>
     <data-source name="@localhost [3]" uuid="fc8fccc3-9ef6-4728-bacc-2fcfb3b57c62">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <schema-mapping />
@@ -29,7 +25,7 @@
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <schema-mapping />
     </data-source>
-    <data-source name="vn@localhost [2]" uuid="0ab349d2-8d93-4128-ac28-5002e80b6e27">
+    <data-source name="vn@localhost" uuid="49e7a6d1-b935-438f-8339-06e14da8a1ac">
       <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
       <schema-mapping />
     </data-source>

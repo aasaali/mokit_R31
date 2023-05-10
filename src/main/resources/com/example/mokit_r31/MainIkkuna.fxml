@@ -36,9 +36,9 @@
                    <fx:include source="LaskutusIkkuna.fxml"/>
                </content>
             </Tab>
-            <Tab fx:id="tabRaportit" text="Raportit">
+            <Tab fx:id="tabMajoitusRaportit" text="Majoitusten raportit">
                <content>
-                   <fx:include source="RaporttiIkkuna.fxml"/>
+                   <fx:include source="MajoituksetRaporttiIkkuna.fxml"/>
                </content>
             </Tab>
             <Tab fx:id="tabPalveluRaportti" text="Palveluiden raportit">

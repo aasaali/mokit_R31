@@ -80,6 +80,17 @@ public class PalveluController {
                 // Poista valinta palvelulistalta
                 palveluLista.getSelectionModel().clearSelection();
             }
+
+            else {
+                // Tyhjennä tekstikentät, jos mitään palvelua ei ole valittu
+                palveluIDTf.setText("");
+                alueenPostinumeroTf.setText("");
+                palveluNimiTf.setText("");
+                palveluTyyppiTf.setText("");
+                palveluKuvausTf.setText("");
+                palveluHintaTf.setText("");
+                palveluArvonlisaveroTf.setText("");
+            }
         });
 
         poistaPalveluBt.setOnAction(event -> {
@@ -136,6 +147,62 @@ public class PalveluController {
 
         //tallennaPalveluBt tapahtumankäsittelijä
         tallennaPalveluBt.setOnAction(e -> {
+
+            // Tarkista, onko kaikki kentät täytetty
+            if (palveluIDTf.getText().isEmpty() || alueenPostinumeroTf.getText().isEmpty() || palveluNimiTf.getText().isEmpty() || palveluTyyppiTf.getText().isEmpty() || palveluKuvausTf.getText().isEmpty() || palveluHintaTf.getText().isEmpty() || palveluArvonlisaveroTf.getText().isEmpty()) {
+                // Jos jokin kenttä on tyhjä, näytä virheilmoitusikkuna
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Tallennus ei onnistu");
+                alert.setHeaderText("Täytä kaikki kentät ennen tallentamista");
+                alert.showAndWait();
+                return;
+            }
+
+            // Tarkista, että palveluIDTf-kenttään on syötetty sallittu arvo
+            try {
+                int palveluId = Integer.parseInt(palveluIDTf.getText());
+                if (palveluId < 1 || palveluId > 5) {
+                    // Näytä virheilmoitusikkuna, jos palveluIDTf-kenttään on syötetty muu luku kuin 1,2,3,4 tai 5
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Tallennus ei onnistu");
+                    alert.setHeaderText("PalveluID:n tulee olla jokin seuraavista: 1, 2, 3, 4 tai 5");
+                    alert.showAndWait();
+                    return;
+                }
+
+                int alueenPostinumero = Integer.parseInt(alueenPostinumeroTf.getText());
+                double palveluHinta = Double.parseDouble(palveluHintaTf.getText());
+                double palveluArvonlisavero = Double.parseDouble(palveluArvonlisaveroTf.getText());
+                int palveluTyyppi = Integer.parseInt(palveluTyyppiTf.getText());
+            } catch (NumberFormatException ex) {
+                // Näytä virheilmoitusikkuna, joka kertoo mihin kenttään on syötetty jotain muuta kuin numeron
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Tallennus ei onnistu");
+                String virheviesti = "Tarkista seuraavat kentät: ";
+                if (!palveluIDTf.getText().matches("[0-9]+")) {
+                    virheviesti += "\n - PalveluID (tulee olla numero)";
+                }
+                if (!alueenPostinumeroTf.getText().matches("[0-9]+")) {
+                    virheviesti += "\n - Alueen postinumero (tulee olla numero)";
+                }
+                if (!palveluHintaTf.getText().matches("[0-9.]+")) {
+                    virheviesti += "\n - Palvelun hinta (tulee olla numero tai desimaaliluku)";
+                }
+                if (!palveluArvonlisaveroTf.getText().matches("[0-9.]+")) {
+                    virheviesti += "\n - Palvelun arvonlisävero (tulee olla numero tai desimaaliluku)";
+                }
+                if (!palveluTyyppiTf.getText().matches("[0-9]+")) {
+                    virheviesti += "\n - Palvelun tyyppi (tulee olla numero)";
+                }
+                alert.setHeaderText(virheviesti);
+                alert.showAndWait();
+                return;
+            }
+
+
+
+
+
             int id = Integer.parseInt(palveluIDTf.getText());
             int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
             String nimi = palveluNimiTf.getText();
@@ -161,7 +228,7 @@ public class PalveluController {
         Connection yhteys = null;
         try {
             yhteys = tietokanta.getYhteys();
-            PreparedStatement lisayslause = yhteys.prepareStatement("INSERT INTO Palvelu (id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement lisayslause = yhteys.prepareStatement("INSERT INTO Palvelu (palvelu_id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
             yhteys.setAutoCommit(false);
 
@@ -184,6 +251,11 @@ public class PalveluController {
         } finally {
             if (yhteys != null) {
                 yhteys.close();
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Tallennus onnistui");
+                alert.setHeaderText("Palvelun tiedot tallennettu tietokantaan");
+                alert.showAndWait();
             }
         }
     }

@@ -19,7 +19,7 @@ public class PalvelujenHallinta {
         Connection yhteys = tietokanta.getYhteys();
         PreparedStatement pstmt = null;
         try {
-            String sql = "INSERT INTO palvelu (id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) "
+            String sql = "INSERT INTO palvelu (palvelu_id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = yhteys.prepareStatement(sql);
@@ -35,30 +35,6 @@ public class PalvelujenHallinta {
             tietokanta.sulje(pstmt, yhteys);
         }}
 
-
-    public void tallennaPalvelu(Palvelu palvelu) throws SQLException {
-        Connection yhteys = tietokanta.getYhteys();
-        PreparedStatement lisayslause = null;
-        try {
-            String sql = "INSERT INTO Palvelu (id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            lisayslause = yhteys.prepareStatement(sql);
-            lisayslause.setInt(1, palvelu.getId());
-            lisayslause.setInt(2, palvelu.getAlueId());
-            lisayslause.setString(3, palvelu.getNimi());
-            lisayslause.setInt(4, palvelu.getTyyppi());
-            lisayslause.setString(5, palvelu.getKuvaus());
-            lisayslause.setDouble(6, palvelu.getHinta());
-            lisayslause.setDouble(7, palvelu.getAlv());
-            lisayslause.executeUpdate();
-        } finally {
-            if (lisayslause != null) {
-                lisayslause.close();
-            }
-            if (yhteys != null) {
-                yhteys.close();
-            }
-        }
-    }
 
 
     public List<Palvelu> naytaPalvelu() {
