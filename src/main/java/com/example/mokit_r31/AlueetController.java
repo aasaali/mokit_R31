@@ -11,23 +11,25 @@ import java.sql.SQLException;
 
 public class AlueetController {
 
-    @FXML
-    private TextField TxAlueId;
-    @FXML
-    private Button BtTallenna;
-    @FXML
-    private TextField TxAlueNimi;
+    @FXML private Button BtTallenna;
+    @FXML private TextField TxAlueNimi;
+    @FXML private TextField tfPostinro;
+    @FXML private TextField tfPostitoimipaikka;
 
     Tietokanta tietokanta = new Tietokanta();
         @FXML
         public void BtTallenna (ActionEvent event){
             String nimi = TxAlueNimi.getText();
+            String postinro = tfPostinro.getText();
+            String postitoimipk = tfPostitoimipaikka.getText();
 
             Alue uusiAlue = new Alue(nimi);
-            AlueidenHallinta hallinta = new AlueidenHallinta(tietokanta);
+            Posti uusiPosti = new Posti(postinro, postitoimipk);
+            AlueidenHallinta aluehallinta = new AlueidenHallinta(tietokanta);
+            PostiHallinta postiHallinta = new PostiHallinta(tietokanta);
             try {
-                hallinta.lisaaAlueenTiedot(uusiAlue);
-                BtTallenna.setText("Alueen tiedot tallennettu!");
+                aluehallinta.lisaaAlueenTiedot(uusiAlue);
+                postiHallinta.tallennaPosti(uusiPosti);
                 System.out.println("tallennus onnistui");
                 // Sulje ikkuna, jos tallennus onnistui
                 Stage stage = (Stage) BtTallenna.getScene().getWindow();

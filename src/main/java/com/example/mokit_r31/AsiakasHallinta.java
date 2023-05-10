@@ -13,35 +13,11 @@ public class AsiakasHallinta {
     public AsiakasHallinta(Tietokanta tietokanta) {this.tietokanta = tietokanta;
     }
 
-    public List<String> haePostinumerot() {
-        List<String> postinumerot = new ArrayList<>();
-
-        try {
-            Connection conn = tietokanta.getYhteys();
-            String sql = "SELECT postinro FROM posti";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                String postinro = rs.getString("postinro");
-                postinumerot.add(postinro);
-            }
-
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return postinumerot;
-    }
-
     public List<Asiakas> haeAsiakkaat(String hakusana) {
         List<Asiakas> asiakkaat = new ArrayList<>();
 
         try {
-            Connection conn = tietokanta.getYhteys();
+            Connection conn = Tietokanta.getYhteys();
             {
                 System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
 
@@ -86,7 +62,6 @@ public class AsiakasHallinta {
         return asiakkaat;
     }
 
-
     public void lisaaAsiakas(Asiakas asiakas) throws SQLException {
         Connection yhteys = Tietokanta.getYhteys();
         PreparedStatement lisayslause = null;
@@ -111,7 +86,7 @@ public class AsiakasHallinta {
         ResultSet tulokset = null;
 
         try {
-            yhteys = tietokanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
             kysely = yhteys.prepareStatement("SELECT postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro " +
                     "FROM Asiakas WHERE asiakas_id = ?");
             kysely.setInt(1, asiakasId);

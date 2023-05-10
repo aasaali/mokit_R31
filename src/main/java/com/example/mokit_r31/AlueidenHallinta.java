@@ -86,14 +86,13 @@ public void lisaaAlueenTiedot(Alue newAlue) {
                 stmt.setString(1, "%" + hakuNimi + "%");
                 ResultSet resultSet = stmt.executeQuery();
 
-                // Muodostetaan listä Alue-olioita hakutuloksista
+                // Muodostetaan lista Alue-olioita hakutuloksista
                 while (resultSet.next()) {
                     int alueId = resultSet.getInt("alue_id");
                     String nimi = resultSet.getString("nimi");
                     Alue alue = new Alue(alueId, nimi);
                     alueet.add(alue);
                 }
-
 
                 // Suljetaan tietokantayhteys ja vapautetaan resurssit
                 resultSet.close();

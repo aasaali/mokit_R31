@@ -70,7 +70,8 @@ public class MuokkaaAsiakastaController {
     }
     @FXML
     private void naytaAsiakkaanTiedot() {
-        List<String> postinumerot = asiakasHallinta.haePostinumerot();
+        PostiHallinta postiHallinta = new PostiHallinta(tietokanta);
+        List<String> postinumerot = postiHallinta.haePostinumerot();
         cbPostinumero.getItems().addAll(postinumerot);
 
         idTextField.setText(String.valueOf(asiakas.getAsiakasId()));

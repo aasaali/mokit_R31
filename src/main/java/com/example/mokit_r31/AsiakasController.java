@@ -101,9 +101,10 @@ public class AsiakasController {
         asiakasLista.getItems().setAll(ashallinta.haeKaikkiAsiakkaat());
     }
 
-    private void cbPostinumerot() {
+    private void cbPostinumerot() throws SQLException {
         // Hae postinumerot
-        List<String> postinumerot = asiakasHallinta.haePostinumerot();
+        PostiHallinta postiHallinta = new PostiHallinta(tietokanta);
+        List<String> postinumerot = postiHallinta.haePostinumerot();
 
 // Lisää postinumerot comboboxiin
         cbPostinumero.getItems().addAll(postinumerot);
@@ -115,7 +116,11 @@ public class AsiakasController {
         // Hae kaikki asiakkaat tietokannasta ja aseta listview:iin
         AsiakasHallinta ashallinta = new AsiakasHallinta(tietokanta);
         asiakasLista.getItems().setAll(ashallinta.haeKaikkiAsiakkaat());
-        cbPostinumerot();
+        try {
+            cbPostinumerot();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         asiakasLista.setOnMouseClicked(event -> {
             try {

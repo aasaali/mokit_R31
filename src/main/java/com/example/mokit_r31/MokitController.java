@@ -2,7 +2,6 @@ package com.example.mokit_r31;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,9 +10,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
+
+/** Mökkejä hallinnoiva Controller
+ *
+ */
 
 public class MokitController {
 
@@ -28,13 +30,13 @@ public class MokitController {
     @FXML private ListView<Mokki> LwMokit;
     @FXML private ListView<Alue> LwAlueet;
     Tietokanta tietokanta = new Tietokanta();
-    private MokkienHallinta mokkienHallinta = new MokkienHallinta(tietokanta);
-    private AlueidenHallinta alueidenHallinta = new AlueidenHallinta(tietokanta);
+    private final MokkienHallinta mokkienHallinta = new MokkienHallinta(tietokanta);
+    private final AlueidenHallinta alueidenHallinta = new AlueidenHallinta(tietokanta);
 
     private void paivitaListat() {
-        AlueidenHallinta alueidenhallinta = new AlueidenHallinta(tietokanta);
+
         try {
-            LwAlueet.getItems().setAll(alueidenhallinta.haeKaikkiAlueet());
+            LwAlueet.getItems().setAll(alueidenHallinta.haeKaikkiAlueet());
             LwMokit.getItems().setAll(mokkienHallinta.haeKaikkiMokit());
         } catch(SQLException e) { throw new RuntimeException(e);}
     }
@@ -42,7 +44,7 @@ public class MokitController {
     public void initialize(){
 
         // Alustetaan ListView Mökkihaulle
-            LwMokit.setCellFactory(lv -> new ListCell<Mokki>() {
+            LwMokit.setCellFactory(lv -> new ListCell<>() {
                 @Override
                 protected void updateItem(Mokki mokki, boolean empty) {
                     super.updateItem(mokki, empty);
@@ -55,7 +57,7 @@ public class MokitController {
             });
 
             // Alustetaan ListView Aluehaulle
-            LwAlueet.setCellFactory(lv -> new ListCell<Alue>() {
+            LwAlueet.setCellFactory(lv -> new ListCell<>() {
                 @Override
                 protected void updateItem(Alue uusiAlue, boolean empty) {
                     super.updateItem(uusiAlue, empty);
@@ -98,7 +100,7 @@ public class MokitController {
             // Asetetaan ListViewin Data näkyviin
             LwMokit.setItems(hakutulokset);
 
-            LwMokit.setCellFactory(param -> new ListCell<Mokki>() {
+            LwMokit.setCellFactory(param -> new ListCell<>() {
                 @Override
                 protected void updateItem(Mokki mokki, boolean empty) {
                     super.updateItem(mokki, empty);
@@ -138,14 +140,10 @@ public class MokitController {
                 String hakusana = TfAlue.getText();
                 // Kutsutaan haeAlueet-metodia ja tallennetaan sen palauttamat tiedot listview:iin
                 AlueidenHallinta alueidenhallinta = new AlueidenHallinta(tietokanta);
-                try {
-                    LwAlueet.getItems().setAll(alueidenhallinta.haeKaikkiAlueet());
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
+                LwAlueet.getItems().setAll(alueidenhallinta.haeAlueenTiedot(hakusana));
 
                 // asetetaan ListView:n soluille oma solutehdas
-                LwAlueet.setCellFactory(param -> new ListCell<Alue>() {
+                LwAlueet.setCellFactory(param -> new ListCell<>() {
                     @Override
                     protected void updateItem(Alue alue, boolean empty) {
                         super.updateItem(alue, empty);
@@ -190,6 +188,7 @@ public class MokitController {
                     if (result.get() == ButtonType.OK) {
                         MokkienHallinta.poistaMokki(valittuMokki.getMokkiId());
                         LwMokit.getItems().remove(valittuMokki);
+                        paivitaListat();
                     }
                 } else {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
