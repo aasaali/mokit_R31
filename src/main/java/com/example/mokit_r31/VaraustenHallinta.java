@@ -196,6 +196,7 @@ public class VaraustenHallinta extends Application {
             if (rs.next()) { // Palvelu on jo varauksessa, päivitetään lkm
                 int nykyinenLkm = rs.getInt("lkm");
                 sql = "UPDATE varauksen_palvelut SET lkm = ? WHERE varaus_id = ? AND palvelu_id = ?";
+                stmt.close();
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, nykyinenLkm + lkm);
                 stmt.setInt(2, varausId);
@@ -203,6 +204,7 @@ public class VaraustenHallinta extends Application {
                 stmt.executeUpdate();
             } else { // Palvelua ei ole vielä varauksessa, lisätään uusi rivi
                 sql = "INSERT INTO varauksen_palvelut(varaus_id, palvelu_id, lkm) VALUES (?, ?, ?)";
+                stmt.close();
                 stmt = conn.prepareStatement(sql);
                 stmt.setInt(1, varausId);
                 stmt.setInt(2, palveluId);
@@ -253,13 +255,37 @@ public class VaraustenHallinta extends Application {
     public static void poistaPalveluVaraukselta(int varausId, int palveluId) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
             conn = Tietokanta.getYhteys();
-            stmt = conn.prepareStatement("DELETE FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ?");
+
+            // Tarkista, kuinka monta samanlaista palvelua on varauksella
+            stmt = conn.prepareStatement("SELECT lkm FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ?");
             stmt.setInt(1, varausId);
             stmt.setInt(2, palveluId);
-            stmt.executeUpdate();
+            rs = stmt.executeQuery();
+
+            if(rs.next()) {
+                int lkm = rs.getInt("lkm");
+                if(lkm > 1) {
+                    // Jos palveluiden lukumäärä on suurempi kuin 1, vähennä lukumäärää yhdellä
+                    stmt = conn.prepareStatement("UPDATE varauksen_palvelut SET lkm = lkm - 1 WHERE varaus_id = ? AND palvelu_id = ?");
+                    stmt.setInt(1, varausId);
+                    stmt.setInt(2, palveluId);
+                    stmt.executeUpdate();
+                } else {
+                    // Jos palveluiden lukumäärä on 1, poista rivi taulusta
+                    stmt = conn.prepareStatement("DELETE FROM varauksen_palvelut WHERE varaus_id = ? AND palvelu_id = ?");
+                    stmt.setInt(1, varausId);
+                    stmt.setInt(2, palveluId);
+                    stmt.executeUpdate();
+                }
+            }
+
         } finally {
+            if (rs != null) {
+                try { rs.close(); } catch (SQLException e) { /* ignored */ }
+            }
             Tietokanta.sulje(stmt, conn);
         }
     }

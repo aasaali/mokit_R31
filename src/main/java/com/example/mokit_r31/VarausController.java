@@ -70,11 +70,19 @@ public class VarausController {
         Asiakas valittuAsiakas = asiakasCb.getSelectionModel().getSelectedItem();
         Mokki valittuMokki = mokkiCb.getSelectionModel().getSelectedItem();
 
-        if (valittuAsiakas != null && valittuMokki != null) {
-            int asiakasId = valittuAsiakas.getAsiakasId();
-            int mokkiId = valittuMokki.getMokkiId();
+        if (valittuAsiakas != null && valittuMokki != null && alkupaivaDP.getValue() != null && loppupaivaDP.getValue() != null) {
             LocalDateTime alkupaiva = alkupaivaDP.getValue().atStartOfDay();
             LocalDateTime loppupaiva = loppupaivaDP.getValue().atStartOfDay();
+            if (loppupaiva.isBefore(alkupaiva)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Virhe");
+                alert.setHeaderText(null);
+                alert.setContentText("Loppupäivämäärä ei voi olla ennen alkupäivämäärää.");
+                alert.showAndWait();
+                return;
+            }
+            int asiakasId = valittuAsiakas.getAsiakasId();
+            int mokkiId = valittuMokki.getMokkiId();
             Varaus varaus = new Varaus(asiakasId, mokkiId, alkupaiva, loppupaiva);
 
             try {
@@ -94,7 +102,7 @@ public class VarausController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Virhe");
             alert.setHeaderText(null);
-            alert.setContentText("Valitse asiakas ja mökki ennen varauksen tallentamista.");
+            alert.setContentText("Täytä kaikki kentät ennen varauksen tallentamista.");
             alert.showAndWait();
         }
     }

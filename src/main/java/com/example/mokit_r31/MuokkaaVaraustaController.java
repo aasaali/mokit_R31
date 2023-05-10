@@ -27,7 +27,7 @@ public class MuokkaaVaraustaController {
     @FXML
     private Button tallennaButton;
     @FXML
-    private ListView varauksenPalvelutLv;
+    private ListView <Palvelu> varauksenPalvelutLv;
     private Varaus varaus;
     @FXML
     private ListView palvelutLv;
@@ -126,18 +126,17 @@ public class MuokkaaVaraustaController {
 
     @FXML
     public void poistaValittuPalvelu() {
-        ObservableList<Palvelu> valitutPalvelut = varauksenPalvelutLv.getSelectionModel().getSelectedItems();
-        for (Palvelu palvelu : valitutPalvelut) {
+        Palvelu valittuPalvelu = varauksenPalvelutLv.getSelectionModel().getSelectedItem();
+        if (valittuPalvelu != null) {
             try {
-                VaraustenHallinta.poistaPalveluVaraukselta(varaus.getVarausId(), palvelu.getId());
+                VaraustenHallinta.poistaPalveluVaraukselta(varaus.getVarausId(), valittuPalvelu.getId());
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            // Päivitetään varauksen palvelut listviewiin
+            lisaaVarauksenPalvelut();
         }
-        // Päivitetään varauksen palvelut listviewiin
-        lisaaVarauksenPalvelut();
     }
-
     @FXML
     public void lisaaValittuPalvelu() {
         ObservableList<Palvelu> valitutPalvelut = palvelutLv.getSelectionModel().getSelectedItems();
