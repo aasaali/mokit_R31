@@ -1,6 +1,5 @@
 package com.example.mokit_r31;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
@@ -10,6 +9,7 @@ import java.util.List;
 /** Ohjelman käyttöliittymää hallinnoiva controller-luokka.
  * Täällä on määritetty välilehdet ja niillä siirtyminen nuolinäppäimillä.
  */
+@SuppressWarnings("unused")
 public class MainController {
 
     @FXML private Tab tabAsiakkaat;
