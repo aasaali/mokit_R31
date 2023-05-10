@@ -17,7 +17,7 @@ public class MainController {
     @FXML private Tab tabVaraukset;
     @FXML private Tab tabPalvelut;
     @FXML private Tab tabLaskutus;
-    @FXML private Tab tabRaportit;
+    @FXML private Tab tabMajoitusRaportit;
     @FXML private Tab tabPalveluRaportti;
     @FXML private TabPane mainTabPane;
 
@@ -25,29 +25,30 @@ public class MainController {
         navigointiTabeissaNuolinappaimilla();
     }
 
-    // Tässä säädetään, että silloin, kun fokus on välilehdissä, niillä voi siirtyä nuolinäppämillä oikea/vasen
+    // Tässä säädetään, että silloin, kun fokus on välilehdissä, niillä voi siirtyä nuolinäppäimillä oikea/vasen
     private void navigointiTabeissaNuolinappaimilla() {
+        if (mainTabPane != null) {
+            List<Tab> tabsList = mainTabPane.getTabs();
+            var ref = new Object() {
+                int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
+            };
 
-        List<Tab> tabsList = mainTabPane.getTabs();
-        var ref = new Object() {
-            int currentTabIndex = mainTabPane.getSelectionModel().getSelectedIndex();
-        };
-
-        mainTabPane.setOnKeyPressed(event -> {
-            if (mainTabPane.isFocused()) {
-                KeyCode code = event.getCode();
-                if (code == KeyCode.LEFT || code == KeyCode.RIGHT) {
-                    int newIndex = code == KeyCode.LEFT ? ref.currentTabIndex - 1 : ref.currentTabIndex + 1;
-                    if (newIndex < 0) {
-                        newIndex = tabsList.size() - 1;
-                    } else if (newIndex >= tabsList.size()) {
-                        newIndex = 0;
+            mainTabPane.setOnKeyPressed(event -> {
+                if (mainTabPane.isFocused()) {
+                    KeyCode code = event.getCode();
+                    if (code == KeyCode.LEFT || code == KeyCode.RIGHT) {
+                        int newIndex = code == KeyCode.LEFT ? ref.currentTabIndex - 1 : ref.currentTabIndex + 1;
+                        if (newIndex < 0) {
+                            newIndex = tabsList.size() - 1;
+                        } else if (newIndex >= tabsList.size()) {
+                            newIndex = 0;
+                        }
+                        mainTabPane.getSelectionModel().select(newIndex);
+                        ref.currentTabIndex = newIndex;
+                        event.consume();
                     }
-                    mainTabPane.getSelectionModel().select(newIndex);
-                    ref.currentTabIndex = newIndex;
-                    event.consume();
                 }
-            }
-        });
-}
+            });
+        }
+    }
 }
