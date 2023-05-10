@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Korjattu alueen lisääminen: FK-problematiikka. Lisätty asiakas-luokkaan postinumerolle combobox. Lisätty asiakkaan hakeminen hakusanalla.">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Päivitetty TextArea-komponenteille (focusTraversable=&quot;false&quot;) fxml-dokumentteihin, jotta tab:illa voi liikkua ohjelmassa.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/AsiakasIkkuna.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/LaskutusIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/LaskutusIkkuna.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MainController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +288,13 @@
       <option name="presentableId" value="LOCAL−00020" />
       <updated>1683666759403</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL−00021" summary="Päivitetty TextArea-komponenteille (focusTraversable=&quot;false&quot;) fxml-dokumentteihin, jotta tab:illa voi liikkua ohjelmassa.">
+      <created>1683667745489</created>
+      <option name="number" value="LOCAL−00021" />
+      <option name="presentableId" value="LOCAL−00021" />
+      <updated>1683667745489</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,7 +357,8 @@
     <MESSAGE value="Lisätty laskutukseen boolean maksettu. Ok." />
     <MESSAGE value="Korjattu mökin lisäämistä; FK/PK=tietokantaongelma." />
     <MESSAGE value="Korjattu alueen lisääminen: FK-problematiikka. Lisätty asiakas-luokkaan postinumerolle combobox. Lisätty asiakkaan hakeminen hakusanalla." />
-    <option name="LAST_COMMIT_MESSAGE" value="Korjattu alueen lisääminen: FK-problematiikka. Lisätty asiakas-luokkaan postinumerolle combobox. Lisätty asiakkaan hakeminen hakusanalla." />
+    <MESSAGE value="Päivitetty TextArea-komponenteille (focusTraversable=&quot;false&quot;) fxml-dokumentteihin, jotta tab:illa voi liikkua ohjelmassa." />
+    <option name="LAST_COMMIT_MESSAGE" value="Päivitetty TextArea-komponenteille (focusTraversable=&quot;false&quot;) fxml-dokumentteihin, jotta tab:illa voi liikkua ohjelmassa." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
