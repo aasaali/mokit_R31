@@ -1,7 +1,6 @@
 package com.example.mokit_r31;
 import com.itextpdf.text.DocumentException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,8 +8,17 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
+
+/** Laskutusta käsittelevä controller.
+ * Käsittelee laskuja ja varauksia listoina, jotka haetaan sql-tietokannasta.
+ * Sisältää toiminnot: päivitä listat, luo uusi: tallentaa tietokantaan, poista tietokannasta,
+ * luo ja tallenna PDF-tiedostoon, merkitse tietokantaan maksetuksi tai ei maksetuksi.
+ * Laskun lähetys sähköpostilla voidaan lisätä, kun yrityksellä on sähköpostipalvelin.
+ */
+
+// Tämän luokan rakenne aiheuttaa tarpeettomia "is never used"-varoituksia, jonka vuoksi:
+@SuppressWarnings(value = "unused")
 
 public class LaskuController {
     @FXML private ListView<Varaus> laskutaVarausLw;
@@ -20,15 +28,26 @@ public class LaskuController {
     @FXML private Button buttonPaivita;
     @FXML private Button buttonLuoUusi;
     @FXML private Button buttonPoista;
-    @FXML private TextField tfTiedostonimi;
     @FXML private TextArea taLaskunTiedot;
-
-    Tietokanta tietokanta = new Tietokanta();
-
-    private LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
+    @FXML private TextField tfEmailosoite;
+    @FXML private TextField tfTiedostonimi;
+    @FXML private CheckBox checkMaksettu;
+    @FXML private CheckBox checkEiMaksettu;
+    Tietokanta tietokanta;
+    LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
     @FXML
     private void btLahetaLasku(ActionEvent event) {
+        String email = tfEmailosoite.getText();
+        // Tähän voisi lisätä email-osoitteen lähettämisen suorittavan metodin kutsun.
 
+        // Koska toiminto ei ole käytössä, generoidaan ilmoitus:
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Email-toiminto ei ole käytössä");
+        alert.setHeaderText("""
+                Sähköpostilähetys ei ole käytössä.
+                 Se voidaan ottaa käyttöön, kun yrityksellä
+                 on sähköpostipalvelin, jonka tiedot lisätään ohjelmaan.""");
+        alert.showAndWait();
     }
 
     @FXML
@@ -37,11 +56,8 @@ public class LaskuController {
 
         try {
             laskunHallinta.luoPDF(lasku);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (DocumentException e) {
+            tfTiedostonimi.setText(lasku.getTiedostonimi());
+        } catch (SQLException | FileNotFoundException | DocumentException e) {
             throw new RuntimeException(e);
         }
     }
@@ -55,15 +71,24 @@ public class LaskuController {
         LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
         laskuLw.getItems().setAll(laskunhallinta.haeKaikkiLaskut());
     }
+    private void PaivitaLaskutus() throws SQLException {
+        VaraustenHallinta hallinta = new VaraustenHallinta();
+        laskutaVarausLw.getItems().setAll(hallinta.getVaraukset());
+        LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
+        laskuLw.getItems().setAll(laskunhallinta.haeKaikkiLaskut());
+    }
 
     @FXML
-    private void buttonLuoUusi(ActionEvent event) throws
-            SQLException, DocumentException, FileNotFoundException {
+    private void buttonLuoUusi(ActionEvent event) throws SQLException {
+
         Varaus varaus = laskutaVarausLw.getSelectionModel().getSelectedItem();
+        LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
         int varauksenid = varaus.getVarausId();
-        Lasku lasku = laskunHallinta.luoLasku(varaus);
-        taLaskunTiedot.setText("Luotu lasku.\n" + "Varaus ID: " + varauksenid + " Laskun ID: " + lasku.getLaskuId()
-                + "Laskun summa: " + lasku.getSumma());
+        Lasku lasku = laskunhallinta.luoLasku(varaus);
+
+        taLaskunTiedot.setText("Luotu uusi lasku tietokantaan.");
+
+        PaivitaLaskutus();
     }
 
     @FXML
@@ -74,9 +99,11 @@ public class LaskuController {
             LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
             try {
                 Lasku lasku = laskunhallinta.haeLasku(laskunid);
+                boolean onkoMaksettu = lasku.isMaksettu();
                 String laskunTiedot = "Varaus ID: " + lasku.getVarausId() + ".  Laskun ID: "
-                        + lasku.getLaskuId()+"\n" + " Laskun summa: " + lasku.getSumma()+"\n"+
-                        "Vuokraus päiviä: " + laskunhallinta.laskePaivienMaara(valinta.getVarausId());
+                        + lasku.getLaskuId()+"\n" + " Laskun summa: " + (lasku.getSumma()+lasku.getAlv())+"\n"+
+                        "Vuokra-aika: " + laskunhallinta.laskePaivienMaara(valinta.getVarausId()) + " vrk" + "\n"
+                        + "Lasku maksettu: " + (onkoMaksettu ? "kyllä" : "ei");
                 taLaskunTiedot.setText(laskunTiedot);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -84,7 +111,7 @@ public class LaskuController {
         } else {taLaskunTiedot.setText("");}
     }
 
-    @FXML private void btPoista(ActionEvent event) {
+    @FXML private void btPoista(ActionEvent event) throws SQLException {
         Lasku lasku = laskuLw.getSelectionModel().getSelectedItem();
         LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
         if (lasku != null) {
@@ -106,15 +133,38 @@ public class LaskuController {
             alert.setHeaderText("Valitse poistettava asiakas listasta.");
             alert.showAndWait();
         }
+        PaivitaLaskutus();
+    }
+
+    @FXML private void merkitseMaksettu(ActionEvent event) throws SQLException {
+
+        Lasku valittuLasku = laskuLw.getSelectionModel().getSelectedItem();
+        LaskunHallinta lh = new LaskunHallinta(tietokanta);
+            if (valittuLasku != null) {
+                boolean onMaksettu = checkMaksettu.isSelected();
+                valittuLasku.setMaksettu(onMaksettu);
+                lh.merkitseMaksetuksi(valittuLasku);
+            }
+        PaivitaLaskutus();
+        }
+
+    @FXML private void merkitseEiMaksettu(ActionEvent event) throws SQLException {
+
+        Lasku valittuLasku = laskuLw.getSelectionModel().getSelectedItem();
+        LaskunHallinta lh = new LaskunHallinta(tietokanta);
+        if (valittuLasku != null) {
+            boolean eiMaksettu = checkEiMaksettu.isSelected();
+            valittuLasku.setMaksettu(eiMaksettu);
+            lh.merkitseEiMaksetuksi(valittuLasku);
+        }
+        PaivitaLaskutus();
     }
 
     @FXML
     private void initialize() {
-
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
             laskutaVarausLw.getItems().setAll(hallinta.getVaraukset());
-            // varauksetLw.setOnMouseClicked(event -> handleVarausListDoubleClick(event));
 
             LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
             laskuLw.getItems().setAll(laskunhallinta.haeKaikkiLaskut());

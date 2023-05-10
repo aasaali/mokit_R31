@@ -19,6 +19,12 @@ public class Palvelu {
         this.alv = alv;
     }
 
+    //aatu lisännyt parametrittoman konstruktorin:
+
+    public Palvelu(){
+
+    }
+
     public int getId() {
         return id;
     }

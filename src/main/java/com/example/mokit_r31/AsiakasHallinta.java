@@ -1,23 +1,69 @@
 package com.example.mokit_r31;
 
-import javafx.application.Application;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javafx.application.Application.launch;
-
+/** Asiakas-luokkaa hallinnoiva luokka. Tarjoaa metodeja AsiakasController-luokalle.
+ * Käyttää MySQL-tietokantaa Tietokanta-luokan avulla.
+ * Metodeja: lisää & hae & päivitä & poista asiakas, hae kaikki asiakkaat.
+ */
 public class AsiakasHallinta {
+    Tietokanta tietokanta;
+    public AsiakasHallinta(Tietokanta tietokanta) {this.tietokanta = tietokanta;
+    }
 
-    private static Tietokanta tietokanta;
+    public List<Asiakas> haeAsiakkaat(String hakusana) {
+        List<Asiakas> asiakkaat = new ArrayList<>();
 
-    public AsiakasHallinta(Tietokanta tietokanta) {
-        this.tietokanta = tietokanta;
+        try {
+            Connection conn = Tietokanta.getYhteys();
+            {
+                System.out.println("Yhteys tietokantaan " + conn.getMetaData().getDatabaseProductName() + " onnistui!");
+
+                // Luodaan SQL-lause, jolla haetaan asiakkaat tietokannasta
+                String sql = "SELECT * FROM asiakas WHERE postinro LIKE ? OR etunimi LIKE ? OR sukunimi LIKE ? OR lahiosoite LIKE ? OR email LIKE ? OR puhelinnro LIKE ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+
+                // Asetetaan SQL-lauseelle arvot
+                String hakusanaLike = "%" + hakusana + "%";
+                stmt.setString(1, hakusanaLike);
+                stmt.setString(2, hakusanaLike);
+                stmt.setString(3, hakusanaLike);
+                stmt.setString(4, hakusanaLike);
+                stmt.setString(5, hakusanaLike);
+                stmt.setString(6, hakusanaLike);
+
+                // Suoritetaan SQL-lause ja käsitellään tulokset
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    Asiakas asiakas = new Asiakas(
+                            rs.getInt("asiakas_id"),
+                            rs.getString("postinro"),
+                            rs.getString("etunimi"),
+                            rs.getString("sukunimi"),
+                            rs.getString("lahiosoite"),
+                            rs.getString("email"),
+                            rs.getString("puhelinnro")
+                    );
+                    asiakkaat.add(asiakas);
+                }
+
+                // Suljetaan tietokantayhteys ja vapautetaan resurssit
+                rs.close();
+                stmt.close();
+                conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Asiakkaiden haku epäonnistui!");
+            e.printStackTrace();
+        }
+
+        return asiakkaat;
     }
 
     public void lisaaAsiakas(Asiakas asiakas) throws SQLException {
-        Connection yhteys = tietokanta.getYhteys();
+        Connection yhteys = Tietokanta.getYhteys();
         PreparedStatement lisayslause = null;
         try {
             String sql = "INSERT INTO Asiakas (postinro, etunimi, sukunimi, lahiosoite, email, puhelinnro) " +
@@ -31,10 +77,10 @@ public class AsiakasHallinta {
             lisayslause.setString(6, asiakas.getPuhelinnro());
             lisayslause.executeUpdate();
         } finally {
-            tietokanta.sulje(lisayslause, yhteys);
+            Tietokanta.sulje(lisayslause, yhteys);
         }
     }
-    public static Asiakas haeAsiakas(int asiakasId) throws SQLException {
+    public Asiakas haeAsiakas(int asiakasId) throws SQLException {
         Connection yhteys = null;
         PreparedStatement kysely = null;
         ResultSet tulokset = null;
@@ -59,7 +105,7 @@ public class AsiakasHallinta {
         }
     }
     public void paivitaAsiakas(Asiakas asiakas) throws SQLException {
-        Connection yhteys = tietokanta.getYhteys();
+        Connection yhteys = Tietokanta.getYhteys();
         PreparedStatement paivityslause = null;
         try {
             String sql = "UPDATE Asiakas SET postinro = ?, etunimi = ?, sukunimi = ?, lahiosoite = ?, email = ?, puhelinnro = ? WHERE asiakas_id = ?";
@@ -73,12 +119,12 @@ public class AsiakasHallinta {
             paivityslause.setInt(7, asiakas.getAsiakasId());
             paivityslause.executeUpdate();
         } finally {
-            tietokanta.sulje(paivityslause, yhteys);
+            Tietokanta.sulje(paivityslause, yhteys);
         }
     }
 
     public static void poistaAsiakas(int asiakasId) throws SQLException {
-        Connection yhteys = tietokanta.getYhteys();
+        Connection yhteys = Tietokanta.getYhteys();
         PreparedStatement poistolause = null;
         try {
             String sql = "DELETE FROM Asiakas WHERE asiakas_id = ?";
@@ -86,44 +132,9 @@ public class AsiakasHallinta {
             poistolause.setInt(1, asiakasId);
             poistolause.executeUpdate();
         } finally {
-            tietokanta.sulje(poistolause, yhteys);
+            Tietokanta.sulje(poistolause, yhteys);
         }
     }
-
-    public boolean muokkaaAsiakas(Asiakas asiakas) {
-        Connection yhteys = null;
-        PreparedStatement paivitys = null;
-
-        try {
-            yhteys = tietokanta.getYhteys();
-            paivitys = yhteys.prepareStatement(
-                    "UPDATE asiakas SET postinro = ?, etunimi = ?, sukunimi = ?, lahiosoite = ?, email = ?, puhelinnro = ? WHERE asiakas_id = ?");
-
-            paivitys.setString(1, asiakas.getPostinro());
-            paivitys.setString(2, asiakas.getEtunimi());
-            paivitys.setString(3, asiakas.getSukunimi());
-            paivitys.setString(4, asiakas.getLahiosoite());
-            paivitys.setString(5, asiakas.getEmail());
-            paivitys.setString(6, asiakas.getPuhelinnro());
-            paivitys.setInt(7, asiakas.getAsiakasId());
-
-            int lkm = paivitys.executeUpdate();
-
-            if (lkm == 1) {
-                return true;
-            } else {
-                return false;
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-
-        } finally {
-            tietokanta.sulje(paivitys, yhteys);
-        }
-    }
-
 
     public List<Asiakas> haeKaikkiAsiakkaat() {
         Connection yhteys = null;
@@ -132,7 +143,7 @@ public class AsiakasHallinta {
         List<Asiakas> asiakkaat = new ArrayList<>();
 
         try {
-            yhteys = tietokanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
             kysely = yhteys.createStatement();
             tulokset = kysely.executeQuery("SELECT * FROM asiakas");
 
@@ -153,9 +164,10 @@ public class AsiakasHallinta {
             e.printStackTrace();
 
         } finally {
-            tietokanta.sulje(tulokset, kysely, yhteys);
+            Tietokanta.sulje(tulokset, kysely, yhteys);
         }
 
         return asiakkaat;
     }
+
 }

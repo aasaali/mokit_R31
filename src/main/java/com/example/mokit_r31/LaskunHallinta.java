@@ -5,36 +5,27 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ListView;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
-// Tähän tai Lasku:un pitää vielä päivittää varauksen päivien laskenta.
-// Nyt lasku menee yhden päivän hinnalla.
+/** Laskua käsittelevä hallintaluokka.
+ * Sisältää Lasku- ja LaskuController-luokkien tarvitsemia metodeja.
+ * Kentät: laskun luomisen päivämäärä, laskun eräpäivä, varauksen kesto (vrk), laskun numero.
+ * Metodeja: laske varauksen kesto, hae lasku tietokannasta, luo uusi lasku ja tallenna tietokantaan,
+ * hae kaikki laskut tietokannasta, poista lasku tietokannasta, merkitse lasku maksetuksi tietokantaan,
+ * merkitse lasku maksamattomaksi, tallenna laskusta PDF-tiedosto.
+ */
 
 public class LaskunHallinta {
-
-    private LocalDateTime luomispvm;
-    private int laskunnumero;
-    private LocalDateTime erapaiva;
     private int varauksenkesto;
-
-    Tietokanta tietokanta = new Tietokanta();
+    Tietokanta tietokanta;
 
     public LaskunHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;
@@ -44,7 +35,7 @@ public class LaskunHallinta {
         varauksenkesto = 0;
         try {
             // Muodostetaan SQL-kysely päivien lukumäärän laskemiseksi
-            Connection conn = tietokanta.getYhteys();
+            Connection conn = Tietokanta.getYhteys();
             String sql = "SELECT DATEDIFF(varattu_loppupvm, varattu_alkupvm) AS paivat FROM varaus WHERE varaus_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, varausId);
@@ -52,7 +43,7 @@ public class LaskunHallinta {
             // Suoritetaan kysely ja haetaan päivien lukumäärä tuloksista
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
-                varauksenkesto = rs.getInt("paivat");
+                varauksenkesto = 1 + rs.getInt("paivat");
             }
         } catch (SQLException e) {
             // Tässä käsitellään poikkeus, jos kyselyn suoritus epäonnistuu
@@ -61,10 +52,9 @@ public class LaskunHallinta {
         return varauksenkesto;
     }
 
-
     public Lasku haeLasku(int laskuId) throws SQLException {
         String sql = "SELECT * FROM lasku WHERE lasku_id = ?";
-        try (Connection conn = tietokanta.getYhteys();
+        try (Connection conn = Tietokanta.getYhteys();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, laskuId);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -72,7 +62,8 @@ public class LaskunHallinta {
                     int varausId = rs.getInt("varaus_id");
                     double summa = rs.getDouble("summa");
                     double alv = rs.getDouble("alv");
-                    return new Lasku(alv, summa, laskuId, varausId);
+                    boolean maksettu = rs.getBoolean("maksettu");
+                    return new Lasku(alv, summa, laskuId, varausId, maksettu);
                 }
             }
         } catch (SQLException ex) {
@@ -85,7 +76,7 @@ public class LaskunHallinta {
     public Lasku luoLasku(Varaus varaus) throws SQLException {
 
         Lasku luodaanLasku = new Lasku();
-        Connection yhteys = tietokanta.getYhteys();
+        Connection yhteys = Tietokanta.getYhteys();
 
         // Haetaan mokin hinta
         double mokinHinta = 0.0;
@@ -127,7 +118,6 @@ public class LaskunHallinta {
             tallennaLaskuStmt.setDouble(3, yhteisalv);
             tallennaLaskuStmt.executeUpdate();
         }
-
         return luodaanLasku;
     }
 
@@ -137,7 +127,7 @@ public class LaskunHallinta {
         PreparedStatement haku = null;
         ResultSet tulosjoukko = null;
         try {
-            yhteys = tietokanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
             String sql = "SELECT * FROM lasku";
             haku = yhteys.prepareStatement(sql);
             tulosjoukko = haku.executeQuery();
@@ -147,10 +137,11 @@ public class LaskunHallinta {
                 lasku.setVarausId(tulosjoukko.getInt("varaus_id"));
                 lasku.setSumma(tulosjoukko.getDouble("summa"));
                 lasku.setAlv(tulosjoukko.getDouble("alv"));
+                lasku.setMaksettu(tulosjoukko.getBoolean("maksettu"));
                 laskut.add(lasku);
             }
         } finally {
-            tietokanta.sulje(tulosjoukko, haku, yhteys);
+            Tietokanta.sulje(tulosjoukko, haku, yhteys);
         }
         return laskut;
     }
@@ -161,7 +152,7 @@ public class LaskunHallinta {
 
         try {
             // Avataan yhteys tietokantaan
-            yhteys = tietokanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
 
             // Luodaan SQL-kysely laskun poistamiseksi
             String sql = "DELETE FROM lasku WHERE lasku_id = ?";
@@ -183,56 +174,75 @@ public class LaskunHallinta {
                 stmt.close();
             }
             if (yhteys != null) {
-                yhteys.close();
+                yhteys.close();}
+        }
+        }
+
+    public void merkitseMaksetuksi(Lasku lasku) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = Tietokanta.getYhteys();
+            String sql = "UPDATE lasku SET maksettu = ? WHERE lasku_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setBoolean(1, true);
+            stmt.setInt(2, lasku.getLaskuId());
+            stmt.executeUpdate();
+            lasku.setMaksettu(true);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public void merkitseEiMaksetuksi(Lasku lasku) throws SQLException {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = Tietokanta.getYhteys();
+            String sql = "UPDATE lasku SET maksettu = ? WHERE lasku_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setBoolean(1, false);
+            stmt.setInt(2, lasku.getLaskuId());
+            stmt.executeUpdate();
+            lasku.setMaksettu(false);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conn != null) {
+                conn.close();
             }
         }
     }
 
     public void luoPDF(Lasku lasku) throws SQLException, FileNotFoundException, DocumentException {
         // Yhdistetään tietokantaan
-        Connection conn = null;
-        PreparedStatement haku = null;
+        Connection conn;
         try {
-            conn = tietokanta.getYhteys();
+            conn = Tietokanta.getYhteys();
 
-            // TÄMÄ SKRIPTI EI OLE OIKEIN. Rs jää tyhjäksi.
-            /*
-            // Suoritetaan SQL-kysely
-            String sql = "SELECT varaus.varaus_id, asiakas.etunimi, asiakas.sukunimi, mokki.mokkinimi, palvelu.nimi, " +
-                    "palvelu.hinta, palvelu.alv, lasku.lasku_id " +
-                    "FROM varaus " +
-                    "JOIN asiakas ON varaus.asiakas_id = asiakas.asiakas_id " +
-                    "JOIN mokki ON varaus.mokki_mokki_id = mokki.mokki_id " +
-                    "LEFT JOIN varauksen_palvelut ON varaus.varaus_id = varauksen_palvelut.varaus_id " +
-                    "LEFT JOIN palvelu ON varauksen_palvelut.palvelu_id = palvelu.palvelu_id " +
-                    "LEFT JOIN lasku ON varaus.varaus_id = lasku.varaus_id " +
-                    "WHERE lasku.lasku_id = ?";
-
-            haku = conn.prepareStatement(sql);
-            haku.setInt(1, lasku.getLaskuId());
-            ResultSet rs = haku.executeQuery();
-            */
-
-            // Kokeillaan käyttäen haeLasku-metodia
-            LaskunHallinta laskunHallinta = new LaskunHallinta(tietokanta);
             Lasku luoPDFLasku = haeLasku(lasku.getLaskuId());
-            //System.out.println(rs.getString("lasku_id"));
 
 // Laskun päiväys ja päiväyksen avulla generoitu PDF-tiedoston nimi
 
             LocalDateTime luomispvm = LocalDateTime.now();
-
             LocalDateTime erapaiva = luomispvm.plus(14, ChronoUnit.DAYS);
 
-
             DateTimeFormatter pvmformat = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-
             String luomisDate = luomispvm.format(pvmformat);
             String erapaivaDate = erapaiva.format(pvmformat);
 
             LocalDateTime now = LocalDateTime.now();
             DateTimeFormatter tiedostopvm = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss");
             String tiedostonimi = "laskuPDF_" + now.format(tiedostopvm) + ".pdf";
+            lasku.setTiedostonimi(tiedostonimi);
 
 // Luodaan PDF-lasku iText-kirjastolla
             Document document = new Document(PageSize.A4);
@@ -245,8 +255,11 @@ public class LaskunHallinta {
             otsikko.setSpacingAfter(100);
             document.add(otsikko);
 
-            Paragraph yritys = new Paragraph("Village Newbies OY\n" + "Mökkivuokraus, Kuopio\n" + "UEF OT R31");
-            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
+            Paragraph yritys = new Paragraph("""
+                    Village Newbies OY
+                    Mökkivuokraus
+                    UEF TKT KUOPIO - Ohjelmistotuotanto - R31 harjoitustyö
+                    """);
             yritys.setSpacingAfter(100);
             document.add(yritys);
 
@@ -261,61 +274,47 @@ public class LaskunHallinta {
                     "Laskun päiväys: " + luomisDate + ". Eräpäivä: " + erapaivaDate );
             document.add(laskutus);
 
-/* rs on tyhjä, joten laskun tietoja ei saada generoitua
-// Lisätään laskun tiedot
-            Paragraph otsikko = new Paragraph("LASKU");
-            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
-            otsikko.setSpacingAfter(10);
-            document.add(otsikko);
-
-            Paragraph yritys = new Paragraph("Village Newbies OY");
-            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
-            otsikko.setSpacingAfter(20);
-            document.add(yritys);
-
-            document.add(new Paragraph("Laskun ID: " + rs.getString("lasku_id")));
-            System.out.println("Tarkistus");
-            document.add(new Paragraph("Varausnumero: " + lasku.getVarausId()));
-            document.add(new Paragraph("Asiakas: " + rs.getString("etunimi") + " " +
-                    rs.getString("sukunimi")));
-            document.add(new Paragraph("Mökki: " + rs.getString("mokkinimi")));
-
-// Lisätään palvelut
-            double summa = 0;
-            double palvelutAlv = 0;
-            if (rs.next()) {
-                do {
-                    document.add(new Paragraph("Palvelu: " + rs.getString("nimi") + " - hinta: " +
-                            rs.getDouble("hinta")));
-                    summa += rs.getDouble("hinta");
-                    palvelutAlv += rs.getDouble("alv");
-                } while (rs.next());
-            } else {
-                System.out.println("ResultSet on tyhjä");
-            }
-
-            double kokonaishinta = summa + palvelutAlv;
-            document.add(new Paragraph("Veroton hinta: " + summa));
-            document.add(new Paragraph("Hinta yhteensä: " + kokonaishinta));
-
-            Paragraph laskutus = new Paragraph("Maksutiedot: \n" + "Tilinumero: FI11 1111 2222 3333 44\n" +
-                    "BIC: VNOYHH\n" + "Laskun päiväys:" + luomisDate +
-                    "Eräpäivä: " + erapaivaDate );
-            otsikko.setAlignment(Paragraph.ALIGN_CENTER);
-            otsikko.setSpacingAfter(20);
-            document.add(laskutus);
-*/
             document.close();
+
+            // Tässä voisi avata PDF-tiedoston esikatselun. Metodi ei ole tässä ohjelmassa käytössä.
+            // Kutsutaan ikkunaa, joka avaa luodun PDF-tiedoston esikatselun:
+            //pdfPreview(tiedostonimi);
 
             System.out.println("Lasku tallennettu tiedostoon " + tiedostonimi);
 
 // Suljetaan yhteys tietokantaan
-            tietokanta.sulje(conn);
-
-// Suljetaan
+            Tietokanta.sulje(conn);
 
         } catch (Exception e) {
             System.err.println("Virhe tallennettaessa laskua PDF-tiedostoksi: " + e.getMessage());
         }
     }
+
+    // Metodi, joka avaa pdf-tiedoston esikatselun uudessa ikkunassa.
+    // Tämä ei toimi, ilmeisesti siksi että JavaFX kirjaston versio on vanhentunut.
+    /*
+    public void pdfPreview(String pdfTiedostonNimi) {
+        // Luodaan Stage-objekti, joka edustaa ikkunaa
+        Stage stage = new Stage();
+
+        // Luodaan WebView-objekti, johon ladataan pdf-tiedosto
+        WebView webView = new WebView();
+
+        // Jos ohjelma ei löydä tiedostoa, tähän voidaan lisätä:
+        // String tiedostopolku = polku + pdfTiedostonNimi
+
+        webView.getEngine().load(pdfTiedostonNimi);
+
+        // Luodaan Scene-objekti, johon lisätään WebView
+        Scene scene = new Scene(webView);
+        stage.setTitle("PDF-tiedoston esikatselu");
+
+        // Asetetaan ikkunan koko
+        stage.setWidth(800);
+        stage.setHeight(600);
+
+        // Asetetaan Scene ikkunaan ja näytetään se käyttäjälle
+        stage.setScene(scene);
+        stage.show();
+    } */
 }

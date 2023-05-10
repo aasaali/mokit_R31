@@ -1,12 +1,19 @@
 package com.example.mokit_r31;
 
+/** Alueiden pääluokka.
+ *
+ */
 public class Alue {
     private int alueId;
     private String nimi; // 40
 
-    public Alue(String nimi){
+    public Alue(int alueId, String nimi){
         this.alueId = alueId;
         this.nimi = nimi;
+    }
+    public Alue(){}
+
+    public Alue(String nimi) { this.nimi=nimi;
     }
 
     public int getAlueId() {
@@ -23,5 +30,12 @@ public class Alue {
 
     public void setNimi(String nimi) {
         this.nimi = nimi;
+    }
+
+    @Override
+    public String toString() {
+        return "Alue - " +
+                "alueId: " + alueId +
+                ", nimi: " + nimi;
     }
 }

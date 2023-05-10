@@ -7,12 +7,16 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/** Mökkivarausjärjestelmä by R 31
+ * UEF TKT OHJELMISTOTUOTANTO 2023
+ * Authors: Aatu Saali, Amanda Rizvanov, Juuli Ahonen, Taija Miettinen
+ */
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("mainIkkuna.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Mökkivarausjärjestelmä by R31");
+        stage.setTitle("Mökkivarausjärjestelmä");
         stage.setScene(scene);
         stage.show();
     }

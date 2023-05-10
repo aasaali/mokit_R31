@@ -1,26 +1,10 @@
 package com.example.mokit_r31;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
-
-import java.io.FileOutputStream;
-import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
-import java.util.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
-/** Laskun tietoja:
-asiakkaan tiedot: nimi, osoite, puhelinnumero
-Varauksen tiedot: pvm-pvm, kohde, palvelut, hintaerittely
-laskutus: summa, pvm, laskun numero, eräpäivä pvm + 14 vrk
+/** Laskua käsittelevä pääluokka.
+ * Tietokantaan tallennetut tiedot: lasku id, varaus id, alv, summa.
+ * Tiedostonimi generoituu, kun laskusta luodaan PDF-tiedosto.
+ * Maksettu on boolean-arvo, jonka käyttäjä voi päivittä käyttöliittymässä olevilla checkboxeilla.
+ * Tätä luokkaa käsittelee LaskunHallinta.
  */
 
 public class Lasku {
@@ -29,20 +13,29 @@ public class Lasku {
     private double summa;
     private int laskuId;
     private int varausId;
+    private String tiedostonimi;
+    private boolean maksettu;
 
-    private Asiakas asiakas;
-
-    public Lasku(double alv, double summa, int laskuId, int varausId) {
+    public Lasku(double alv, double summa, int laskuId, int varausId, boolean maksettu) {
         this.alv = alv;
         this.summa = summa;
         this.laskuId = laskuId;
         this.varausId = varausId;
+        this.maksettu = maksettu;
     }
 
-    public Lasku(int varausId) {
-        this.varausId=varausId;}
-
     public Lasku(){}
+
+    public boolean isMaksettu() {
+        return maksettu;}
+
+    public void setMaksettu(boolean maksettu) {
+        this.maksettu = maksettu;}
+
+    public String getTiedostonimi() {
+        return tiedostonimi;}
+    public void setTiedostonimi(String tiedostonimi) {
+        this.tiedostonimi = tiedostonimi;}
 
     public int getVarausId() {
         return varausId;}
@@ -63,16 +56,11 @@ public class Lasku {
 
     @Override
     public String toString() {
+        boolean onkoMaksettu = this.isMaksettu();
         return "Lasku ID: " + laskuId + ", varaus ID:" + varausId + "\n" +
                 "Alv: " + alv + "\n" +
                 "Veroton hinta: " + summa + "\n" +
-                "Laskun summa: " + (summa+alv);
-    }
-
-    public void laskeSummaJaAlv(double mokkiHinta, double palveluHinta, double palveluAlv) {
-        double summa = mokkiHinta + palveluHinta;
-        double alv = palveluAlv;
-        this.summa = summa;
-        this.alv = alv;
+                "Laskun summa: " + (summa+alv) + "\n" +
+                "Lasku maksettu: " + (onkoMaksettu ? "kyllä" : "ei");
     }
 }
