@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Varausten toiminnat loppuun">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelutRaporttiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelutRaporttiController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -297,7 +299,13 @@
       <option name="presentableId" value="LOCAL−00024" />
       <updated>1683736091772</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL−00025" summary="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null">
+      <created>1683736687992</created>
+      <option name="number" value="LOCAL−00025" />
+      <option name="presentableId" value="LOCAL−00025" />
+      <updated>1683736687992</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -364,7 +372,8 @@
     <MESSAGE value="MainController:iin lisätty TabPane:en mahdollisuus liikkua välilehdillä nuolinäppäimillä." />
     <MESSAGE value="Varoitusten fiksailua." />
     <MESSAGE value="Varausten toiminnat loppuun" />
-    <option name="LAST_COMMIT_MESSAGE" value="Varausten toiminnat loppuun" />
+    <MESSAGE value="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null" />
+    <option name="LAST_COMMIT_MESSAGE" value="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

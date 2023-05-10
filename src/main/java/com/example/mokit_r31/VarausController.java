@@ -22,10 +22,6 @@ public class VarausController {
     @FXML
     private Button tallennaVarausBt;
     @FXML
-    private TextField asiakasTf;
-    @FXML
-    private TextField mokkiTf;
-    @FXML
     private DatePicker alkupaivaDP;
     @FXML
     private DatePicker loppupaivaDP;
@@ -50,18 +46,19 @@ public class VarausController {
     private ListView<Palvelu> palvelutLv;
 
 
+
     private void lataaAsiakkaat() {
         AsiakasHallinta hallinta = new AsiakasHallinta(tietokanta);
         ObservableList<Asiakas> asiakkaat = FXCollections.observableArrayList(hallinta.haeKaikkiAsiakkaat());
         asiakasCb.setItems(asiakkaat);
     }
 
+
+
     private void lataaMokit() {
         MokkienHallinta hallinta = new MokkienHallinta(tietokanta);
         ObservableList<Mokki> mokit = FXCollections.observableArrayList(hallinta.haeMokit(""));
         mokkiCb.setItems(mokit);
-
-
         }
 
 

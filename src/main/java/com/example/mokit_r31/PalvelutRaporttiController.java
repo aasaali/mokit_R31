@@ -6,10 +6,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,6 +46,15 @@ public class PalvelutRaporttiController {
             String alue = aluecbox.getValue();
             String alkupaiva = alkupaivaDP.getValue().toString();
             String loppupaiva = loppupaivaDP.getValue().toString();
+
+            if (alue == null || alkupaiva == null || loppupaiva == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Virhe");
+                alert.setHeaderText(null);
+                alert.setContentText("Täytä kaikki kentät ennen haun suorittamista.");
+                alert.showAndWait();
+                return;
+            }
 
             // Haetaan raportti palveluista
             PalvelutRaportti.haePalveluRaportti(alue, alkupaiva, loppupaiva, palvelutLw);
