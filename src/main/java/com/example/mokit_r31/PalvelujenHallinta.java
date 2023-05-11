@@ -68,8 +68,29 @@ public class PalvelujenHallinta {
         return palvelut;
     }
 
-
+    public void muokkaaPalvelua(Palvelu palvelu) {
+        try {
+            Connection yhteys = tietokanta.getYhteys();
+            PreparedStatement paivitysLause = yhteys.prepareStatement(
+                    "UPDATE palvelu SET alue_id=?, nimi=?, tyyppi=?, kuvaus=?, hinta=?, alv=? WHERE palvelu_id=?"
+            );
+            paivitysLause.setInt(1, palvelu.getAlueId());
+            paivitysLause.setString(2, palvelu.getNimi());
+            paivitysLause.setInt(3, palvelu.getTyyppi());
+            paivitysLause.setString(4, palvelu.getKuvaus());
+            paivitysLause.setDouble(5, palvelu.getHinta());
+            paivitysLause.setDouble(6, palvelu.getAlv());
+            paivitysLause.setInt(7, palvelu.getId());
+            paivitysLause.executeUpdate();
+            tietokanta.sulje(yhteys);
+        } catch (SQLException e) {
+            System.err.println("Virhe tietokannan käsittelyssä: " + e.getMessage());
+        }
     }
+
+
+
+}
 
 
 
