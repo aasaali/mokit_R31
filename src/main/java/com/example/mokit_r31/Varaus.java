@@ -17,7 +17,6 @@ public class Varaus {
 
     //Alustaja
     public Varaus(int asiakasId, int mokkiId, LocalDateTime varattuAlkupvm, LocalDateTime varattuLoppupvm) {
-        this.varausId = varausId;
         this.asiakasId = asiakasId;
         this.mokkiId = mokkiId;
         this.vahvistusPvm = LocalDateTime.now();
