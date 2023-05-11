@@ -1,8 +1,6 @@
 package com.example.mokit_r31;
 import javafx.scene.control.Alert;
-
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -64,8 +62,6 @@ public void lisaaAlueenTiedot(Alue newAlue) {
         e.printStackTrace();
     }
 }
-
-
 
 // Alueen tietojen hakeminen tietokannasta SQL SELECT>
     public List<Alue> haeAlueenTiedot(String hakuNimi){

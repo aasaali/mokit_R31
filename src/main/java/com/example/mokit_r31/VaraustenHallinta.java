@@ -1,27 +1,13 @@
 package com.example.mokit_r31;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VaraustenHallinta extends Application {
+public class VaraustenHallinta {
 
     private Tietokanta tietokanta;
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("VarausIkkuna.fxml"));
-        Scene scene = new Scene(root, 600, 400);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     // Metodi, joka lukee varaukset tietokannasta ja luo niistä listan.
     public List<Varaus> getVaraukset() throws SQLException {
@@ -248,7 +234,6 @@ public class VaraustenHallinta extends Application {
         } finally {
             Tietokanta.sulje(rs, stmt, conn);
         }
-
         return palvelut;
     }
 
@@ -281,7 +266,6 @@ public class VaraustenHallinta extends Application {
                     stmt.executeUpdate();
                 }
             }
-
         } finally {
             if (rs != null) {
                 try { rs.close(); } catch (SQLException e) { /* ignored */ }

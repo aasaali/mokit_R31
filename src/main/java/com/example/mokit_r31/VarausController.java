@@ -9,8 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.time.format.DateTimeFormatter;
-
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
