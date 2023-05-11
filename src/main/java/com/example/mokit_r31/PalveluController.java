@@ -153,6 +153,10 @@ public class PalveluController {
         });
     }
 
+    @FXML private void muokkaaPalvelua() {
+        // kutsu tästä muokkausta uudessa ikkunassa MuokkaaPalvelua.fxml
+
+    }
 
     public void poistaPalvelu(Palvelu palvelu) throws SQLException {
         int valittuID = palvelu.getId();
