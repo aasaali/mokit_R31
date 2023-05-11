@@ -8,21 +8,21 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MuokkaaPalveluaController">
    <Text layoutX="27.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muokkaa palvelua" />
+   <TextField fx:id="palveluIDTf" editable="false" layoutX="28.0" layoutY="56.0" promptText="Palvelu ID" />
+   <TextField fx:id="alueIDTf" editable="false" layoutX="28.0" layoutY="95.0" promptText="Alue ID" />
    <TextField fx:id="palveluNimiTf" layoutX="28.0" layoutY="141.0" prefHeight="26.0" prefWidth="318.0" promptText="Nimi" />
    <TextField fx:id="palveluTyyppiTf" layoutX="30.0" layoutY="180.0" prefHeight="26.0" prefWidth="150.0" promptText="Tyyppi" />
    <TextField fx:id="palveluKuvausTf" layoutX="30.0" layoutY="223.0" prefHeight="26.0" prefWidth="318.0" promptText="Kuvaus" />
    <TextField fx:id="palveluHintaTf" layoutX="30.0" layoutY="261.0" prefHeight="26.0" prefWidth="150.0" promptText="Hinta" />
    <TextField fx:id="palveluAlvTf" layoutX="30.0" layoutY="302.0" promptText="Alv" />
-   <TextField fx:id="palveluIDTf" editable="false" layoutX="28.0" layoutY="56.0" promptText="Palvelu ID" />
-   <Button fx:id="tallennaPalveluBt" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" onAction="#tallennaMuokkausButton" text="Tallenna">
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Button>
    <Text fill="#0b0b0b" layoutX="30.0" layoutY="364.0" stroke="#101010" strokeType="OUTSIDE" strokeWidth="0.0" text="Päivitä palvelulista Hae-painikkeella tallennuksen jälkeen" wrappingWidth="335.1999736785888">
       <font>
          <Font size="13.0" />
       </font>
    </Text>
-   <TextField fx:id="alueIDTf" editable="false" layoutX="28.0" layoutY="95.0" promptText="Alue ID" />
+   <Button fx:id="tallennaPalveluBt" layoutX="396.0" layoutY="345.0" mnemonicParsing="false" onAction="#tallennaMuokkausButton" text="Tallenna">
+      <font>
+         <Font size="14.0" />
+      </font>
+   </Button>
 </AnchorPane>
