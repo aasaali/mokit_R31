@@ -43,6 +43,7 @@ public class MuokkaaPalveluaController {
         this.palvelu = palvelu;
         //naytaAsiakkaanTiedot();
     }
+// Luokassa on kaksi tapaa toteuttaa buttonin onAction
 
     @FXML
     void tallennaMuokkausButton(ActionEvent event) {
