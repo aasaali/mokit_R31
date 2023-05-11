@@ -226,10 +226,6 @@ public class PalveluController {
         }
     }
 
-
-
-
-
     public void naytaPalvelut() {
         ObservableList<Palvelu> palveluData = FXCollections.observableArrayList();
         PalvelujenHallinta palveluHallinta = new PalvelujenHallinta(new Tietokanta());

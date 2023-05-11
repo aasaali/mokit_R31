@@ -10,12 +10,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.mokit_r31.AsiakasController">
-   <AnchorPane layoutY="6.0" prefHeight="387.0" prefWidth="600.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.AsiakasController">
+   <AnchorPane layoutY="6.0" prefHeight="387.0" prefWidth="600.0" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <ListView fx:id="asiakasLista" layoutX="7.0" layoutY="7.0" onMouseClicked="#naytaTiedot" prefHeight="257.0" prefWidth="295.0" />
+      <TextArea fx:id="taAsiakkaanTiedot" focusTraversable="false" layoutX="6.0" layoutY="268.0" onMouseClicked="#naytaTiedot" prefHeight="114.0" prefWidth="295.0" promptText="Asiakkaan tiedot" />
+      <ToolBar layoutX="3.0" layoutY="383.0" prefHeight="42.0" prefWidth="302.0">
+         <padding>
+            <Insets bottom="1.0" left="14.0" top="1.0" />
+         </padding>
+         <Button fx:id="buttonHae" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="102.0" text="Päivitä lista" />
+         <Button fx:id="btMuokkaa" layoutX="162.0" layoutY="16.0" mnemonicParsing="false" onAction="#muokkaaAsiakasta" prefHeight="30.0" prefWidth="93.0" text="Muokkaa" />
+         <Button fx:id="buttonPoista" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" text="Poista" />
+      </ToolBar>
       <AnchorPane layoutX="305.0" layoutY="1.0" prefHeight="447.0" prefWidth="302.0">
+         <ComboBox fx:id="cbPostinumero" layoutX="14.0" layoutY="28.0" prefWidth="150.0" promptText="Postinumero" />
          <TextField fx:id="tfEtunimi" layoutX="14.0" layoutY="54.0" prefHeight="26.0" prefWidth="150.0" promptText="Etunimi" />
          <TextField fx:id="tfSukunimi" layoutX="14.0" layoutY="81.0" prefHeight="26.0" prefWidth="278.0" promptText="Sukunimi" />
          <TextField fx:id="tfLahiosoite" layoutX="14.0" layoutY="108.0" prefHeight="26.0" prefWidth="278.0" promptText="Lähiosoite" />
@@ -27,18 +35,6 @@
          <Text layoutX="14.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hae asiakasta nimellä tai email-osoitteella" />
          <Button fx:id="btHaeAsiakasta" layoutX="14.0" layoutY="300.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="278.0" text="Hae asiakasta" />
          <ListView fx:id="lwHaeAsiakasta" layoutX="14.0" layoutY="332.0" onMouseClicked="#naytaTiedot" prefHeight="94.0" prefWidth="278.0" />
-         <ComboBox fx:id="cbPostinumero" layoutX="14.0" layoutY="28.0" prefWidth="150.0" promptText="Postinumero" />
       </AnchorPane>
-      <ToolBar layoutX="3.0" layoutY="383.0" prefHeight="42.0" prefWidth="302.0">
-         <padding>
-            <Insets bottom="1.0" left="14.0" top="1.0" />
-         </padding>
-         <Button fx:id="buttonHae" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="102.0" text="Päivitä lista" />
-         <Button fx:id="btMuokkaa" layoutX="162.0" layoutY="16.0" mnemonicParsing="false" onAction="#muokkaaAsiakasta"
-                 prefHeight="30.0" prefWidth="93.0" text="Muokkaa" />
-         <Button fx:id="buttonPoista" mnemonicParsing="false" prefHeight="30.0" prefWidth="73.0" text="Poista" />
-      </ToolBar>
-      <TextArea fx:id="taAsiakkaanTiedot" focusTraversable="false" layoutX="6.0" layoutY="268.0"
-                onMouseClicked="#naytaTiedot" prefHeight="114.0" prefWidth="295.0" promptText="Asiakkaan tiedot" />
    </AnchorPane>
 </AnchorPane>
