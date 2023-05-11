@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="korjattu varausten palvelut">
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VarausController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/VarausIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -350,7 +351,13 @@
       <option name="presentableId" value="LOCAL−00032" />
       <updated>1683826373309</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL−00033" summary="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä">
+      <created>1683827841775</created>
+      <option name="number" value="LOCAL−00033" />
+      <option name="presentableId" value="LOCAL−00033" />
+      <updated>1683827841775</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -396,7 +403,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
     <MESSAGE value="Luokat asiakkaille ja asiakashallinnan metodeille" />
     <MESSAGE value="Lisätty metodit varausten hallinnalle." />
     <MESSAGE value="Varausikkunan tekoa" />
@@ -421,7 +427,8 @@
     <MESSAGE value="Palvelun muokkaus-button lisätty" />
     <MESSAGE value="moi" />
     <MESSAGE value="korjattu varausten palvelut" />
-    <option name="LAST_COMMIT_MESSAGE" value="korjattu varausten palvelut" />
+    <MESSAGE value="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä" />
+    <option name="LAST_COMMIT_MESSAGE" value="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

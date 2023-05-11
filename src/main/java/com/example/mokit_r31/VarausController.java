@@ -201,6 +201,8 @@ public class VarausController {
 
         asiakasCb.setOnMouseClicked(event -> lataaAsiakkaat());
         mokkiCb.setOnMouseClicked(event -> lataaMokit());
+        mokkiCb.setMaxHeight(10);
+        asiakasCb.setMaxHeight(10);
     }
 
 }
