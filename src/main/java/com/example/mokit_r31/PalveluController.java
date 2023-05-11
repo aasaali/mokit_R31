@@ -170,7 +170,7 @@ public class PalveluController {
     }
 
     @FXML private void muokkaaPalvelua() {
-       {
+        {
             Palvelu palvelu = palveluLista.getSelectionModel().getSelectedItem();
             if (palvelu != null) {
                 try {
@@ -187,7 +187,7 @@ public class PalveluController {
                 }
             }
 
-    }}
+        }}
 
     public void poistaPalvelu(Palvelu palvelu) throws SQLException {
         int valittuID = palvelu.getId();
@@ -282,4 +282,4 @@ public class PalveluController {
         });
 
     }
-    }
+}

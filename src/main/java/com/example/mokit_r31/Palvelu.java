@@ -94,7 +94,7 @@ public class Palvelu {
 
     @Override
     public String toString() {
-        return "Palvelu{" +
+        return "Palvelu{" + getId() +
                 ", alueId=" + alueId +
                 ", nimi='" + nimi + '\'' +
                 ", tyyppi=" + tyyppi +
