@@ -14,14 +14,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class PalveluController {
     //testi
     @FXML
-    private ComboBox<Integer> cbAlueID;
+    private ComboBox<Alue> cbAlueID;
 
     @FXML
     private Button luoPalveluBt;
@@ -65,10 +63,8 @@ public class PalveluController {
 
 
     private void listaaAlueetComboboxiin() throws SQLException {
-        List<Integer> alueIdt = alueidenHallinta.haeKaikkiAlueet().stream()
-                .map(Alue::getAlueId)
-                .collect(Collectors.toList());
-        cbAlueID.getItems().addAll(alueIdt);
+        ObservableList<Alue> alueet = FXCollections.observableArrayList(alueidenHallinta.haeKaikkiAlueet());
+        cbAlueID.setItems(alueet);
 
     }
 
@@ -139,7 +135,7 @@ public class PalveluController {
                 (observable, oldValue, newValue) -> {
                     // täytetään tekstikentät valitun palvelun tiedoilla
                     if (newValue != null) {
-                        cbAlueID.setValue(newValue.getAlueId());
+                        cbAlueID.setValue(new Alue(newValue.getAlueId(), null));
                         palveluNimiTf.setText(newValue.getNimi());
                         palveluTyyppiTf.setText(Integer.toString(newValue.getTyyppi()));
                         palveluKuvausTf.setText(newValue.getKuvaus());
@@ -164,8 +160,8 @@ public class PalveluController {
                 return;
             }
 
-
-            int alueId = cbAlueID.getSelectionModel().getSelectedItem();
+            Alue valittu = cbAlueID.getSelectionModel().getSelectedItem();
+            int alueId = valittu.getAlueId();
             String nimi = palveluNimiTf.getText();
             int tyyppi = Integer.parseInt(palveluTyyppiTf.getText());
             String kuvaus = palveluKuvausTf.getText();
