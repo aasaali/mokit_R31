@@ -198,6 +198,11 @@ public class VarausController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        asiakasCb.setOnMouseClicked(event -> lataaAsiakkaat());
+        mokkiCb.setOnMouseClicked(event -> lataaMokit());
+        mokkiCb.setMaxHeight(10);
+        asiakasCb.setMaxHeight(10);
     }
 
 }

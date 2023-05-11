@@ -11,7 +11,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.VarausController">
    <children>
       <ListView fx:id="varauksetLw" layoutX="14.0" layoutY="14.0" prefHeight="185.0" prefWidth="268.0" />
-      <TextArea fx:id="varausTa" focusTraversable="false" editable="false" layoutX="13.0" layoutY="207.0" prefHeight="126.0" prefWidth="268.0" promptText="Varauksen tiedot" />
+      <TextArea fx:id="varausTa" editable="false" focusTraversable="false" layoutX="13.0" layoutY="207.0" prefHeight="126.0" prefWidth="268.0" promptText="Varauksen tiedot" />
       <Button fx:id="btHae" layoutX="14.0" layoutY="344.0" mnemonicParsing="false" onAction="#btHae" text="Päivitä lista" />
       <Button fx:id="btMuokkaa" layoutX="102.0" layoutY="344.0" mnemonicParsing="false" onAction="#btMuokkaa" text="Muokkaa" />
       <Button fx:id="btPoista" layoutX="177.0" layoutY="344.0" mnemonicParsing="false" onAction="#btPoista" text="Poista" />

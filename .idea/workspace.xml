@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Koodin siistimistä" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="comboboxien muotoilut">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaMokkia.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaMokkia.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaPalvelua.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaPalvelua.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaVaraustaIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MuokkaaVaraustaIkkuna.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/PalveluRaporttiIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/PalveluRaporttiIkkuna.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/Untitled.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/Untitled.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/uudempiPalvelu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/uudempiPalvelu.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -49,7 +57,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Varaukset&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/IdeaProjects/mokit_R31/src/main/resources/com/example/mokit_r31&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -341,25 +349,31 @@
       <option name="presentableId" value="LOCAL−00031" />
       <updated>1683819873614</updated>
     </task>
-    <task id="LOCAL−00032" summary="Palvelun muokkaus: palvelujenhallinta, muokkaaPalveluaController. Palvelun muokkaus toimii.">
-      <created>1683823459174</created>
+    <task id="LOCAL−00032" summary="korjattu varausten palvelut">
+      <created>1683826373309</created>
       <option name="number" value="LOCAL−00032" />
       <option name="presentableId" value="LOCAL−00032" />
-      <updated>1683823459174</updated>
+      <updated>1683826373309</updated>
     </task>
-    <task id="LOCAL−00033" summary="Majoitusraportti-välilehdelle aluelistan päivittämiseen hae-painike">
-      <created>1683825598956</created>
+    <task id="LOCAL−00033" summary="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä">
+      <created>1683827841775</created>
       <option name="number" value="LOCAL−00033" />
       <option name="presentableId" value="LOCAL−00033" />
-      <updated>1683825598956</updated>
+      <updated>1683827841775</updated>
     </task>
-    <task id="LOCAL−00034" summary="Koodin siistimistä">
-      <created>1683826333553</created>
+    <task id="LOCAL−00034" summary="comboboxien muotoilut">
+      <created>1683828307204</created>
       <option name="number" value="LOCAL−00034" />
       <option name="presentableId" value="LOCAL−00034" />
-      <updated>1683826333553</updated>
+      <updated>1683828307204</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL−00035" summary="comboboxien muotoilut">
+      <created>1683828963882</created>
+      <option name="number" value="LOCAL−00035" />
+      <option name="presentableId" value="LOCAL−00035" />
+      <updated>1683828963882</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,10 +441,10 @@
     <MESSAGE value="Korjattu palveluid-bugi" />
     <MESSAGE value="Palvelun muokkaus-button lisätty" />
     <MESSAGE value="moi" />
-    <MESSAGE value="Palvelun muokkaus: palvelujenhallinta, muokkaaPalveluaController. Palvelun muokkaus toimii." />
-    <MESSAGE value="Majoitusraportti-välilehdelle aluelistan päivittämiseen hae-painike" />
-    <MESSAGE value="Koodin siistimistä" />
-    <option name="LAST_COMMIT_MESSAGE" value="Koodin siistimistä" />
+    <MESSAGE value="korjattu varausten palvelut" />
+    <MESSAGE value="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä" />
+    <MESSAGE value="comboboxien muotoilut" />
+    <option name="LAST_COMMIT_MESSAGE" value="comboboxien muotoilut" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

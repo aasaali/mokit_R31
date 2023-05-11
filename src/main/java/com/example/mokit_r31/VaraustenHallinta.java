@@ -126,6 +126,7 @@ public class VaraustenHallinta {
 
             if (rs.next()) {
                 alueId = rs.getInt("alue_id");
+
             }
         } finally {
             tietokanta.sulje(rs, stmt, conn);
@@ -140,7 +141,7 @@ public class VaraustenHallinta {
 
         int alueId = getMokinAlueId(mokkiId);
         if (alueId == -1) {
-            return palvelut; // Palauttaa tyhjän listan, jos alueen ID:tä ei löydy
+            return palvelut;
         }
 
         Connection conn = null;
@@ -155,7 +156,13 @@ public class VaraustenHallinta {
 
             while (rs.next()) {
                 Palvelu palvelu = new Palvelu();
+                palvelu.setId(rs.getInt("palvelu_id"));
+                palvelu.setAlueId(rs.getInt("alue_id"));
                 palvelu.setNimi(rs.getString("nimi"));
+                palvelu.setTyyppi(rs.getInt("tyyppi"));
+                palvelu.setKuvaus(rs.getString("kuvaus"));
+                palvelu.setHinta(rs.getDouble("hinta"));
+                palvelu.setAlv(rs.getDouble("alv"));
                 palvelut.add(palvelu);
             }
         } finally {

@@ -11,31 +11,31 @@
 <AnchorPane prefHeight="401.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.MuokkaaVaraustaController">
    <children>
       <Text layoutX="16.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Muokkaa varausta" />
+      <Text layoutX="16.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VarausId" />
       <TextField fx:id="tfVarausId" editable="false" layoutX="83.0" layoutY="63.0" promptText="VarausID" />
+      <Text layoutX="17.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AsiaksId" />
       <TextField fx:id="tfAsiakasId" layoutX="83.0" layoutY="103.0" promptText="AsiakasID" />
+      <Text layoutX="18.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MökkiId" />
       <TextField fx:id="tfMokkiId" layoutX="83.0" layoutY="147.0" promptText="MökkiID" />
+      <Text layoutX="16.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alkupvm" />
       <DatePicker fx:id="dpAlkupvm" layoutX="83.0" layoutY="193.0" promptText="Alkupäivämäärä" />
+      <Text layoutX="18.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loppupvm" />
       <DatePicker fx:id="dpLoppupvm" layoutX="83.0" layoutY="239.0" promptText="Loppupäivämäärä" />
+      <Text layoutX="296.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varauksen palvelut" />
       <ListView fx:id="varauksenPalvelutLv" layoutX="296.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button fx:id="btPoistaPalvelu" layoutX="403.0" layoutY="279.0" mnemonicParsing="false" onAction="#poistaValittuPalvelu" text="Poista palvelu" />
+      <Text layoutX="522.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lisää palveluja" />
       <ListView fx:id="palvelutLv" layoutX="522.0" layoutY="63.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="tallennaButton" layoutX="653.0" layoutY="346.0" mnemonicParsing="false" onAction="#tallennaButton" text="Tallenna">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Button>
+      <Button fx:id="btLisaaPalvelu" layoutX="634.0" layoutY="279.0" mnemonicParsing="false" onAction="#lisaaValittuPalvelu" text="Lisää palvelu" />
       <Text fill="#0b0b0b" layoutX="414.0" layoutY="392.0" stroke="#101010" strokeType="OUTSIDE" strokeWidth="0.0" text="Päivitä varauslista Hae-painikkeella tallennuksen jälkeen" wrappingWidth="307.1999736785888">
          <font>
             <Font size="13.0" />
          </font>
       </Text>
-      <Text layoutX="16.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VarausId" />
-      <Text layoutX="17.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="AsiaksId" />
-      <Text layoutX="18.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MökkiId" />
-      <Text layoutX="16.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alkupvm" />
-      <Text layoutX="18.0" layoutY="257.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Loppupvm" />
-      <Text layoutX="522.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lisää palveluja" />
-      <Text layoutX="296.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Varauksen palvelut" />
-      <Button fx:id="btPoistaPalvelu" layoutX="403.0" layoutY="279.0" mnemonicParsing="false" onAction="#poistaValittuPalvelu" text="Poista palvelu" />
-      <Button fx:id="btLisaaPalvelu" layoutX="634.0" layoutY="279.0" mnemonicParsing="false" onAction="#lisaaValittuPalvelu" text="Lisää palvelu" />
+      <Button fx:id="tallennaButton" layoutX="653.0" layoutY="346.0" mnemonicParsing="false" onAction="#tallennaButton" text="Tallenna">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
