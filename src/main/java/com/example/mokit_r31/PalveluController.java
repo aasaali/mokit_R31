@@ -173,7 +173,7 @@ public class PalveluController {
                     // Luo DELETE-kysely
                     PreparedStatement kysely = yhteys.prepareStatement("DELETE FROM palvelu WHERE palvelu_id = ?");
                     kysely.setInt(1, valittuPalvelu.getId());  // Oletan, että Palvelu-luokalla on getId()-metodi
-                    kysely.executeUpdate();
+                    kysely.executeUpdate();//moi
 
 
                     // Sulje yhteys
