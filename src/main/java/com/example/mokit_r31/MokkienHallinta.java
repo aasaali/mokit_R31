@@ -157,14 +157,8 @@ public List<Mokki> haeMokit(String hakusana) {
 
 // Mökin tietojen poistaminen tietokannasta SQL DELETE
 public static void poistaMokki(int mokkiId) {
-    // Tietokannan yhteysosoite
-    String url = "jdbc:mysql://localhost:3306/vn";
-    // Käyttäjän tunnus ja salasana
-    String user = "root";
-    String password = "Heleppohomma23?3";
-
     try {
-        Connection conn = DriverManager.getConnection(url, user, password);
+        Connection conn = Tietokanta.getYhteys();
 
         // Tarkistetaan, onko mökkiin liittyviä varauksia
         PreparedStatement varauksiaStmt = conn.prepareStatement("SELECT COUNT(*) AS varauksia FROM varaus WHERE mokki_mokki_id = ?");

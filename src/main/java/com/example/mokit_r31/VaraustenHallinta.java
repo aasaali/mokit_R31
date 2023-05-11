@@ -90,7 +90,7 @@ public class VaraustenHallinta extends Application {
         }
     }
 
-// Metodi, joka poistaa varauksen tietokann
+// Metodi, joka poistaa varauksen tietokannasta
 
     public void poistaVaraus(int varausId) throws SQLException {
         Connection conn = null;
