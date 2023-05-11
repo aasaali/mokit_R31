@@ -192,20 +192,20 @@ public class PalveluController {
         Connection yhteys = null;
         try {
             yhteys = tietokanta.getYhteys();
-            PreparedStatement lisayslause = yhteys.prepareStatement("INSERT INTO palvelu (alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement lisayslause = yhteys.prepareStatement("INSERT INTO palvelu (alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?)");
 
             yhteys.setAutoCommit(false);
 
 
-            lisayslause.setInt(2, palvelu.getAlueId());
-            lisayslause.setString(3, palvelu.getNimi());
-            lisayslause.setInt(4, palvelu.getTyyppi());
-            lisayslause.setString(5, palvelu.getKuvaus());
-            lisayslause.setDouble(6, palvelu.getHinta());
-            lisayslause.setDouble(7, palvelu.getAlv());
+            lisayslause.setInt(1, palvelu.getAlueId());
+            lisayslause.setString(2, palvelu.getNimi());
+            lisayslause.setInt(3, palvelu.getTyyppi());
+            lisayslause.setString(4, palvelu.getKuvaus());
+            lisayslause.setDouble(5, palvelu.getHinta());
+            lisayslause.setDouble(6, palvelu.getAlv());
             lisayslause.executeUpdate();
-
             yhteys.commit();
+            System.out.println("Onnistui");
         } catch (SQLException e) {
             // jotain meni pieleen, peruuta transaktio
             if (yhteys != null) {
