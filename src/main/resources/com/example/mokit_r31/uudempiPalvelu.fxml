@@ -9,15 +9,13 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.mokit_r31.PalveluController">
    <children>
       <ListView fx:id="palveluLista" prefHeight="313.0" prefWidth="294.0" />
-      <Button fx:id="luoPalveluBt" layoutX="185.0" layoutY="353.0" mnemonicParsing="false" text="Luo uusi palvelu" />
       <AnchorPane layoutX="294.0" prefHeight="400.0" prefWidth="306.0">
          <children>
-            <Button fx:id="poistaPalveluBt" layoutX="189.0" layoutY="352.0" mnemonicParsing="false" text="Poista palvelu" />
             <Text layoutX="12.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palvelu" />
             <Text layoutX="13.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alue" />
             <TextField fx:id="palveluIDTf" layoutX="114.0" layoutY="37.0" text="PalveluID" />
             <TextField fx:id="alueenPostinumeroTf" layoutX="114.0" layoutY="73.0" text="Postinumero" />
-            <Button fx:id="tallennaPalveluBt" layoutX="33.0" layoutY="352.0" mnemonicParsing="false" text="Tallenna palvelu" />
+            <Button fx:id="tallennaPalveluBt" layoutX="161.0" layoutY="360.0" mnemonicParsing="false" text="Tallenna palvelu" />
             <TextField fx:id="palveluNimiTf" layoutX="114.0" layoutY="107.0" text="Palvelun nimi" />
             <TextField fx:id="palveluKuvausTf" layoutX="113.0" layoutY="172.0" prefHeight="95.0" prefWidth="150.0" text="Max. 225 merkkiä." />
             <Text layoutX="14.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nimi" wrappingWidth="37.453125" />
@@ -28,8 +26,11 @@
             <TextField fx:id="palveluArvonlisaveroTf" layoutX="114.0" layoutY="308.0" />
             <TextField fx:id="palveluTyyppiTf" layoutX="114.0" layoutY="139.0" text="Palvelutyyppinumero" />
             <Text layoutX="14.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palvelutyyppi" wrappingWidth="37.453125" />
+            <Button fx:id="luoPalveluBt" layoutX="27.0" layoutY="360.0" mnemonicParsing="false" text="Luo uusi palvelu" />
          </children>
       </AnchorPane>
-      <Button fx:id="naytaPalveluBt" layoutX="45.0" layoutY="353.0" mnemonicParsing="false" text="Näytä palvelut" />
+      <Button fx:id="naytaPalveluBt" layoutX="14.0" layoutY="353.0" mnemonicParsing="false" text="Näytä palvelut" />
+      <Button fx:id="poistaPalveluBt" layoutX="204.0" layoutY="353.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="90.0" text="Poista palvelu" />
+      <Button fx:id="muokkaaPalveluaBt" layoutX="114.0" layoutY="353.0" mnemonicParsing="false" onAction="#muokkaaPalvelua" prefHeight="26.0" prefWidth="84.0" text="Muokkaa" />
    </children>
 </AnchorPane>

@@ -46,6 +46,7 @@ public class PalveluController {
 
     @FXML
     private Button tallennaPalveluBt;
+    @FXML private Button muokkaaPalveluaBt;
 
     Tietokanta tietokanta = new Tietokanta();
     private PalvelujenHallinta PalvelujenHallinta = new PalvelujenHallinta(tietokanta);
