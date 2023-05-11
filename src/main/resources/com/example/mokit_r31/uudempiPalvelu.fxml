@@ -13,18 +13,18 @@
          <children>
             <Text layoutX="12.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palvelu" />
             <Text layoutX="13.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alue" />
-            <TextField fx:id="palveluIDTf" layoutX="114.0" layoutY="37.0" text="PalveluID" />
-            <TextField fx:id="alueenPostinumeroTf" layoutX="114.0" layoutY="73.0" text="Postinumero" />
+            <TextField fx:id="palveluIDTf" editable="false" layoutX="114.0" layoutY="37.0" text="PalveluID" />
+            <TextField fx:id="alueenPostinumeroTf" layoutX="114.0" layoutY="73.0" promptText="Alue ID" />
             <Button fx:id="tallennaPalveluBt" layoutX="161.0" layoutY="360.0" mnemonicParsing="false" text="Tallenna palvelu" />
-            <TextField fx:id="palveluNimiTf" layoutX="114.0" layoutY="107.0" text="Palvelun nimi" />
-            <TextField fx:id="palveluKuvausTf" layoutX="113.0" layoutY="172.0" prefHeight="95.0" prefWidth="150.0" text="Max. 225 merkkiä." />
+            <TextField fx:id="palveluNimiTf" layoutX="114.0" layoutY="107.0" promptText="Palvelun nimi" />
+            <TextField fx:id="palveluKuvausTf" layoutX="113.0" layoutY="172.0" prefHeight="95.0" prefWidth="150.0" promptText="Max. 225 merkkiä." />
             <Text layoutX="14.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nimi" wrappingWidth="37.453125" />
             <Text layoutX="23.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Kuvaus" wrappingWidth="55.0531005859375" />
             <Text layoutX="14.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hinta" wrappingWidth="37.453125" />
             <Text layoutX="12.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arvonlisäveron määrä" wrappingWidth="107.85302734375" />
-            <TextField fx:id="palveluHintaTf" layoutX="114.0" layoutY="276.0" />
-            <TextField fx:id="palveluArvonlisaveroTf" layoutX="114.0" layoutY="308.0" />
-            <TextField fx:id="palveluTyyppiTf" layoutX="114.0" layoutY="139.0" text="Palvelutyyppinumero" />
+            <TextField fx:id="palveluHintaTf" layoutX="114.0" layoutY="276.0" promptText="0.0 €" />
+            <TextField fx:id="palveluArvonlisaveroTf" layoutX="114.0" layoutY="308.0" promptText="0.0 €" />
+            <TextField fx:id="palveluTyyppiTf" layoutX="114.0" layoutY="139.0" promptText="Palvelutyyppinumero" />
             <Text layoutX="14.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Palvelutyyppi" wrappingWidth="37.453125" />
             <Button fx:id="luoPalveluBt" layoutX="27.0" layoutY="360.0" mnemonicParsing="false" text="Luo uusi palvelu" />
          </children>

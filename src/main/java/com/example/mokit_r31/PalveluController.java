@@ -56,8 +56,8 @@ public class PalveluController {
 
     public Button muokkaaPalveluaBt;
 
-    static Tietokanta tietokanta = new Tietokanta();
-    private PalvelujenHallinta PalvelujenHallinta = new PalvelujenHallinta(tietokanta);
+    static Tietokanta tietokanta;
+    private final PalvelujenHallinta palveluHallinta = new PalvelujenHallinta(tietokanta);
 
 
 
@@ -205,7 +205,7 @@ public class PalveluController {
                 // Poista palvelu tietokannasta
                 try {
                     // Luo tietokantayhteys
-                    Connection yhteys = tietokanta.getYhteys();
+                    Connection yhteys = Tietokanta.getYhteys();
 
                     // Luo DELETE-kysely
                     PreparedStatement kysely = yhteys.prepareStatement("DELETE FROM palvelu WHERE palvelu_id = ?");
@@ -218,7 +218,7 @@ public class PalveluController {
                     palveluLista.getItems().remove(palvelu);
 
                 } catch (SQLException e) {
-                    System.out.println(e);
+                    e.printStackTrace();
                 }
             }}
 
@@ -227,7 +227,7 @@ public class PalveluController {
     public static void tallennaPalvelu(Palvelu palvelu) throws SQLException {
         Connection yhteys = null;
         try {
-            yhteys = tietokanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
             PreparedStatement lisayslause = yhteys.prepareStatement("INSERT INTO palvelu (alue_id, nimi, tyyppi, kuvaus, hinta, alv) VALUES (?, ?, ?, ?, ?, ?)");
 
             yhteys.setAutoCommit(false);
@@ -262,17 +262,16 @@ public class PalveluController {
 
     public void naytaPalvelut() {
         ObservableList<Palvelu> palveluData = FXCollections.observableArrayList();
-        PalvelujenHallinta palveluHallinta = new PalvelujenHallinta(new Tietokanta());
         palveluData.addAll(palveluHallinta.naytaPalvelu());
         palveluLista.setItems(palveluData);
-        palveluLista.setCellFactory(param -> new ListCell<Palvelu>() {
+        palveluLista.setCellFactory(param -> new ListCell<>() {
             @Override
             protected void updateItem(Palvelu palvelu, boolean empty) {
                 super.updateItem(palvelu, empty);
                 if (empty || palvelu == null) {
                     setText(null);
                 } else {
-                    setText(palvelu.getId()+ " - " + palvelu.getNimi());
+                    setText(palvelu.getId() + " - " + palvelu.getNimi());
                 }
             }
         });

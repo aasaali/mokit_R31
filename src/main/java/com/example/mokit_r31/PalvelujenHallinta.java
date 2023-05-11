@@ -8,11 +8,11 @@ public class PalvelujenHallinta {
     //testi
     private static Tietokanta tietokanta;
 
-
     public PalvelujenHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;
     }
 
+/*
     public void lisaaPalvelu(Palvelu palvelu) throws SQLException {
         Connection yhteys = tietokanta.getYhteys();
         PreparedStatement pstmt = null;
@@ -29,8 +29,8 @@ public class PalvelujenHallinta {
             pstmt.setDouble(7, palvelu.getAlv());
             pstmt.executeUpdate();
         } finally {
-            tietokanta.sulje(pstmt, yhteys);
-        }}
+            Tietokanta.sulje(pstmt, yhteys);
+        }} */
 
 
 
@@ -41,7 +41,7 @@ public class PalvelujenHallinta {
         List<Palvelu> palvelut = new ArrayList<>();
 
         try {
-            yhteys = tietokanta.getYhteys();
+            yhteys = Tietokanta.getYhteys();
             kysely = yhteys.createStatement();
             tulokset = kysely.executeQuery("SELECT * FROM palvelu");
 
@@ -62,7 +62,7 @@ public class PalvelujenHallinta {
             e.printStackTrace();
 
         } finally {
-            tietokanta.sulje(tulokset, kysely, yhteys);
+            Tietokanta.sulje(tulokset, kysely, yhteys);
         }
 
         return palvelut;
@@ -70,7 +70,7 @@ public class PalvelujenHallinta {
 
     public void muokkaaPalvelua(Palvelu palvelu) {
         try {
-            Connection yhteys = tietokanta.getYhteys();
+            Connection yhteys = Tietokanta.getYhteys();
             PreparedStatement paivitysLause = yhteys.prepareStatement(
                     "UPDATE palvelu SET alue_id=?, nimi=?, tyyppi=?, kuvaus=?, hinta=?, alv=? WHERE palvelu_id=?"
             );
@@ -82,7 +82,7 @@ public class PalvelujenHallinta {
             paivitysLause.setDouble(6, palvelu.getAlv());
             paivitysLause.setInt(7, palvelu.getId());
             paivitysLause.executeUpdate();
-            tietokanta.sulje(yhteys);
+            Tietokanta.sulje(yhteys);
         } catch (SQLException e) {
             System.err.println("Virhe tietokannan käsittelyssä: " + e.getMessage());
         }

@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Palvelun muokkaus: palvelujenhallinta, muokkaaPalveluaController. Palvelun muokkaus toimii.">
-      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-11-19-41-12.pdf" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Majoitusraportti-välilehdelle aluelistan päivittämiseen hae-painike">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MajoituksetRaporttiController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MajoituksetRaporttiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MajoitusraporttiHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MajoitusraporttiHallinta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MajoituksetRaporttiIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MajoituksetRaporttiIkkuna.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/uudempiPalvelu.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/uudempiPalvelu.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,7 +353,13 @@
       <option name="presentableId" value="LOCAL−00032" />
       <updated>1683823459174</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL−00033" summary="Majoitusraportti-välilehdelle aluelistan päivittämiseen hae-painike">
+      <created>1683825598956</created>
+      <option name="number" value="LOCAL−00033" />
+      <option name="presentableId" value="LOCAL−00033" />
+      <updated>1683825598956</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,7 +405,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value=" Lisätty luokat Palvelu ja PalvelujenHallinta. Neljä tuntia koodailtu, ei vielä toimi, mutta jonkinlainen kokonaisuus on." />
     <MESSAGE value="Luokat asiakkaille ja asiakashallinnan metodeille" />
     <MESSAGE value="Lisätty metodit varausten hallinnalle." />
     <MESSAGE value="Varausikkunan tekoa" />
@@ -425,7 +429,8 @@
     <MESSAGE value="Palvelun muokkaus-button lisätty" />
     <MESSAGE value="moi" />
     <MESSAGE value="Palvelun muokkaus: palvelujenhallinta, muokkaaPalveluaController. Palvelun muokkaus toimii." />
-    <option name="LAST_COMMIT_MESSAGE" value="Palvelun muokkaus: palvelujenhallinta, muokkaaPalveluaController. Palvelun muokkaus toimii." />
+    <MESSAGE value="Majoitusraportti-välilehdelle aluelistan päivittämiseen hae-painike" />
+    <option name="LAST_COMMIT_MESSAGE" value="Majoitusraportti-välilehdelle aluelistan päivittämiseen hae-painike" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

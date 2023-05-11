@@ -1,34 +1,17 @@
 package com.example.mokit_r31;
 
-import com.itextpdf.text.pdf.TextField;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
 public class MajoituksetRaporttiController {
 
-    @FXML
-    private DatePicker alkupaivaDP;
-
-    @FXML
-    private ComboBox<String> aluecbox;
-
-    @FXML
-    private Button haeButton;
-
-    @FXML
-    private Button haeButton1;
-
-    @FXML
-    private DatePicker loppupaivaDP;
-
-    @FXML
-    private ListView<String> palvelutLw;
+    @FXML private DatePicker alkupaivaDP;
+    @FXML private ComboBox<String> aluecbox;
+    @FXML private Button haeButton;
+    @FXML private Button haeButton1;
+    @FXML private DatePicker loppupaivaDP;
+    @FXML private ListView<String> palvelutLw;
     @FXML private Button btPaivitaAlueet;
 
     public void paivitaAlueCombobox() {
@@ -43,9 +26,6 @@ public class MajoituksetRaporttiController {
         });
 
         btPaivitaAlueet.setOnAction( e -> paivitaAlueCombobox());
-
-
-
 
         // Ladataan alueet comboboxiin
         MajoitusraporttiHallinta.lataaValinnatComboBoxiin(aluecbox);
@@ -69,10 +49,7 @@ public class MajoituksetRaporttiController {
             palvelutLw.getItems().clear();
             palvelutLw.getItems().addAll(varaukset);
 
-
-
         });
     }
-
 
 }
