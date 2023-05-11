@@ -29,13 +29,21 @@ public class MajoituksetRaporttiController {
 
     @FXML
     private ListView<String> palvelutLw;
+    @FXML private Button btPaivitaAlueet;
 
+    public void paivitaAlueCombobox() {
+        aluecbox.getItems().clear();
+        MajoitusraporttiHallinta.lataaValinnatComboBoxiin(aluecbox);
+    }
 
     public void initialize() {
 
         haeButton1.setOnAction(e -> {
 
         });
+
+        btPaivitaAlueet.setOnAction( e -> paivitaAlueCombobox());
+
 
 
 

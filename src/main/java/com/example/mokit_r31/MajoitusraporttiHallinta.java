@@ -22,7 +22,7 @@ public class MajoitusraporttiHallinta {
 
             while (rs.next()) {
                 int alueId = rs.getInt("alue_id");
-                cbAlue.getItems().add(Integer.toString(alueId));
+                cbAlue.getItems().addAll(Integer.toString(alueId));
             }
 
 
