@@ -5,11 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49e7a6d1-b935-438f-8339-06e14da8a1ac.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-11-10-29-49.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/MokkienHallinta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -156,7 +156,6 @@
       <workItem from="1682663072872" duration="3555000" />
       <workItem from="1683177075338" duration="3898000" />
       <workItem from="1683460536005" duration="11332000" />
-      <workItem from="1683788086097" duration="2823000" />
     </task>
     <task id="LOCAL−00001" summary="Lisätty koodi">
       <created>1682068236965</created>
@@ -315,6 +314,21 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="varaukset" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
@@ -332,21 +346,6 @@
                 </map>
               </option>
             </State>
-          </value>
-        </entry>
-      </map>
-    </option>
-    <option name="RECENT_FILTERS">
-      <map>
-        <entry key="Branch">
-          <value>
-            <list>
-              <RecentGroup>
-                <option name="FILTER_VALUES">
-                  <option value="varaukset" />
-                </option>
-              </RecentGroup>
-            </list>
           </value>
         </entry>
       </map>
@@ -385,11 +384,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
           <line>77</line>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

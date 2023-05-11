@@ -1,6 +1,8 @@
 package com.example.mokit_r31;
 import com.itextpdf.text.DocumentException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -164,7 +166,9 @@ public class LaskuController {
     private void initialize() {
         try {
             VaraustenHallinta hallinta = new VaraustenHallinta();
-            laskutaVarausLw.getItems().setAll(hallinta.getVaraukset());
+            ObservableList<Varaus> varaukset = FXCollections.observableArrayList(hallinta.getVaraukset());
+
+            laskutaVarausLw.getItems().setAll(varaukset);
 
             LaskunHallinta laskunhallinta = new LaskunHallinta(tietokanta);
             laskuLw.getItems().setAll(laskunhallinta.haeKaikkiLaskut());

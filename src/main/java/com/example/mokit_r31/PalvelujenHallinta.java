@@ -19,17 +19,16 @@ public class PalvelujenHallinta {
         Connection yhteys = tietokanta.getYhteys();
         PreparedStatement pstmt = null;
         try {
-            String sql = "INSERT INTO palvelu (palvelu_id, alue_id, nimi, tyyppi, kuvaus, hinta, alv) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO palvelu (alue_id, nimi, tyyppi, kuvaus, hinta, alv) "
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
 
             pstmt = yhteys.prepareStatement(sql);
-            pstmt.setInt(1, palvelu.getId());
-            pstmt.setInt(2, palvelu.getAlueId());
-            pstmt.setString(3, palvelu.getNimi());
-            pstmt.setInt(4, palvelu.getTyyppi());
-            pstmt.setString(5, palvelu.getKuvaus());
-            pstmt.setDouble(6, palvelu.getHinta());
-            pstmt.setDouble(7, palvelu.getAlv());
+            pstmt.setInt(1, palvelu.getAlueId());
+            pstmt.setString(2, palvelu.getNimi());
+            pstmt.setInt(3, palvelu.getTyyppi());
+            pstmt.setString(4, palvelu.getKuvaus());
+            pstmt.setDouble(5, palvelu.getHinta());
+            pstmt.setDouble(6, palvelu.getAlv());
             pstmt.executeUpdate();
         } finally {
             tietokanta.sulje(pstmt, yhteys);
