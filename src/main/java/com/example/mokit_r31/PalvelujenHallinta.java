@@ -53,7 +53,7 @@ public class PalvelujenHallinta {
                 double hinta = tulokset.getDouble("hinta");
                 double alv = tulokset.getDouble("alv");
 
-                Palvelu palvelu = new Palvelu(alueId, nimi, tyyppi, kuvaus, hinta, alv);
+                Palvelu palvelu = new Palvelu(id, alueId, nimi, tyyppi, kuvaus, hinta, alv);
                 palvelut.add(palvelu);
             }
 

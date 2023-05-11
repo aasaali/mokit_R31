@@ -246,12 +246,5 @@ public class PalveluController {
             }
         });
 
-
     }
-
-
     }
-
-
-
-
