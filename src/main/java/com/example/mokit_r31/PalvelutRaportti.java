@@ -10,6 +10,7 @@ import javafx.scene.control.ListView;
 
 public class PalvelutRaportti {
 
+
     public static void lataaAlueetComboBoxiin(ComboBox<String> cbAlue) {
         Connection conn = null;
         PreparedStatement stmt = null;

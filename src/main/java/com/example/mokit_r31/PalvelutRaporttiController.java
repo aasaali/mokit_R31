@@ -5,14 +5,20 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+
+import static com.example.mokit_r31.PalveluController.tietokanta;
 
 
 public class PalvelutRaporttiController {
@@ -34,11 +40,23 @@ public class PalvelutRaporttiController {
 
     @FXML
     private Button tallennaPDFButton;
-
+    private void lataaAlueet() {
+        AlueidenHallinta hallinta = new AlueidenHallinta(tietokanta);
+        try {
+            List<Alue> alueet = hallinta.haeKaikkiAlueet();
+            ObservableList<String> alueidenNimet = FXCollections.observableArrayList();
+            for (Alue alue : alueet) {
+                alueidenNimet.add(alue.getNimi());
+            }
+            aluecbox.setItems(alueidenNimet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void initialize() {
         // Ladataan alueet comboboxiin
-        PalvelutRaportti.lataaAlueetComboBoxiin(aluecbox);
+        aluecbox.setOnMouseClicked(event -> lataaAlueet());
 
         // Lisätään tapahtumankuuntelija "Hae" -napille
         haeButton.setOnAction(e -> {
