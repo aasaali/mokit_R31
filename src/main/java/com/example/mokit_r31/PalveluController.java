@@ -224,10 +224,6 @@ public class PalveluController {
 
     }
 
-
-
-
-
     public static void tallennaPalvelu(Palvelu palvelu) throws SQLException {
         Connection yhteys = null;
         try {

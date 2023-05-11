@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.List;
 
-/** Hallinnoi muokkaa asiakasta-ikkunaa ja sen toiminnallisuuksia. Ikkunassa käyttäjä voi muuttaa asiakkaan tietoja,
+/** Hallinnoi muokkaa palvelua-ikkunaa ja sen toiminnallisuuksia. Ikkunassa käyttäjä voi muuttaa palvelun tietoja,
  * ja lähettää ne tietokantaan. Virheilmoitus, jos tiedot ovat virheellisiä.
  */
 public class MuokkaaPalveluaController {
@@ -63,13 +63,13 @@ public class MuokkaaPalveluaController {
             // Tallenna käyttäjän tekemät muutokset tietokantaan
             System.out.println(palvelu);
             paivitaPalveluntiedot();
-            PalveluController.tallennaPalvelu(palvelu);
+            palvelujenHallinta.muokkaaPalvelua(palvelu);
 
             // Sulje ikkuna, jos tallennus onnistui
             Stage stage = (Stage) tallennaPalveluBt.getScene().getWindow();
             stage.close();
             System.out.println("Muokattu palvelu tallennettu tietokantaan");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             // Näytä virheilmoitus dialogilla, jos tallennus epäonnistui
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Virhe");
@@ -83,8 +83,8 @@ public class MuokkaaPalveluaController {
         palvelu.setNimi(palveluNimiTf.getText());
         palvelu.setTyyppi(Integer.parseInt(palveluTyyppiTf.getText()));
         palvelu.setKuvaus(palveluKuvausTf.getText());
-        palvelu.setHinta(Integer.parseInt(palveluHintaTf.getText()));
-        palvelu.setAlv(Integer.parseInt(palveluAlvTf.getText()));
+        palvelu.setHinta(Double.parseDouble(palveluHintaTf.getText()));
+        palvelu.setAlv(Double.parseDouble(palveluAlvTf.getText()));
     }
     @FXML
     private void naytaPalvelunTiedot() {
