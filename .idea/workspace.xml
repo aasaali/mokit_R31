@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="moi">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="moi" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -155,6 +153,7 @@
       <workItem from="1683734198983" duration="4305000" />
       <workItem from="1683782413912" duration="3125000" />
       <workItem from="1683788791502" duration="8359000" />
+      <workItem from="1683819636856" duration="325000" />
     </task>
     <task id="LOCAL−00001" summary="Lisätty koodi">
       <created>1682068236965</created>
@@ -330,7 +329,19 @@
       <option name="presentableId" value="LOCAL−00029" />
       <updated>1683803958019</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL−00030" summary="moi">
+      <created>1683819748288</created>
+      <option name="number" value="LOCAL−00030" />
+      <option name="presentableId" value="LOCAL−00030" />
+      <updated>1683819748288</updated>
+    </task>
+    <task id="LOCAL−00031" summary="moi">
+      <created>1683819873614</created>
+      <option name="number" value="LOCAL−00031" />
+      <option name="presentableId" value="LOCAL−00031" />
+      <updated>1683819873614</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,10 +409,10 @@
     <MESSAGE value="Varoitusten fiksailua." />
     <MESSAGE value="poista palvelu" />
     <MESSAGE value="Palvelun lisäys toimii" />
-    <MESSAGE value="moi" />
     <MESSAGE value="Korjattu palveluid-bugi" />
     <MESSAGE value="Palvelun muokkaus-button lisätty" />
-    <option name="LAST_COMMIT_MESSAGE" value="Palvelun muokkaus-button lisätty" />
+    <MESSAGE value="moi" />
+    <option name="LAST_COMMIT_MESSAGE" value="moi" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

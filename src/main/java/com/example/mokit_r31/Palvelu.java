@@ -2,7 +2,7 @@ package com.example.mokit_r31;
 
 
 public class Palvelu {
-
+    //Testi
     private int Id;
     private int alueId;
     private String nimi;
