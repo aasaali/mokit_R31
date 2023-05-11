@@ -14,12 +14,14 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class PalveluController {
     //testi
     @FXML
-    private TextField alueenPostinumeroTf;
+    private ComboBox<Integer> cbAlueID;
 
     @FXML
     private Button luoPalveluBt;
@@ -59,11 +61,25 @@ public class PalveluController {
     static Tietokanta tietokanta;
     private final PalvelujenHallinta palveluHallinta = new PalvelujenHallinta(tietokanta);
 
+    AlueidenHallinta alueidenHallinta = new AlueidenHallinta(tietokanta);
 
 
+    private void listaaAlueetComboboxiin() throws SQLException {
+        List<Integer> alueIdt = alueidenHallinta.haeKaikkiAlueet().stream()
+                .map(Alue::getAlueId)
+                .collect(Collectors.toList());
+        cbAlueID.getItems().addAll(alueIdt);
+
+    }
 
     @FXML
     private void initialize() {
+
+        try {
+            listaaAlueetComboboxiin();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         //testi
         //naytaPalveluBt tapahtumakäsittelijä
@@ -78,7 +94,7 @@ public class PalveluController {
             if (palveluLista.getSelectionModel().getSelectedItem() != null) {
                 // Tyhjennä tekstikentät
                 palveluIDTf.setText("");
-                alueenPostinumeroTf.setText("");
+                cbAlueID.getSelectionModel().clearSelection();
                 palveluNimiTf.setText("");
                 palveluTyyppiTf.setText("");
                 palveluKuvausTf.setText("");
@@ -92,7 +108,7 @@ public class PalveluController {
             else {
                 // Tyhjennä tekstikentät, jos mitään palvelua ei ole valittu
                 palveluIDTf.setText("");
-                alueenPostinumeroTf.setText("");
+                cbAlueID.getSelectionModel().clearSelection();
                 palveluNimiTf.setText("");
                 palveluTyyppiTf.setText("");
                 palveluKuvausTf.setText("");
@@ -123,7 +139,7 @@ public class PalveluController {
                 (observable, oldValue, newValue) -> {
                     // täytetään tekstikentät valitun palvelun tiedoilla
                     if (newValue != null) {
-                        alueenPostinumeroTf.setText(Integer.toString(newValue.getAlueId()));
+                        cbAlueID.setValue(newValue.getAlueId());
                         palveluNimiTf.setText(newValue.getNimi());
                         palveluTyyppiTf.setText(Integer.toString(newValue.getTyyppi()));
                         palveluKuvausTf.setText(newValue.getKuvaus());
@@ -139,7 +155,7 @@ public class PalveluController {
 
 
             // Tarkista, onko kaikki kentät täytetty
-            if (alueenPostinumeroTf.getText().isEmpty() || palveluNimiTf.getText().isEmpty() || palveluTyyppiTf.getText().isEmpty() || palveluKuvausTf.getText().isEmpty() || palveluHintaTf.getText().isEmpty() || palveluArvonlisaveroTf.getText().isEmpty()) {
+            if (cbAlueID.getValue() == null || palveluNimiTf.getText().isEmpty() || palveluTyyppiTf.getText().isEmpty() || palveluKuvausTf.getText().isEmpty() || palveluHintaTf.getText().isEmpty() || palveluArvonlisaveroTf.getText().isEmpty()) {
                 // Jos jokin kenttä on tyhjä, näytä virheilmoitusikkuna
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Tallennus ei onnistu");
@@ -149,7 +165,7 @@ public class PalveluController {
             }
 
 
-            int alueId = Integer.parseInt(alueenPostinumeroTf.getText());
+            int alueId = cbAlueID.getSelectionModel().getSelectedItem();
             String nimi = palveluNimiTf.getText();
             int tyyppi = Integer.parseInt(palveluTyyppiTf.getText());
             String kuvaus = palveluKuvausTf.getText();
