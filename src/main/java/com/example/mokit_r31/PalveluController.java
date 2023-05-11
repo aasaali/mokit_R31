@@ -171,11 +171,10 @@ public class PalveluController {
                     Connection yhteys = tietokanta.getYhteys();
 
                     // Luo DELETE-kysely
-                    PreparedStatement kysely = yhteys.prepareStatement("DELETE FROM palvelu WHERE id_palvelu = ?");
-
-
-                    // Suorita kysely
+                    PreparedStatement kysely = yhteys.prepareStatement("DELETE FROM palvelu WHERE palvelu_id = ?");
+                    kysely.setInt(1, valittuPalvelu.getId());  // Oletan, että Palvelu-luokalla on getId()-metodi
                     kysely.executeUpdate();
+
 
                     // Sulje yhteys
                     yhteys.close();
