@@ -8,6 +8,7 @@ public class PalvelujenHallinta {
 
     private static Tietokanta tietokanta;
 
+
     public PalvelujenHallinta(Tietokanta tietokanta) {
         this.tietokanta = tietokanta;
     }

@@ -55,7 +55,7 @@ public class PalveluController {
     @FXML
     private void initialize() {
 
-
+        //testi
         //naytaPalveluBt tapahtumakäsittelijä
         naytaPalveluBt.setOnAction(event -> naytaPalvelut());
 
