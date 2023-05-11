@@ -17,9 +17,10 @@ import java.util.List;
 public class MuokkaaPalveluaController {
 
     @FXML private TextField palveluIDTf;
+
     @FXML private TextField alueIDTf;
-    @FXML
-    private TextField palveluAlvTf;
+
+    @FXML private TextField palveluAlvTf;
 
     @FXML
     private TextField palveluHintaTf;
@@ -34,14 +35,16 @@ public class MuokkaaPalveluaController {
     private TextField palveluTyyppiTf;
 
     @FXML
-    private Button tallennaMuokkausBt;
+    private Button tallennaPalveluBt;
+
+    @FXML
 
     private Palvelu palvelu;
     Tietokanta tietokanta;
-    AsiakasHallinta asiakasHallinta = new AsiakasHallinta(tietokanta);
+    PalvelujenHallinta palvelujenHallinta = new PalvelujenHallinta(tietokanta);
     public void setPalvelu(Palvelu palvelu) {
         this.palvelu = palvelu;
-        //naytaAsiakkaanTiedot();
+        naytaPalvelunTiedot();
     }
 // Luokassa on kaksi tapaa toteuttaa buttonin onAction
 
@@ -52,52 +55,47 @@ public class MuokkaaPalveluaController {
     @FXML
     private void initialize() {
 
-        tallennaMuokkausBt.setOnAction(e -> tallennaMuokkausButton());
+        tallennaPalveluBt.setOnAction(e -> tallennaPalveluBt());
     }
     @FXML
-    private void tallennaMuokkausButton() {
-    }
-}
-/*
+    private void tallennaPalveluBt() {
         try {
             // Tallenna käyttäjän tekemät muutokset tietokantaan
-            System.out.println(asiakas);
-            paivitaAsiakkaantiedot();
-            asiakasHallinta.paivitaAsiakas(asiakas);
+            System.out.println(palvelu);
+            paivitaPalveluntiedot();
+            PalveluController.tallennaPalvelu(palvelu);
 
             // Sulje ikkuna, jos tallennus onnistui
-            Stage stage = (Stage) tallennaButton.getScene().getWindow();
+            Stage stage = (Stage) tallennaPalveluBt.getScene().getWindow();
             stage.close();
-            System.out.println("Muokattu asiakas tallennettu tietokantaan");
+            System.out.println("Muokattu palvelu tallennettu tietokantaan");
         } catch (SQLException ex) {
             // Näytä virheilmoitus dialogilla, jos tallennus epäonnistui
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Virhe");
-            alert.setHeaderText("Asiakkaan tallentaminen epäonnistui");
+            alert.setHeaderText("Palvelun tallentaminen epäonnistui");
             alert.setContentText("Tapahtui virhe tallennettaessa muutoksia tietokantaan:\n" + ex.getMessage());
             alert.showAndWait();
         }
     }
-
-    private void paivitaAsiakkaantiedot() {
-        asiakas.setPostinro(cbPostinumero.getSelectionModel().getSelectedItem());
-        asiakas.setEtunimi(etunimiTextField.getText());
-        asiakas.setSukunimi(sukunimiTextField.getText());
-        asiakas.setLahiosoite(lahiosoiteTextField.getText());
-        asiakas.setEmail(emailTextField.getText());
-        asiakas.setPuhelinnro(puhelinnroTextField.getText());
+    private void paivitaPalveluntiedot() {
+        palvelu.setAlueId(Integer.parseInt(alueIDTf.getText()));
+        palvelu.setNimi(palveluNimiTf.getText());
+        palvelu.setTyyppi(Integer.parseInt(palveluTyyppiTf.getText()));
+        palvelu.setKuvaus(palveluKuvausTf.getText());
+        palvelu.setHinta(Integer.parseInt(palveluHintaTf.getText()));
+        palvelu.setAlv(Integer.parseInt(palveluAlvTf.getText()));
     }
     @FXML
-    private void naytaAsiakkaanTiedot() {
-        PostiHallinta postiHallinta = new PostiHallinta(tietokanta);
-        List<String> postinumerot = postiHallinta.haePostinumerot();
-        cbPostinumero.getItems().addAll(postinumerot);
+    private void naytaPalvelunTiedot() {
 
-        idTextField.setText(String.valueOf(asiakas.getAsiakasId()));
-        etunimiTextField.setText(asiakas.getEtunimi());
-        sukunimiTextField.setText(asiakas.getSukunimi());
-        lahiosoiteTextField.setText(asiakas.getLahiosoite());
-        emailTextField.setText(asiakas.getEmail());
-        puhelinnroTextField.setText(asiakas.getPuhelinnro());
+        palveluIDTf.setText((String.valueOf(palvelu.getId())));
+        alueIDTf.setText((String.valueOf(palvelu.getAlueId())));
+        palveluNimiTf.setText((palvelu.getNimi()));
+        palveluTyyppiTf.setText(String.valueOf(palvelu.getAlueId()));
+        palveluKuvausTf.setText(palvelu.getKuvaus());
+        palveluHintaTf.setText(String.valueOf(palvelu.getHinta()));
+        palveluAlvTf.setText(String.valueOf(palvelu.getAlv()));
+
     }
-} */
+}

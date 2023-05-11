@@ -9,7 +9,8 @@ import java.sql.*;
 public class Tietokanta {
     private static final String TIETOKANNAN_NIMI = "jdbc:mysql://localhost:3306/vn";
     private static final String KAYTTAJA = "root";
-     private static final String SALASANA = "R31_mokki";
+     //private static final String SALASANA = "R31_mokki";
+    private static final String SALASANA = "Kamilrakas91!";
 
     // TAIJAN VERSIO, koska en saa muutettua tietokannan kirjautumistietoja
     //private static final String SALASANA = "admin";

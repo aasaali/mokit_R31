@@ -2,8 +2,15 @@ package com.example.mokit_r31;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -46,10 +53,13 @@ public class PalveluController {
 
     @FXML
     private Button tallennaPalveluBt;
-    @FXML private Button muokkaaPalveluaBt;
 
-    Tietokanta tietokanta = new Tietokanta();
+    public Button muokkaaPalveluaBt;
+
+    static Tietokanta tietokanta = new Tietokanta();
     private PalvelujenHallinta PalvelujenHallinta = new PalvelujenHallinta(tietokanta);
+
+
 
 
     @FXML
@@ -58,6 +68,10 @@ public class PalveluController {
 
         //naytaPalveluBt tapahtumakäsittelijä
         naytaPalveluBt.setOnAction(event -> naytaPalvelut());
+
+        muokkaaPalveluaBt.setOnAction(event -> muokkaaPalvelua());
+
+
 
         luoPalveluBt.setOnAction(e -> {
             // Tarkista, onko jokin palvelu valittu
@@ -99,6 +113,8 @@ public class PalveluController {
                 }
             }
         });
+
+
 
 
 
@@ -154,9 +170,24 @@ public class PalveluController {
     }
 
     @FXML private void muokkaaPalvelua() {
-        // kutsu tästä muokkausta uudessa ikkunassa MuokkaaPalvelua.fxml
+       {
+            Palvelu palvelu = palveluLista.getSelectionModel().getSelectedItem();
+            if (palvelu != null) {
+                try {
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("MuokkaaPalvelua.fxml"));
+                    Parent root = loader.load();
+                    MuokkaaPalveluaController controller = loader.getController();
+                    controller.setPalvelu(palvelu);
+                    Scene scene = new Scene(root);
+                    Stage stage = new Stage();
+                    stage.setScene(scene);
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
 
-    }
+    }}
 
     public void poistaPalvelu(Palvelu palvelu) throws SQLException {
         int valittuID = palvelu.getId();
@@ -194,7 +225,10 @@ public class PalveluController {
     }
 
 
-    public void tallennaPalvelu(Palvelu palvelu) throws SQLException {
+
+
+
+    public static void tallennaPalvelu(Palvelu palvelu) throws SQLException {
         Connection yhteys = null;
         try {
             yhteys = tietokanta.getYhteys();
@@ -242,7 +276,7 @@ public class PalveluController {
                 if (empty || palvelu == null) {
                     setText(null);
                 } else {
-                    setText(" - " + palvelu.getNimi());
+                    setText(palvelu.getId()+ " - " + palvelu.getNimi());
                 }
             }
         });
