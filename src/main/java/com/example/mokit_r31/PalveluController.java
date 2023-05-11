@@ -154,6 +154,8 @@ public class PalveluController {
 
 
     public void poistaPalvelu(Palvelu palvelu) throws SQLException {
+        int valittuID = palvelu.getId();
+        System.out.println(valittuID);
         if (palvelu != null) {
             // Avaa varmistusikkuna
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -171,7 +173,7 @@ public class PalveluController {
 
                     // Luo DELETE-kysely
                     PreparedStatement kysely = yhteys.prepareStatement("DELETE FROM palvelu WHERE palvelu_id = ?");
-                    kysely.setInt(1, palvelu.getId());  // Oletan, että Palvelu-luokalla on getId()-metodi
+                    kysely.setInt(1, valittuID);
                     kysely.executeUpdate();//moi
 
 

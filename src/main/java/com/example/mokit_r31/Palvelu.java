@@ -26,7 +26,15 @@ public class Palvelu {
     public Palvelu(){
 
     }
-
+    public Palvelu(int id, int alueId, String nimi, int tyyppi, String kuvaus, double hinta, double alv) {
+        this.Id = id;
+        this.alueId = alueId;
+        this.nimi = nimi;
+        this.tyyppi = tyyppi;
+        this.kuvaus = kuvaus;
+        this.hinta = hinta;
+        this.alv = alv;
+    }
 
     public int getId() {
         return Id;
