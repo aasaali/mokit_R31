@@ -1,9 +1,6 @@
 package com.example.mokit_r31;
-import javafx.application.Application;
-import javafx.stage.Stage;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.List;
 
 
@@ -20,15 +17,15 @@ public class PalvelujenHallinta {
         PreparedStatement pstmt = null;
         try {
             String sql = "INSERT INTO palvelu (alue_id, nimi, tyyppi, kuvaus, hinta, alv) "
-                    + "VALUES (?, ?, ?, ?, ?, ?)";
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = yhteys.prepareStatement(sql);
-            pstmt.setInt(1, palvelu.getAlueId());
-            pstmt.setString(2, palvelu.getNimi());
-            pstmt.setInt(3, palvelu.getTyyppi());
-            pstmt.setString(4, palvelu.getKuvaus());
-            pstmt.setDouble(5, palvelu.getHinta());
-            pstmt.setDouble(6, palvelu.getAlv());
+            pstmt.setInt(2, palvelu.getAlueId());
+            pstmt.setString(3, palvelu.getNimi());
+            pstmt.setInt(4, palvelu.getTyyppi());
+            pstmt.setString(5, palvelu.getKuvaus());
+            pstmt.setDouble(6, palvelu.getHinta());
+            pstmt.setDouble(7, palvelu.getAlv());
             pstmt.executeUpdate();
         } finally {
             tietokanta.sulje(pstmt, yhteys);
@@ -56,7 +53,7 @@ public class PalvelujenHallinta {
                 double hinta = tulokset.getDouble("hinta");
                 double alv = tulokset.getDouble("alv");
 
-                Palvelu palvelu = new Palvelu(id, alueId, nimi, tyyppi, kuvaus, hinta, alv);
+                Palvelu palvelu = new Palvelu(alueId, nimi, tyyppi, kuvaus, hinta, alv);
                 palvelut.add(palvelu);
             }
 
@@ -70,7 +67,10 @@ public class PalvelujenHallinta {
         return palvelut;
     }
 
+
     }
+
+
 
 
 

@@ -155,7 +155,6 @@ public class VaraustenHallinta {
 
             while (rs.next()) {
                 Palvelu palvelu = new Palvelu();
-                palvelu.setId(rs.getInt("palvelu_id"));
                 palvelu.setNimi(rs.getString("nimi"));
                 palvelut.add(palvelu);
             }

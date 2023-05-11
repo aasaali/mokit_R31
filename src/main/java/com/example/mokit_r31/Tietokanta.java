@@ -11,8 +11,12 @@ public class Tietokanta {
     private static final String KAYTTAJA = "root";
     //private static final String SALASANA = "R31_mokki";
 
+    private static final String SALASANA = "Kamilrakas91!";
+
+
+
     // TAIJAN VERSIO, koska en saa muutettua tietokannan kirjautumistietoja
-    private static final String SALASANA = "admin";
+    //private static final String SALASANA = "admin";
     // kommentoi tämä rivi pois ja ota ylempi salasana käyttöön
 
     public static Connection getYhteys() throws SQLException {

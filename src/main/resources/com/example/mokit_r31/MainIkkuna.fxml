@@ -8,9 +8,10 @@
 <AnchorPane prefHeight="450.0" prefWidth="610.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.mokit_r31.MainController">
    <children>
-      <TabPane layoutX="6.0" prefHeight="450.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <tabs>
+       <TabPane fx:id="mainTabPane" layoutX="6.0" prefHeight="450.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+       <tabs>
           <Tab fx:id="tabAsiakkaat" text="Asiakkaat">
             <content>
                 <fx:include source="AsiakasIkkuna.fxml"/>

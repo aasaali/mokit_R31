@@ -1,7 +1,9 @@
 package com.example.mokit_r31;
 
+
 public class Palvelu {
-    private int id;
+
+    private int Id;
     private int alueId;
     private String nimi;
     private int tyyppi;
@@ -9,8 +11,8 @@ public class Palvelu {
     private double hinta;
     private double alv;
 
-    public Palvelu(int id, int alueId, String nimi, int tyyppi, String kuvaus, double hinta, double alv) {
-        this.id = id;
+    public Palvelu(int alueId, String nimi, int tyyppi, String kuvaus, double hinta, double alv) {
+
         this.alueId = alueId;
         this.nimi = nimi;
         this.tyyppi = tyyppi;
@@ -25,10 +27,10 @@ public class Palvelu {
 
     }
 
-    public int getId() {
-        return id;
-    }
 
+    public int getId() {
+        return Id;
+    }
     public int getAlueId() {
         return alueId;
     }
@@ -53,11 +55,10 @@ public class Palvelu {
         return alv;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setAlueId(int alueId) { this.alueId = alueId; }
+
+    public void setId(int Id) { this.Id = Id; }
 
     public int setAlueId() {
         return alueId;
@@ -86,7 +87,6 @@ public class Palvelu {
     @Override
     public String toString() {
         return "Palvelu{" +
-                "id=" + id +
                 ", alueId=" + alueId +
                 ", nimi='" + nimi + '\'' +
                 ", tyyppi=" + tyyppi +

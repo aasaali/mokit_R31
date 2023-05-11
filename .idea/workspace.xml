@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null">
-      <change afterPath="$PROJECT_DIR$/laskuPDF_2023-05-11-10-29-49.pdf" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Molemmat toiminnallisuudet valmiihkot">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49e7a6d1-b935-438f-8339-06e14da8a1ac/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49e7a6d1-b935-438f-8339-06e14da8a1ac/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49e7a6d1-b935-438f-8339-06e14da8a1ac/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/49e7a6d1-b935-438f-8339-06e14da8a1ac/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/LaskuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Palvelu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Palvelu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalvelujenHallinta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/Tietokanta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +64,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Varaukset&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/taija/IdeaProjects/mokit_R31/mysql-connector-j-8.0.33.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -130,8 +139,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.MainApplication" />
-        <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
+        <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.VaraustenHallinta" />
         <item itemvalue="Application.PalvelujenHallinta" />
       </list>
@@ -156,6 +165,9 @@
       <workItem from="1682663072872" duration="3555000" />
       <workItem from="1683177075338" duration="3898000" />
       <workItem from="1683460536005" duration="11332000" />
+      <workItem from="1683734198983" duration="4305000" />
+      <workItem from="1683782413912" duration="3125000" />
+      <workItem from="1683788791502" duration="8359000" />
     </task>
     <task id="LOCAL−00001" summary="Lisätty koodi">
       <created>1682068236965</created>
@@ -295,19 +307,7 @@
       <option name="presentableId" value="LOCAL−00023" />
       <updated>1683702161866</updated>
     </task>
-    <task id="LOCAL−00024" summary="Varausten toiminnat loppuun">
-      <created>1683736091772</created>
-      <option name="number" value="LOCAL−00024" />
-      <option name="presentableId" value="LOCAL−00024" />
-      <updated>1683736091772</updated>
-    </task>
-    <task id="LOCAL−00025" summary="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null">
-      <created>1683736687992</created>
-      <option name="number" value="LOCAL−00025" />
-      <option name="presentableId" value="LOCAL−00025" />
-      <updated>1683736687992</updated>
-    </task>
-    <option name="localTasksCounter" value="26" />
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -373,16 +373,14 @@
     <MESSAGE value="Päivitetty TextArea-komponenteille (focusTraversable=&quot;false&quot;) fxml-dokumentteihin, jotta tab:illa voi liikkua ohjelmassa." />
     <MESSAGE value="MainController:iin lisätty TabPane:en mahdollisuus liikkua välilehdillä nuolinäppäimillä." />
     <MESSAGE value="Varoitusten fiksailua." />
-    <MESSAGE value="Varausten toiminnat loppuun" />
-    <MESSAGE value="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null" />
-    <option name="LAST_COMMIT_MESSAGE" value="Maincontrolleriin muokattu tarkistus, ettei tabpane ole null" />
+    <option name="LAST_COMMIT_MESSAGE" value="Varoitusten fiksailua." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/mokit_r31/VaraustenHallinta.java</url>
-          <line>77</line>
+          <line>63</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
