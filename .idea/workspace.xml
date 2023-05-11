@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Alue-id:t comboboxiin palvelu-välilehdellä.">
-      <change afterPath="$PROJECT_DIR$/Palveluraportti_Helsinki_11.05.2023.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laskuPDF_2023-05-08-13-59-09.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/laskuPDF_2023-05-08-20-31-11.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/laskuPDF_2023-05-11-10-29-49.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/mokit_r31/PalveluController.java" afterDir="false" />
+    <list default="true" id="75207251-4714-4b5f-b293-cdf5e802e91d" name="Changes" comment="Parempi toteutus; alue-id:t comboboxiin palvelu-välilehdellä.">
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/mokit_r31/MainIkkuna.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -378,7 +373,13 @@
       <option name="presentableId" value="LOCAL−00036" />
       <updated>1683836102114</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL−00037" summary="Parempi toteutus; alue-id:t comboboxiin palvelu-välilehdellä.">
+      <created>1683836919703</created>
+      <option name="number" value="LOCAL−00037" />
+      <option name="presentableId" value="LOCAL−00037" />
+      <updated>1683836919703</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -424,7 +425,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Varausikkunan tekoa" />
     <MESSAGE value="fxml - varauksille ja alustava controller" />
     <MESSAGE value="testi" />
     <MESSAGE value="testi2" />
@@ -449,7 +449,8 @@
     <MESSAGE value="Asiakas ja mökkilistat päivittyy niitä käytettäessä varauste tehdessä" />
     <MESSAGE value="comboboxien muotoilut" />
     <MESSAGE value="Alue-id:t comboboxiin palvelu-välilehdellä." />
-    <option name="LAST_COMMIT_MESSAGE" value="Alue-id:t comboboxiin palvelu-välilehdellä." />
+    <MESSAGE value="Parempi toteutus; alue-id:t comboboxiin palvelu-välilehdellä." />
+    <option name="LAST_COMMIT_MESSAGE" value="Parempi toteutus; alue-id:t comboboxiin palvelu-välilehdellä." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
